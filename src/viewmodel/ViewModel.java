@@ -16,7 +16,7 @@ public class ViewModel extends Observable implements Observer {
   public DoubleProperty aileron,elevators,rudder,throttle;
   public StringProperty altitude,speed,direction,roll,pitch,yaw;
 
-
+///time step comment
   public int getTimestep() {
     return timestep.get();
   }
