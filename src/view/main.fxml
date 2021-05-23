@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import view.joystick.MyJoystick?>
+<?import view.attlist.AttList?>
+<?import view.dashboard.Mydashboard?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Windowcontroller">
+
+
+
+   <bottom>
+      <Pane prefHeight="131.0" prefWidth="885.0" BorderPane.alignment="CENTER">
+      <TextField layoutX="559.0" layoutY="22.0" prefHeight="26.0" prefWidth="38.0" />
+      <Button fx:id="opencsv" layoutX="21.0" layoutY="20.0" mnemonicParsing="false" onAction="#Opencsv" text="Open csv file" />
+      <Slider fx:id="timebar" layoutX="27.0" layoutY="75.0" prefHeight="24.0" prefWidth="881.0" />
+      <Label layoutX="474.0" layoutY="26.0" text="Play speed" />
+      <Label layoutX="620.0" layoutY="26.0" text="time" />
+      <ImageView fx:id="play" fitHeight="24.0" fitWidth="38.0" layoutX="227.0" layoutY="23.0" onMouseClicked="#play" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="backwards" fitHeight="24.0" fitWidth="38.0" layoutX="181.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="skipprev" fitHeight="24.0" fitWidth="38.0" layoutX="135.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pause" fitHeight="24.0" fitWidth="38.0" layoutX="275.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="stop" fitHeight="24.0" fitWidth="38.0" layoutX="325.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fastforward" fitHeight="24.0" fitWidth="38.0" layoutX="371.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="skipnext" fitHeight="24.0" fitWidth="38.0" layoutX="419.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+      </Pane>
+   </bottom>
+   <right>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="465" prefWidth="465" BorderPane.alignment="CENTER">
+        <items>
+          <Pane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="355.0">
+               <children>
+                  <MyJoystick fx:id="myJoystick"></MyJoystick>
+               </children>
+            </Pane>
+          <Pane minHeight="0.0" minWidth="0.0" prefHeight="120.0" prefWidth="465.0">
+             <children>
+                <Mydashboard fx:id="mydashboard"></Mydashboard>
+             </children>
+          </Pane>
+        </items>
+         <BorderPane.margin>
+            <Insets right="100.0" />
+         </BorderPane.margin>
+      </SplitPane>
+   </right>
+   <left>
+
+      <AttList fx:id="attributeslist"></AttList>
+   </left>
+</BorderPane>

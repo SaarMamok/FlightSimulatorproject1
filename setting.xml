@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_271" class="java.beans.XMLDecoder">
+ <object class="properties.Settings" id="Settings0">
+  <void property="ip">
+   <string>localhost</string>
+  </void>
+  <void property="port">
+   <int>5400</int>
+  </void>
+  <void property="prop">
+   <void method="put">
+    <string>airspeed-indicator_indicated-speed-kt</string>
+    <int>24</int>
+   </void>
+   <void method="put">
+    <string>throttle</string>
+    <int>6</int>
+   </void>
+   <void method="put">
+    <string>elevator</string>
+    <int>1</int>
+   </void>
+   <void method="put">
+    <string>attitude-indicator_indicated-roll-deg</string>
+    <int>28</int>
+   </void>
+   <void method="put">
+    <string>altimeter_indicated-altitude-ft</string>
+    <int>25</int>
+   </void>
+   <void method="put">
+    <string>rudder</string>
+    <int>2</int>
+   </void>
+   <void method="put">
+    <string>indicated-heading-deg</string>
+    <int>36</int>
+   </void>
+   <void method="put">
+    <string>aileron</string>
+    <int>0</int>
+   </void>
+   <void method="put">
+    <string>side-slip-deg</string>
+    <int>20</int>
+   </void>
+   <void method="put">
+    <string>attitude-indicator_internal-pitch-deg</string>
+    <int>29</int>
+   </void>
+  </void>
+  <void property="sleep">
+   <int>100</int>
+  </void>
+ </object>
+</java>

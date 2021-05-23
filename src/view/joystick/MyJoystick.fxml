@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.joystick.MyJoystickController">
+   <children>
+      <Canvas fx:id="smallcircle" height="267.0" layoutX="59.0" layoutY="40.0" width="260.0" />
+      <Slider fx:id="rudder" blockIncrement="0.1" layoutX="37.0" layoutY="313.0" max="1.0" min="-1.0" prefHeight="14.0" prefWidth="303.0" />
+      <Slider fx:id="throttle" blockIncrement="0.1" layoutX="16.0" layoutY="10.0" max="1.0" orientation="VERTICAL" prefHeight="303.0" prefWidth="14.0" />
+   </children>
+</Pane>
