@@ -64,7 +64,7 @@ public class Model extends Observable {
                 this.throttle=ts.getDataTable().get(prop.getProp().get("throttle")).valuesList.get(i);
                 this.rudder=ts.getDataTable().get(prop.getProp().get("rudder")).valuesList.get(i);
                 this.aileron=ts.getDataTable().get(prop.getProp().get("aileron")).valuesList.get(i);
-                this.throttle=ts.getDataTable().get(prop.getProp().get("throttle")).valuesList.get(i);
+                this.elevators=ts.getDataTable().get(prop.getProp().get("elevator")).valuesList.get(i);
 
                 this.yaw=ts.getDataTable().get(prop.getProp().get("side-slip-deg")).valuesList.get(i).toString();
                 this.altitude=ts.getDataTable().get(prop.getProp().get("altimeter_indicated-altitude-ft")).valuesList.get(i).toString();

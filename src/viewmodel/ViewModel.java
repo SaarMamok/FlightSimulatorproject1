@@ -12,23 +12,16 @@ import java.util.Observer;
 public class ViewModel extends Observable implements Observer {
   private TimeSeries ts;
   private  Model model;
-  public IntegerProperty timestep;
+  public IntegerProperty time;
   public DoubleProperty aileron,elevators,rudder,throttle;
   public StringProperty altitude,speed,direction,roll,pitch,yaw;
 
-///time step comment
-  public int getTimestep() {
-    return timestep.get();
-  }
 
-  public IntegerProperty timestepProperty() {
-    return timestep;
-  }
 
   public ViewModel(Model m){
     this.model=m;
     m.addObserver(this);
-    timestep=new SimpleIntegerProperty();
+    time=new SimpleIntegerProperty();
     aileron=new SimpleDoubleProperty();
     elevators=new SimpleDoubleProperty();
     rudder=new SimpleDoubleProperty();
@@ -39,6 +32,8 @@ public class ViewModel extends Observable implements Observer {
     roll=new SimpleStringProperty();
     pitch=new SimpleStringProperty();
     yaw=new SimpleStringProperty();
+
+
     }
     public DoubleProperty getAileron(){
     return this.aileron;
@@ -56,6 +51,7 @@ public class ViewModel extends Observable implements Observer {
   public void setTs(TimeSeries ts) {
     this.ts = ts;
     this.model.setTs(ts);
+    time.set(ts.Timer());
 
   }
 

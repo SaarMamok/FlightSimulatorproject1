@@ -20,22 +20,23 @@ public class MyJoystick extends Pane {
         try {
             FXMLLoader fxl=new FXMLLoader();
             Parent root = fxl.load(getClass().getResource("MyJoystick.fxml").openStream());
-            MyJoystickController  myJoystickController=fxl.getController();
+            MyJoystickController myJoystickController=fxl.getController();
 
-            //aileron=myJoystickController.aileron;
-            //elevators=myJoystickController.elevators;
+
             this.aileron=new SimpleDoubleProperty();
             this.elevators=new SimpleDoubleProperty();
             myJoystickController.aileron.bind(this.aileron);
             myJoystickController.elevators.bind(this.elevators);
             rudder=myJoystickController.rudder.valueProperty();
             throttle=myJoystickController.throttle.valueProperty();
-            myJoystickController.paint();
+            this.elevators.addListener((o,ov,nv)->myJoystickController.paint());
+
             this.getChildren().add(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
 
 }

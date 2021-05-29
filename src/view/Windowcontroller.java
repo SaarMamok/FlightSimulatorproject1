@@ -1,5 +1,8 @@
 package view;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -44,6 +47,7 @@ public class Windowcontroller extends Observable {
 
 
     private File chosen;
+    IntegerProperty time;
     ViewModel viewModel;
 
 
@@ -52,11 +56,15 @@ public class Windowcontroller extends Observable {
 
         this.viewModel=vm;
         timebar.setMin(0);
+        this.time.bind(this.viewModel.time);
+
 
         this.myJoystick.rudder.bind(this.viewModel.rudder);
         this.myJoystick.throttle.bind(this.viewModel.throttle);
         this.myJoystick.aileron.bind(this.viewModel.aileron);
         this.myJoystick.elevators.bind(this.viewModel.elevators);
+        
+
 
         this.mydashboard.yaw.bind(this.viewModel.yaw);
         this.mydashboard.direction.bind(this.viewModel.direction);
@@ -89,6 +97,7 @@ public class Windowcontroller extends Observable {
 
     public void play(){
         this.viewModel.play();
+
     }
 
 }

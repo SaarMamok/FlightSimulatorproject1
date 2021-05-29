@@ -47,6 +47,10 @@ public class TimeSeries {
 	public TimeSeries(FeaturesData f1){
 		this.dataTable.add(f1);
 	}
+	public int Timer(){
+		return this.dataTable.get(0).valuesList.size();
+	}
+
 	public TimeSeries(String csvFileName)
 	{
 		try

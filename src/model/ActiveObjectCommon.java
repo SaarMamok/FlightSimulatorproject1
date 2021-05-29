@@ -7,6 +7,7 @@ public class ActiveObjectCommon {
     protected BlockingDeque<Runnable>tasks;
     protected Thread activeThread;
     protected volatile boolean stop;
+    
 
     public ActiveObjectCommon() {
         this.tasks=new LinkedBlockingDeque<>();
