@@ -1,6 +1,7 @@
 package view;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -47,23 +48,28 @@ public class Windowcontroller extends Observable {
 
 
     private File chosen;
-    IntegerProperty time;
+    public IntegerProperty time;
     ViewModel viewModel;
 
 
 
     public void init(ViewModel vm){
+        timebar.setMin(0);
+        time=new SimpleIntegerProperty();
 
         this.viewModel=vm;
-        timebar.setMin(0);
-        this.time.bind(this.viewModel.time);
+
+
 
 
         this.myJoystick.rudder.bind(this.viewModel.rudder);
         this.myJoystick.throttle.bind(this.viewModel.throttle);
         this.myJoystick.aileron.bind(this.viewModel.aileron);
         this.myJoystick.elevators.bind(this.viewModel.elevators);
-        
+
+        this.time.bind(this.viewModel.time);
+        this.time.addListener((o,ov,nv)->timebar.setValue(time.getValue()));
+
 
 
         this.mydashboard.yaw.bind(this.viewModel.yaw);
@@ -91,11 +97,14 @@ public class Windowcontroller extends Observable {
         if(chosen!=null) {
             System.out.println(chosen.getName());
         }
-        this.viewModel.setTs(new TimeSeries(chosen.getAbsolutePath()));
+        int t=this.viewModel.setTs(new TimeSeries(chosen.getAbsolutePath()));
+        timebar.setMax(t);
 
     }
 
     public void play(){
+
+
         this.viewModel.play();
 
     }

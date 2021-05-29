@@ -12,16 +12,15 @@ import java.util.Observer;
 public class ViewModel extends Observable implements Observer {
   private TimeSeries ts;
   private  Model model;
-  public IntegerProperty time;
+
   public DoubleProperty aileron,elevators,rudder,throttle;
   public StringProperty altitude,speed,direction,roll,pitch,yaw;
-
+  public IntegerProperty time;
 
 
   public ViewModel(Model m){
     this.model=m;
     m.addObserver(this);
-    time=new SimpleIntegerProperty();
     aileron=new SimpleDoubleProperty();
     elevators=new SimpleDoubleProperty();
     rudder=new SimpleDoubleProperty();
@@ -32,7 +31,7 @@ public class ViewModel extends Observable implements Observer {
     roll=new SimpleStringProperty();
     pitch=new SimpleStringProperty();
     yaw=new SimpleStringProperty();
-
+  time=new SimpleIntegerProperty();
 
     }
     public DoubleProperty getAileron(){
@@ -48,10 +47,10 @@ public class ViewModel extends Observable implements Observer {
     return this.throttle;
   }
 
-  public void setTs(TimeSeries ts) {
+  public int setTs(TimeSeries ts) {
     this.ts = ts;
     this.model.setTs(ts);
-    time.set(ts.Timer());
+    return ts.Timer();
 
   }
 
@@ -63,6 +62,8 @@ public class ViewModel extends Observable implements Observer {
     public void update(Observable o, Object arg) {
         if(o==this.model){
           Platform.runLater(()->{
+            this.time.set(this.model.getTime());
+
             this.throttle.set((this.model.getThrottle()));
             this.rudder.set((this.model.getRudder()));
             this.elevators.set((this.model.getElevators()));

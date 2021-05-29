@@ -15,6 +15,7 @@ public class Model extends Observable {
     private Settings prop;
      private FGplayer fGplayer;
     protected Thread theThread;
+    private int time;
     private float throttle,rudder,elevators,aileron;
     private String altitude,speed,direction,roll,pitch,yaw;
     protected ActiveObjectCommon ao;
@@ -55,6 +56,7 @@ public class Model extends Observable {
             int sizecol=ts.getDataTable().size();
             ao.start();
             for(int i=0;i<sizeline;i++){
+                time=i;
                 String line="";
                 for(int j=0;j<sizecol;j++){
                     line+=ts.getDataTable().get(j).valuesList.get(i).toString();
@@ -124,5 +126,9 @@ public class Model extends Observable {
 
     public float getAileron() {
         return aileron;
+    }
+
+    public int getTime() {
+        return time;
     }
 }
