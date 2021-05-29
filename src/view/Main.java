@@ -32,7 +32,7 @@ public class Main extends Application {
         ViewModel vm=new ViewModel(m);
         wc.init(vm);
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 800  , 500));
+        primaryStage.setScene(new Scene(root, 1600  , 900));
         primaryStage.show();
     }
 

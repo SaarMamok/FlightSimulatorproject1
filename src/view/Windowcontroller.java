@@ -14,6 +14,7 @@ import javafx.stage.FileChooser;
 import test.TimeSeries;
 import view.attlist.AttList;
 import view.dashboard.Mydashboard;
+import view.graph.Mygraph;
 import view.joystick.MyJoystick;
 import viewmodel.ViewModel;
 
@@ -45,7 +46,8 @@ public class Windowcontroller extends Observable {
     ImageView skipnext;
     @FXML
     Slider timebar;
-
+    @FXML
+    Mygraph mygraph;
 
     private File chosen;
     public IntegerProperty time;

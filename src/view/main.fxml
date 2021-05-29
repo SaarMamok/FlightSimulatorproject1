@@ -14,7 +14,8 @@
 <?import view.dashboard.Mydashboard?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Windowcontroller">
+<?import view.graph.Mygraph?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Windowcontroller">
 
 
 
@@ -35,14 +36,14 @@
       </Pane>
    </bottom>
    <right>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="465" prefWidth="465" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400" prefWidth="465" BorderPane.alignment="CENTER">
         <items>
-          <Pane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="355.0">
+          <Pane minHeight="0.0" minWidth="0.0" prefHeight="800" prefWidth="500">
                <children>
                   <MyJoystick fx:id="myJoystick"></MyJoystick>
                </children>
             </Pane>
-          <Pane minHeight="0.0" minWidth="0.0" prefHeight="120.0" prefWidth="465.0">
+          <Pane minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="465.0">
              <children>
                 <Mydashboard fx:id="mydashboard"></Mydashboard>
              </children>
@@ -57,4 +58,7 @@
 
       <AttList fx:id="attributeslist"></AttList>
    </left>
+    <center>
+        <Mygraph fx:id="mygraph"></Mygraph>
+    </center>
 </BorderPane>

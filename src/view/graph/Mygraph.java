@@ -8,7 +8,7 @@ import view.attlist.AttListController;
 
 import java.io.IOException;
 
-public class Mygraph extends AnchorPane {
+public class Mygraph extends Pane {
     public Mygraph() {
         super();
 

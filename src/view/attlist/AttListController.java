@@ -28,4 +28,8 @@ public class AttListController {
 
 
     }
+    public void Chosen(){
+        
+    }
+
 }

@@ -3,12 +3,11 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graph.Mygraph">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <LineChart fx:id="graphright" layoutX="389.0" prefHeight="250.0" prefWidth="354.0">
+      <LineChart fx:id="leftgraph" prefHeight="224.0" prefWidth="321.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -16,7 +15,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <LineChart fx:id="graphleft" prefHeight="250.0" prefWidth="354.0">
+      <LineChart fx:id="rightgraph" layoutX="337.0" prefHeight="224.0" prefWidth="321.0">
          <xAxis>
             <CategoryAxis side="BOTTOM" />
          </xAxis>
@@ -25,4 +24,4 @@
          </yAxis>
       </LineChart>
    </children>
-</AnchorPane>
+</Pane>
