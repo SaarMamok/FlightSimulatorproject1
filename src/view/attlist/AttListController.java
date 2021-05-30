@@ -1,5 +1,7 @@
 package view.attlist;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -13,15 +15,19 @@ public class AttListController {
     @FXML
     ListView attributeslist;
 
+    public IntegerProperty index;
+
 
     public void init(){
         try {
+            index=new SimpleIntegerProperty();
             BufferedReader bf=new BufferedReader(new FileReader("anomaly_flight.csv"));
             String line;
             line= bf.readLine();
             String[]s=line.split(",");
             attributeslist.getItems().addAll(s);
             attributeslist.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+            attributeslist.getSelectionModel().select(0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,7 +35,7 @@ public class AttListController {
 
     }
     public void Chosen(){
-        
+        index.setValue(attributeslist.getSelectionModel().getSelectedIndex());
     }
 
 }

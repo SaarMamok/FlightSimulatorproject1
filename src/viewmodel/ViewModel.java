@@ -15,7 +15,8 @@ public class ViewModel extends Observable implements Observer {
 
   public DoubleProperty aileron,elevators,rudder,throttle;
   public StringProperty altitude,speed,direction,roll,pitch,yaw;
-  public IntegerProperty time;
+  public IntegerProperty time,index;
+  public FloatProperty listvalue;
 
 
   public ViewModel(Model m){
@@ -32,7 +33,8 @@ public class ViewModel extends Observable implements Observer {
     pitch=new SimpleStringProperty();
     yaw=new SimpleStringProperty();
   time=new SimpleIntegerProperty();
-
+  index=new SimpleIntegerProperty();
+  listvalue=new SimpleFloatProperty();
     }
     public DoubleProperty getAileron(){
     return this.aileron;
@@ -69,7 +71,8 @@ public class ViewModel extends Observable implements Observer {
             this.elevators.set((this.model.getElevators()));
             this.aileron.set(this.model.getAileron());
 
-
+            this.model.setIndex(this.index.getValue());
+            this.listvalue.set(this.model.getListvalue());
             this.yaw.set(this.model.getYaw());
             this.roll.set(this.model.getRoll());
             this.pitch.set(this.model.getPitch());

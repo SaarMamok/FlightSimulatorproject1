@@ -58,7 +58,6 @@ public class Windowcontroller extends Observable {
     public void init(ViewModel vm){
         timebar.setMin(0);
         time=new SimpleIntegerProperty();
-
         this.viewModel=vm;
 
 
@@ -72,6 +71,9 @@ public class Windowcontroller extends Observable {
         this.time.bind(this.viewModel.time);
         this.time.addListener((o,ov,nv)->timebar.setValue(time.getValue()));
 
+        this.viewModel.index.bind(attributeslist.index);
+        this.mygraph.listvalue.bind(this.viewModel.listvalue);
+        this.mygraph.time.bind(this.viewModel.time);
 
 
         this.mydashboard.yaw.bind(this.viewModel.yaw);
@@ -105,8 +107,6 @@ public class Windowcontroller extends Observable {
     }
 
     public void play(){
-
-
         this.viewModel.play();
 
     }

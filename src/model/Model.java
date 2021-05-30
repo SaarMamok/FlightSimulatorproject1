@@ -15,8 +15,8 @@ public class Model extends Observable {
     private Settings prop;
      private FGplayer fGplayer;
     protected Thread theThread;
-    private int time;
-    private float throttle,rudder,elevators,aileron;
+    private int time,index;
+    private float throttle,rudder,elevators,aileron,listvalue;
     private String altitude,speed,direction,roll,pitch,yaw;
     protected ActiveObjectCommon ao;
     public Model(){
@@ -31,6 +31,10 @@ public class Model extends Observable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public float getThrottle() {
@@ -74,6 +78,8 @@ public class Model extends Observable {
                 this.direction=ts.getDataTable().get(prop.getProp().get("indicated-heading-deg")).valuesList.get(i).toString();
                 this.roll=ts.getDataTable().get(prop.getProp().get("attitude-indicator_indicated-roll-deg")).valuesList.get(i).toString();
                 this.pitch=ts.getDataTable().get(prop.getProp().get("attitude-indicator_internal-pitch-deg")).valuesList.get(i).toString();
+
+                this.listvalue=ts.getDataTable().get(index).valuesList.get(time);
                 this.setChanged();
                 this.notifyObservers();
                 ao.execute(()->{
@@ -90,6 +96,10 @@ public class Model extends Observable {
 
 
 
+    }
+
+    public float getListvalue() {
+        return listvalue;
     }
 
     public float getRudder() {
