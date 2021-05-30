@@ -73,7 +73,8 @@ public class Windowcontroller extends Observable {
 
         this.viewModel.index.bind(attributeslist.index);
         this.mygraph.listvalue.bind(this.viewModel.listvalue);
-        this.mygraph.time.bind(this.viewModel.time);
+        //this.time.addListener((o,ov,nv)->this.mygraph.time.set(time.getValue()));
+        this.mygraph.time.bind(this.time);
 
 
         this.mydashboard.yaw.bind(this.viewModel.yaw);

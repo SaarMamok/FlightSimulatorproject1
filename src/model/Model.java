@@ -15,7 +15,8 @@ public class Model extends Observable {
     private Settings prop;
      private FGplayer fGplayer;
     protected Thread theThread;
-    private int time,index;
+    private int index,time;
+
     private float throttle,rudder,elevators,aileron,listvalue;
     private String altitude,speed,direction,roll,pitch,yaw;
     protected ActiveObjectCommon ao;
@@ -60,7 +61,7 @@ public class Model extends Observable {
             int sizecol=ts.getDataTable().size();
             ao.start();
             for(int i=0;i<sizeline;i++){
-                time=i;
+
                 String line="";
                 for(int j=0;j<sizecol;j++){
                     line+=ts.getDataTable().get(j).valuesList.get(i).toString();
@@ -78,6 +79,8 @@ public class Model extends Observable {
                 this.direction=ts.getDataTable().get(prop.getProp().get("indicated-heading-deg")).valuesList.get(i).toString();
                 this.roll=ts.getDataTable().get(prop.getProp().get("attitude-indicator_indicated-roll-deg")).valuesList.get(i).toString();
                 this.pitch=ts.getDataTable().get(prop.getProp().get("attitude-indicator_internal-pitch-deg")).valuesList.get(i).toString();
+
+                this.time=i;
 
                 this.listvalue=ts.getDataTable().get(index).valuesList.get(time);
                 this.setChanged();
