@@ -29,6 +29,11 @@ public class Mygraphcontroller {
         listvalue=new SimpleFloatProperty();
         time=new SimpleIntegerProperty();
         series=new XYChart.Series<String,Number>();
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        leftgraph=new LineChart(xAxis,yAxis);
+        leftgraph.getData().add(series);
+
 
     }
 
@@ -40,7 +45,7 @@ public class Mygraphcontroller {
         String s=time.getValue().toString();
         float f = listvalue.getValue();
               Platform.runLater(()->series.getData().add(new XYChart.Data<String, Number>(s, f)));
-                leftgraph.getData().add(series);
+
                 if(series.getData().size()>size)
                     series.getData().remove(0);
 
