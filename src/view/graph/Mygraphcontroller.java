@@ -18,21 +18,17 @@ import java.util.concurrent.TimeUnit;
 public class Mygraphcontroller {
 
     @FXML
-    LineChart <String,Number> leftgraph;
+    LineChart leftgraph;
     @FXML
     LineChart rightgraph;
     public FloatProperty listvalue;
     public IntegerProperty time;
-    XYChart.Series<String,Number>series;
     final int size=10;
     public Mygraphcontroller() {
         listvalue=new SimpleFloatProperty();
         time=new SimpleIntegerProperty();
-        series=new XYChart.Series<String,Number>();
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
-        leftgraph=new LineChart(xAxis,yAxis);
-        leftgraph.getData().add(series);
+
+
 
 
     }
@@ -44,10 +40,7 @@ public class Mygraphcontroller {
     public void AddtoGraph() {
         String s=time.getValue().toString();
         float f = listvalue.getValue();
-              Platform.runLater(()->series.getData().add(new XYChart.Data<String, Number>(s, f)));
 
-                if(series.getData().size()>size)
-                    series.getData().remove(0);
 
     }
 

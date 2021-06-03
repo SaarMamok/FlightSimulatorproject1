@@ -1,8 +1,10 @@
 package view.graph;
 
 import javafx.beans.property.*;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.chart.LineChart;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import view.attlist.AttListController;
@@ -12,6 +14,9 @@ import java.io.IOException;
 public class Mygraph extends Pane {
     public FloatProperty listvalue;
     public IntegerProperty time;
+    @FXML
+    public LineChart leftgraph;
+
     public Mygraph() {
         super();
 
@@ -21,9 +26,10 @@ public class Mygraph extends Pane {
             Mygraphcontroller mygraphcontroller = fxl.getController();
             this.listvalue=new SimpleFloatProperty();
             this.time= new SimpleIntegerProperty();
+            leftgraph=mygraphcontroller.leftgraph;
             mygraphcontroller.listvalue.bind(this.listvalue);
             mygraphcontroller.time.bind(this.time);
-            this.time.addListener((o,ov,nv)->mygraphcontroller.AddtoGraph());
+            //this.time.addListener((o,ov,nv)->mygraphcontroller.AddtoGraph());
 
             this.getChildren().add(root);
 

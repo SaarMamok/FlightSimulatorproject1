@@ -1,5 +1,6 @@
 package view;
 
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -7,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -75,8 +77,9 @@ public class Windowcontroller extends Observable {
         this.mygraph.listvalue.bind(this.viewModel.listvalue);
         //this.time.addListener((o,ov,nv)->this.mygraph.time.set(time.getValue()));
         this.mygraph.time.bind(this.time);
-
-
+        XYChart.Series series=new XYChart.Series();
+        this.mygraph.leftgraph.getData().add(series);
+        this.myJoystick.throttle.addListener((o,ov,nv)->Platform.runLater(()->series.getData().add(new XYChart.Data<String, Number>(time.getValue().toString(), myJoystick.throttle.getValue()))));
         this.mydashboard.yaw.bind(this.viewModel.yaw);
         this.mydashboard.direction.bind(this.viewModel.direction);
         this.mydashboard.roll.bind(this.viewModel.roll);
