@@ -37,11 +37,8 @@ public class Mygraphcontroller {
 
 
 
-    public void AddtoGraph() {
-        String s=time.getValue().toString();
-        float f = listvalue.getValue();
-
-
+    public void AddtoGraph(XYChart.Series ser) {
+        Platform.runLater(()->ser.getData().add(new XYChart.Data<String, Number>(time.getValue().toString(), listvalue.getValue())));
     }
 
 
