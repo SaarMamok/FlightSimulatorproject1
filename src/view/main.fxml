@@ -15,7 +15,7 @@
 
 
 <?import view.graph.Mygraph?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Windowcontroller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Windowcontroller">
 
 
 
@@ -58,7 +58,7 @@
 
       <AttList fx:id="attributeslist"></AttList>
    </left>
-    <center>
+    <center >
         <Mygraph fx:id="mygraph"></Mygraph>
     </center>
 </BorderPane>

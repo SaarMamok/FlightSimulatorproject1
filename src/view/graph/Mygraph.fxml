@@ -5,9 +5,9 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graph.Mygraphcontroller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graph.Mygraphcontroller">
    <children>
-      <LineChart fx:id="leftgraph" prefHeight="231.0" prefWidth="364.0">
+      <LineChart fx:id="leftgraph" layoutY="14.0" prefHeight="334.0" prefWidth="422.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -15,7 +15,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <LineChart fx:id="rightgraph" layoutX="347.0" layoutY="7.0" prefHeight="231.0" prefWidth="364.0">
+      <LineChart fx:id="rightgraph" layoutX="422.0" layoutY="14.0" prefHeight="334.0" prefWidth="422.0">
          <xAxis>
             <CategoryAxis side="BOTTOM" />
          </xAxis>

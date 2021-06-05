@@ -74,9 +74,11 @@ public class Windowcontroller extends Observable {
         this.time.addListener((o,ov,nv)->timebar.setValue(time.getValue()));
 
         this.viewModel.index.bind(attributeslist.index);
-        this.attributeslist.index.addListener((o,ov,nv)->this.mygraph.time.set(time.getValue()));
+        this.attributeslist.index.addListener((o,ov,nv)->{
+            this.mygraph.series.getData().clear();
+            //this.mygraph.time.set(time.getValue());
+        });
         this.mygraph.listvalue.bind(this.viewModel.listvalue);
-        //this.time.addListener((o,ov,nv)->this.mygraph.time.set(time.getValue()));
         this.mygraph.time.bind(this.time);
 
 
