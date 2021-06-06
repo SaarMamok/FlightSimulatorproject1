@@ -10,6 +10,6 @@
       <Slider fx:id="rudder" blockIncrement="0.1" layoutX="37.0" layoutY="313.0" max="1.0" min="-1.0" prefHeight="14.0" prefWidth="303.0" />
       <Slider fx:id="throttle" blockIncrement="0.1" layoutX="16.0" layoutY="10.0" max="1.0" orientation="VERTICAL" prefHeight="303.0" prefWidth="14.0" />
       <Circle fx:id="bigcircle" fill="WHITE" layoutX="189.0" layoutY="162.0" radius="122.0" stroke="BLACK" strokeType="INSIDE" />
-      <Canvas fx:id="smallcircle" height="250.0" layoutX="67.0" layoutY="48.0" width="244.0" />
+      <Canvas fx:id="smallcircle" height="600.0" layoutX="-140.0" layoutY="-165.0" width="600.0" />
    </children>
 </Pane>
