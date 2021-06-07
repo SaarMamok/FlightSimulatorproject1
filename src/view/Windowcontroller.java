@@ -65,21 +65,26 @@ public class Windowcontroller extends Observable {
     ViewModel viewModel;
     float sec=0,min=0,hour=0;
 
-    public static void main(String[] args) {
-        float sec = 0, min = 0, hour = 0;
-        for (int time = 1; time < 8274; time++) {
-//           hour = time / 3600f;
-//           min = (hour % (time / 3600)) * 60;
-//           sec = (min % (int) min) * 60;
-//
-            hour = time / 3600f;
-            min = (hour % (time / 3600)) * 60;
-            sec = time % 60;
+    private String getDurationString(int seconds) {
 
+        int hours = seconds / 3600;
+        int minutes = (seconds % 3600) / 60;
+        seconds = seconds % 60;
 
-            System.out.println((int) hour + ":" + (int) min + ":" + (int) sec);
+        return twoDigitString(hours) + " : " + twoDigitString(minutes) + " : " + twoDigitString(seconds);
+    }
 
+    private String twoDigitString(int number) {
+
+        if (number == 0) {
+            return "00";
         }
+
+        if (number / 10 == 0) {
+            return "0" + number;
+        }
+
+        return String.valueOf(number);
     }
 
     public void init(ViewModel vm){
@@ -98,13 +103,7 @@ public class Windowcontroller extends Observable {
         this.time.bind(this.viewModel.time);
         this.time.addListener((o,ov,nv)->{
             timebar.setValue(time.getValue());
-
-            int time1 = this.time.getValue()+1;
-            hour=time1/3600f;
-            min=(hour%((int)hour))*60f;
-            sec=(min%(int)min)*60;
-            System.out.println((int)hour+":"+(int)min+":"+(int)sec);
-            this.clock.setText((int)hour+":"+(int)min+":"+(int)sec);
+            this.clock.setText(getDurationString(this.time.getValue()));
         });
 
         this.viewModel.index.bind(attributeslist.index);
