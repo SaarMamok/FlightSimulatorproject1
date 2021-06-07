@@ -47,7 +47,7 @@ public class Settings implements Serializable {
     public void DefaultProperties(){
         this.ip="localhost";
         this.port=5400;
-        this.sleep=100;
+        this.sleep=600;
         prop.put("aileron",0);
         prop.put("elevator",1);
         prop.put("rudder",2);

@@ -89,6 +89,14 @@ public class ViewModel extends Observable implements Observer {
   }
   public void stop(){this.model.stop();}
   public void pause(){this.model.pause();}
+  public void forward(){this.model.forward();}
+  public void backward() { this.model.backward();}
+  public void doubleforward() {this.model.doubleforward();
+  }
+
+  public void doublebackward() {
+    this.model.doublebackward();
+  }
   @Override
     public void update(Observable o, Object arg) {
         if(o==this.model){
@@ -119,4 +127,7 @@ public class ViewModel extends Observable implements Observer {
           this.time.set(this.model.getTime());
         }*/
     }
+
+
+
 }

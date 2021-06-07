@@ -50,7 +50,7 @@
    </void>
   </void>
   <void property="sleep">
-   <int>100</int>
+   <int>600</int>
   </void>
  </object>
 </java>

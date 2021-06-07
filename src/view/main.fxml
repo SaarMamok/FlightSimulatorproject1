@@ -27,12 +27,12 @@
       <Label layoutX="474.0" layoutY="26.0" text="Play speed" />
       <Label layoutX="620.0" layoutY="26.0" text="time" />
       <ImageView fx:id="play" fitHeight="24.0" fitWidth="38.0" layoutX="227.0" layoutY="23.0" onMouseClicked="#play" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="backwards" fitHeight="24.0" fitWidth="38.0" layoutX="181.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="skipprev" fitHeight="24.0" fitWidth="38.0" layoutX="135.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="backwards" fitHeight="24.0" fitWidth="38.0" layoutX="181.0" layoutY="23.0" onMouseClicked="#backward" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="skipprev" fitHeight="24.0" fitWidth="38.0" layoutX="135.0" layoutY="23.0" onMouseClicked="#doublebackward" pickOnBounds="true"  preserveRatio="true" />
       <ImageView fx:id="pause" fitHeight="24.0" fitWidth="38.0" layoutX="275.0" layoutY="23.0" onMouseClicked="#pause" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="stop" fitHeight="24.0" fitWidth="38.0" layoutX="325.0" layoutY="23.0" onMouseClicked="#stop" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="fastforward" fitHeight="24.0" fitWidth="38.0" layoutX="371.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="skipnext" fitHeight="24.0" fitWidth="38.0" layoutX="419.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fastforward" fitHeight="24.0" fitWidth="38.0" layoutX="371.0" layoutY="23.0" onMouseClicked="#forward" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="skipnext" fitHeight="24.0" fitWidth="38.0" layoutX="419.0" layoutY="23.0" onMouseClicked="#doubleforward" pickOnBounds="true" preserveRatio="true" />
       </Pane>
    </bottom>
    <right>

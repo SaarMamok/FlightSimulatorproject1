@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.util.Observable;
 
 public class Model extends Observable {
+    private int rate;
     private TimeSeries ts;
     private Settings prop;
      private FGplayer fGplayer;
@@ -29,6 +30,7 @@ public class Model extends Observable {
             decoder.close();
             fGplayer=new FGplayer();
             fGplayer.setSettings(prop);
+            this.rate=prop.getSleep();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -48,7 +50,7 @@ public class Model extends Observable {
     }
 
     public void run() {
-        theThread=new Thread(()->play());
+        theThread=new Thread(()->play(this.rate));
         theThread.start();
     }
     public void stop(){
@@ -72,7 +74,24 @@ public class Model extends Observable {
     public void pause(){
         theThread.interrupt();
     }
-   public void play(){
+    public void forward(){
+        if(this.rate-200>0)
+            this.rate-=200;
+
+    }
+    public void backward(){
+        this.rate+=200;
+    }
+    public void doubleforward() {
+        if(this.rate-400>0)
+            this.rate-=400;
+
+    }
+
+    public void doublebackward() {
+        this.rate+=400;
+    }
+   public void play(int r){
         ao=new ActiveObjectCommon();
         try {
             Socket fg = new Socket(prop.getIp(),prop.getPort());
@@ -111,7 +130,7 @@ public class Model extends Observable {
                     out.println(l);
                     out.flush();
                 });
-                Thread.sleep(prop.getSleep());
+                Thread.sleep(this.rate);
                 localtime++;
             }
             out.close();
@@ -175,4 +194,6 @@ public class Model extends Observable {
     public float getCorvalue() {
         return corvalue;
     }
+
+
 }

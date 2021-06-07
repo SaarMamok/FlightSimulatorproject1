@@ -128,5 +128,18 @@ public class Windowcontroller extends Observable {
     public void pause(){
         this.viewModel.pause();
     }
+    public void forward(){
+        this.viewModel.forward();
+    }
+    public void backward(){
+        this.viewModel.backward();
+    }
+    public void doubleforward(){
+        this.viewModel.doubleforward();
+    }
+    public void doublebackward(){
+        this.viewModel.doublebackward();
+    }
+
 
 }
