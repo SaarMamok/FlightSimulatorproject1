@@ -100,7 +100,7 @@ public class ViewModel extends Observable implements Observer {
             this.aileron.set(this.model.getAileron());
 
             this.model.setIndex(this.index.getValue());
-            this.model.setCorindex(Hashcor.get(index));
+            this.model.setCorindex(Hashcor.get(index.getValue()));
             this.listvalue.set(this.model.getListvalue());
             this.corvalue.set(this.model.getCorvalue());
 
