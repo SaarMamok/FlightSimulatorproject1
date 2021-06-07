@@ -15,9 +15,9 @@ public class Model extends Observable {
     private Settings prop;
      private FGplayer fGplayer;
     protected Thread theThread;
-    private int index,time;
+    private int index,time,corindex;
 
-    private float throttle,rudder,elevators,aileron,listvalue;
+    private float throttle,rudder,elevators,aileron,listvalue,corvalue;
     private String altitude,speed,direction,roll,pitch,yaw;
     protected ActiveObjectCommon ao;
     public Model(){
@@ -83,6 +83,7 @@ public class Model extends Observable {
                 this.time=i;
 
                 this.listvalue=ts.getDataTable().get(index).valuesList.get(time);
+                this.corvalue=ts.getDataTable().get(corindex).valuesList.get(time);
                 this.setChanged();
                 this.notifyObservers();
                 ao.execute(()->{
@@ -143,5 +144,13 @@ public class Model extends Observable {
 
     public int getTime() {
         return time;
+    }
+
+    public void setCorindex(int corindex) {
+        this.corindex = corindex;
+    }
+
+    public float getCorvalue() {
+        return corvalue;
     }
 }

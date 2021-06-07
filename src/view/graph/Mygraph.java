@@ -15,10 +15,14 @@ import java.io.IOException;
 
 public class Mygraph extends Pane {
     public FloatProperty listvalue;
+    public FloatProperty corvalue;
     public IntegerProperty time;
     @FXML
     public LineChart leftgraph;
+    @FXML
+    public LineChart rightgraph;
     public XYChart.Series series;
+    public XYChart.Series series2;
 
     public Mygraph() {
         super();
@@ -29,12 +33,19 @@ public class Mygraph extends Pane {
             Mygraphcontroller mygraphcontroller = fxl.getController();
             this.listvalue=new SimpleFloatProperty();
             this.time= new SimpleIntegerProperty();
+            this.corvalue=new SimpleFloatProperty();
             leftgraph=mygraphcontroller.leftgraph;
+            rightgraph=mygraphcontroller.rightgraph;
             mygraphcontroller.listvalue.bind(this.listvalue);
             mygraphcontroller.time.bind(this.time);
             series=new XYChart.Series();
+            series2=new XYChart.Series();
             this.leftgraph.getData().add(series);
-            this.time.addListener((o,ov,nv)-> mygraphcontroller.AddtoGraph(series));
+            this.rightgraph.getData().add(series2);
+            this.time.addListener((o,ov,nv)-> {
+                mygraphcontroller.AddtoGraph(series,time.getValue().toString(),listvalue.getValue());
+                mygraphcontroller.AddtoGraph(series2,time.getValue().toString(),corvalue.getValue());
+            });
             //this.time.addListener((o,ov,nv)->mygraphcontroller.AddtoGraph());
 
             this.getChildren().add(root);

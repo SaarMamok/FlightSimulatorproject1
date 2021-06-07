@@ -4,10 +4,16 @@ package viewmodel;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import model.Model;
+import test.Algoritms.Hybrid;
+import test.SimpleAnomalyDetector;
 import test.TimeSeries;
 
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+
+import static java.lang.Math.abs;
+import static test.StatLib.pearson;
 
 public class ViewModel extends Observable implements Observer {
   private TimeSeries ts;
@@ -15,9 +21,10 @@ public class ViewModel extends Observable implements Observer {
 
   public DoubleProperty aileron,elevators,rudder,throttle;
   public StringProperty altitude,speed,direction,roll,pitch,yaw;
-  public IntegerProperty index,time;
-  public FloatProperty listvalue;
+  public IntegerProperty index,corindex,time;
+  public FloatProperty listvalue,corvalue;
 
+  private HashMap<Integer,Integer> Hashcor=new HashMap<>();
 
   public ViewModel(Model m){
     this.model=m;
@@ -35,6 +42,8 @@ public class ViewModel extends Observable implements Observer {
   time=new SimpleIntegerProperty();
   index=new SimpleIntegerProperty();
   listvalue=new SimpleFloatProperty();
+  corvalue=new SimpleFloatProperty();
+  corindex=new SimpleIntegerProperty();
     }
     public DoubleProperty getAileron(){
     return this.aileron;
@@ -52,10 +61,29 @@ public class ViewModel extends Observable implements Observer {
   public int setTs(TimeSeries ts) {
     this.ts = ts;
     this.model.setTs(ts);
+    this.setCor(ts);
     return ts.Timer();
-
   }
-
+  public void setCor(TimeSeries ts) {
+    float CurrentCorrlation;
+    float bestCor;
+    int i, j;
+    int index = 0;
+    int numOfFeatures = ts.getDataTable().size();
+    for (i = 0; i < (numOfFeatures - 1); i++) {
+      bestCor = 0;
+      for (j = i + 1; j < numOfFeatures; j++) {
+        float value = pearson(SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(i).valuesList), SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(j).valuesList));
+        CurrentCorrlation = abs(value);
+        if (CurrentCorrlation > bestCor) //// I was changed from >= to >
+        {
+          index = j;
+          bestCor = CurrentCorrlation;
+        }
+      }
+      Hashcor.put(i,index);
+    }
+  }
   public void play(){
     this.model.run();
   }
@@ -72,7 +100,10 @@ public class ViewModel extends Observable implements Observer {
             this.aileron.set(this.model.getAileron());
 
             this.model.setIndex(this.index.getValue());
+            this.model.setCorindex(Hashcor.get(index));
             this.listvalue.set(this.model.getListvalue());
+            this.corvalue.set(this.model.getCorvalue());
+
 
             this.yaw.set(this.model.getYaw());
             this.roll.set(this.model.getRoll());

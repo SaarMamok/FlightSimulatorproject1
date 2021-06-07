@@ -28,17 +28,14 @@ public class Mygraphcontroller {
         listvalue=new SimpleFloatProperty();
         time=new SimpleIntegerProperty();
 
-
-
-
     }
 
 
 
 
 
-    public void AddtoGraph(XYChart.Series ser) {
-        Platform.runLater(()->ser.getData().add(new XYChart.Data<String, Number>(time.getValue().toString(), listvalue.getValue())));
+    public void AddtoGraph(XYChart.Series ser,String t,Number v) {
+        Platform.runLater(()->ser.getData().add(new XYChart.Data<String, Number>(t, v)));
     }
 
 

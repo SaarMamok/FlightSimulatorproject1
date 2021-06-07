@@ -6,6 +6,7 @@ import test.TimeSeries;
 import test.TimeSeriesAnomalyDetector;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static java.lang.Math.abs;
@@ -15,6 +16,7 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
     public ArrayList<SimpleAnomalyDetector>simple=new ArrayList<>();
     public ArrayList<Zscore>zscorelist=new ArrayList<>();
     public ArrayList<Welzl>welzllist=new ArrayList<>();
+    public HashMap<Integer,Integer>corvalues=new HashMap<>();
 
     public void learnNormal(TimeSeries ts) {
         String coreFeature = null;
@@ -32,6 +34,7 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
                     indexfeature=j;
                 }
             }
+            corvalues.put(i,indexfeature);
             if(bestcor>=0.95){
                 TimeSeries linear=new TimeSeries(ts.getDataTable().get(i),ts.getDataTable().get(indexfeature));
                 SimpleAnomalyDetector s= new SimpleAnomalyDetector(bestcor);

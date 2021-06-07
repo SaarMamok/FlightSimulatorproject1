@@ -43,6 +43,8 @@ public class StatLib {
 		double square_x, square_y;
 		square_x= Math.sqrt((double)(var(x)));
 		square_y= Math.sqrt((double)(var(y)));
+		if(square_x==0||square_y==0)
+			return 0;
 		return (cov(x,y)/(float)(square_x*square_y));
 	}
 
