@@ -119,7 +119,11 @@ public class Windowcontroller extends Observable {
 
     public void play(){
         this.viewModel.play();
-
+    }
+    public void stop(){
+        this.mygraph.series.getData().clear();
+        this.mygraph.series2.getData().clear();
+        this.viewModel.stop();
     }
 
 }

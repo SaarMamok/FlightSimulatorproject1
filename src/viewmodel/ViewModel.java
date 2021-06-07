@@ -87,7 +87,7 @@ public class ViewModel extends Observable implements Observer {
   public void play(){
     this.model.run();
   }
-
+  public void stop(){this.model.stop();}
   @Override
     public void update(Observable o, Object arg) {
         if(o==this.model){
