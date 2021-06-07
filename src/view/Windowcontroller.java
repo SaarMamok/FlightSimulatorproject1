@@ -1,5 +1,6 @@
 package view;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
@@ -11,6 +12,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -55,11 +57,45 @@ public class Windowcontroller extends Observable {
     Mygraph mygraph;
     @FXML
     TextField speed;
+    @FXML
+    Label clock;
     private File chosen;
     public IntegerProperty time;
     public FloatProperty rate;
     ViewModel viewModel;
 
+    public class Clock{
+        int hour1,hour2,min1,min2,sec1,sec2;
+
+        public Clock() {
+            this.hour1 = 0;
+            this.hour2 = 0;
+            this.min1 = 0;
+            this.min2 = 0;
+            this.sec1 = 0;
+            this.sec2 = 0;
+        }
+        public void Changecalue(int x){
+            x+=1;
+            if(x%60==0) {
+                if(min2+1==10){
+                    min2=0;
+                    if(min2+1==10){
+                        min2=0;
+                        hour2++;
+                    }
+                    min2++;
+                }
+                else {
+                    min1++;
+                }
+            }
+        }
+
+        public void display(){
+            System.out.println(hour1+hour2+":"+min1+min2+":"+sec1+sec2);
+        }
+    }
 
 
     public void init(ViewModel vm){
