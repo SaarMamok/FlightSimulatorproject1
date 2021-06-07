@@ -69,6 +69,9 @@ public class Model extends Observable {
         this.setChanged();
         this.notifyObservers();
     }
+    public void pause(){
+        theThread.interrupt();
+    }
    public void play(){
         ao=new ActiveObjectCommon();
         try {

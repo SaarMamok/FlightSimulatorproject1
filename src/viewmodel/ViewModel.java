@@ -88,6 +88,7 @@ public class ViewModel extends Observable implements Observer {
     this.model.run();
   }
   public void stop(){this.model.stop();}
+  public void pause(){this.model.pause();}
   @Override
     public void update(Observable o, Object arg) {
         if(o==this.model){

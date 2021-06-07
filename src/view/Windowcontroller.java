@@ -125,5 +125,8 @@ public class Windowcontroller extends Observable {
         this.mygraph.series2.getData().clear();
         this.viewModel.stop();
     }
+    public void pause(){
+        this.viewModel.pause();
+    }
 
 }
