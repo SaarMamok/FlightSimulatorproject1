@@ -63,40 +63,24 @@ public class Windowcontroller extends Observable {
     public IntegerProperty time;
     public FloatProperty rate;
     ViewModel viewModel;
+    float sec=0,min=0,hour=0;
 
-    public class Clock{
-        int hour1,hour2,min1,min2,sec1,sec2;
+    public static void main(String[] args) {
+        float sec = 0, min = 0, hour = 0;
+        for (int time = 1; time < 8274; time++) {
+//           hour = time / 3600f;
+//           min = (hour % (time / 3600)) * 60;
+//           sec = (min % (int) min) * 60;
+//
+            hour = time / 3600f;
+            min = (hour % (time / 3600)) * 60;
+            sec = time % 60;
 
-        public Clock() {
-            this.hour1 = 0;
-            this.hour2 = 0;
-            this.min1 = 0;
-            this.min2 = 0;
-            this.sec1 = 0;
-            this.sec2 = 0;
-        }
-        public void Changecalue(int x){
-            x+=1;
-            if(x%60==0) {
-                if(min2+1==10){
-                    min2=0;
-                    if(min2+1==10){
-                        min2=0;
-                        hour2++;
-                    }
-                    min2++;
-                }
-                else {
-                    min1++;
-                }
-            }
-        }
 
-        public void display(){
-            System.out.println(hour1+hour2+":"+min1+min2+":"+sec1+sec2);
+            System.out.println((int) hour + ":" + (int) min + ":" + (int) sec);
+
         }
     }
-
 
     public void init(ViewModel vm){
         timebar.setMin(0);
@@ -112,7 +96,16 @@ public class Windowcontroller extends Observable {
         this.myJoystick.elevators.bind(this.viewModel.elevators);
 
         this.time.bind(this.viewModel.time);
-        this.time.addListener((o,ov,nv)->timebar.setValue(time.getValue()));
+        this.time.addListener((o,ov,nv)->{
+            timebar.setValue(time.getValue());
+
+            int time1 = this.time.getValue()+1;
+            hour=time1/3600f;
+            min=(hour%((int)hour))*60f;
+            sec=(min%(int)min)*60;
+            System.out.println((int)hour+":"+(int)min+":"+(int)sec);
+            this.clock.setText((int)hour+":"+(int)min+":"+(int)sec);
+        });
 
         this.viewModel.index.bind(attributeslist.index);
         this.attributeslist.index.addListener((o,ov,nv)->{
