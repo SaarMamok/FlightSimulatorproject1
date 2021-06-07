@@ -1,7 +1,9 @@
 package view;
 
 import javafx.application.Platform;
+import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -50,9 +53,11 @@ public class Windowcontroller extends Observable {
     Slider timebar;
     @FXML
     Mygraph mygraph;
-
+    @FXML
+    TextField speed;
     private File chosen;
     public IntegerProperty time;
+    public FloatProperty rate;
     ViewModel viewModel;
 
 
@@ -94,6 +99,11 @@ public class Windowcontroller extends Observable {
         this.mydashboard.speed.bind(this.viewModel.speed);
         this.mydashboard.altitude.bind(this.viewModel.altitude);
 
+
+        this.rate=new SimpleFloatProperty();
+        this.rate.setValue(1);
+        this.rate.bind(this.viewModel.rate);
+        this.rate.addListener((o,ov,nv)->speed.setText(this.rate.getValue().toString()));
         play.setImage(new Image(getClass().getResourceAsStream("./buttons/play.png")));
         backwards.setImage(new Image(getClass().getResourceAsStream("./buttons/fastbackwards.png")));
         skipprev.setImage(new Image(getClass().getResourceAsStream("./buttons/skiprev.png")));
