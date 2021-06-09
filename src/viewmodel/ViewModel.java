@@ -20,7 +20,7 @@ public class ViewModel extends Observable implements Observer {
   private  Model model;
 
   public DoubleProperty aileron,elevators,rudder,throttle;
-  public StringProperty altitude,speed,direction,roll,pitch,yaw;
+  public DoubleProperty altitude,speed,direction,roll,pitch,yaw;
   public IntegerProperty index,corindex,time;
   public FloatProperty listvalue,corvalue,rate;
 
@@ -33,12 +33,12 @@ public class ViewModel extends Observable implements Observer {
     elevators=new SimpleDoubleProperty();
     rudder=new SimpleDoubleProperty();
     throttle=new SimpleDoubleProperty();
-    altitude=new SimpleStringProperty();
-    speed=new SimpleStringProperty();
-    direction=new SimpleStringProperty();
-    roll=new SimpleStringProperty();
-    pitch=new SimpleStringProperty();
-    yaw=new SimpleStringProperty();
+    altitude=new SimpleDoubleProperty();
+    speed=new SimpleDoubleProperty();
+    direction=new SimpleDoubleProperty();
+    roll=new SimpleDoubleProperty();
+    pitch=new SimpleDoubleProperty();
+    yaw=new SimpleDoubleProperty();
   time=new SimpleIntegerProperty();
   index=new SimpleIntegerProperty();
   listvalue=new SimpleFloatProperty();

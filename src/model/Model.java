@@ -19,7 +19,7 @@ public class Model extends Observable {
     private int index,time,corindex;
     private int localtime=0;
     private float throttle,rudder,elevators,aileron,listvalue,corvalue;
-    private String altitude,speed,direction,roll,pitch,yaw;
+    private double altitude,speed,direction,roll,pitch,yaw;
     protected ActiveObjectCommon ao;
     public Model(){
 
@@ -62,12 +62,12 @@ public class Model extends Observable {
         this.aileron=ts.getDataTable().get(prop.getProp().get("aileron")).valuesList.get(localtime);
         this.elevators=ts.getDataTable().get(prop.getProp().get("elevator")).valuesList.get(localtime);
 
-        this.yaw=ts.getDataTable().get(prop.getProp().get("side-slip-deg")).valuesList.get(localtime).toString();
-        this.altitude=ts.getDataTable().get(prop.getProp().get("altimeter_indicated-altitude-ft")).valuesList.get(localtime).toString();
-        this.speed=ts.getDataTable().get(prop.getProp().get("airspeed-indicator_indicated-speed-kt")).valuesList.get(localtime).toString();
-        this.direction=ts.getDataTable().get(prop.getProp().get("indicated-heading-deg")).valuesList.get(localtime).toString();
-        this.roll=ts.getDataTable().get(prop.getProp().get("attitude-indicator_indicated-roll-deg")).valuesList.get(localtime).toString();
-        this.pitch=ts.getDataTable().get(prop.getProp().get("attitude-indicator_internal-pitch-deg")).valuesList.get(localtime).toString();
+        this.yaw=ts.getDataTable().get(prop.getProp().get("side-slip-deg")).valuesList.get(localtime);
+        this.altitude=ts.getDataTable().get(prop.getProp().get("altimeter_indicated-altitude-ft")).valuesList.get(localtime);
+        this.speed=ts.getDataTable().get(prop.getProp().get("airspeed-indicator_indicated-speed-kt")).valuesList.get(localtime);
+        this.direction=ts.getDataTable().get(prop.getProp().get("indicated-heading-deg")).valuesList.get(localtime);
+        this.roll=ts.getDataTable().get(prop.getProp().get("attitude-indicator_indicated-roll-deg")).valuesList.get(localtime);
+        this.pitch=ts.getDataTable().get(prop.getProp().get("attitude-indicator_internal-pitch-deg")).valuesList.get(localtime);
         this.time=localtime;
         this.setChanged();
         this.notifyObservers();
@@ -121,12 +121,12 @@ public class Model extends Observable {
                 this.aileron=ts.getDataTable().get(prop.getProp().get("aileron")).valuesList.get(localtime);
                 this.elevators=ts.getDataTable().get(prop.getProp().get("elevator")).valuesList.get(localtime);
 
-                this.yaw=ts.getDataTable().get(prop.getProp().get("side-slip-deg")).valuesList.get(localtime).toString();
-                this.altitude=ts.getDataTable().get(prop.getProp().get("altimeter_indicated-altitude-ft")).valuesList.get(localtime).toString();
-                this.speed=ts.getDataTable().get(prop.getProp().get("airspeed-indicator_indicated-speed-kt")).valuesList.get(localtime).toString();
-                this.direction=ts.getDataTable().get(prop.getProp().get("indicated-heading-deg")).valuesList.get(localtime).toString();
-                this.roll=ts.getDataTable().get(prop.getProp().get("attitude-indicator_indicated-roll-deg")).valuesList.get(localtime).toString();
-                this.pitch=ts.getDataTable().get(prop.getProp().get("attitude-indicator_internal-pitch-deg")).valuesList.get(localtime).toString();
+                this.yaw=ts.getDataTable().get(prop.getProp().get("side-slip-deg")).valuesList.get(localtime);
+                this.altitude=ts.getDataTable().get(prop.getProp().get("altimeter_indicated-altitude-ft")).valuesList.get(localtime);
+                this.speed=ts.getDataTable().get(prop.getProp().get("airspeed-indicator_indicated-speed-kt")).valuesList.get(localtime);
+                this.direction=ts.getDataTable().get(prop.getProp().get("indicated-heading-deg")).valuesList.get(localtime);
+                this.roll=ts.getDataTable().get(prop.getProp().get("attitude-indicator_indicated-roll-deg")).valuesList.get(localtime);
+                this.pitch=ts.getDataTable().get(prop.getProp().get("attitude-indicator_internal-pitch-deg")).valuesList.get(localtime);
 
                 this.time=localtime;
 
@@ -159,27 +159,27 @@ public class Model extends Observable {
         return rudder;
     }
 
-    public String getAltitude() {
+    public double getAltitude() {
         return altitude;
     }
 
-    public String getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public String getDirection() {
+    public double getDirection() {
         return direction;
     }
 
-    public String getRoll() {
+    public double getRoll() {
         return roll;
     }
 
-    public String getPitch() {
+    public double getPitch() {
         return pitch;
     }
 
-    public String  getYaw() {
+    public double  getYaw() {
         return yaw;
     }
 

@@ -36,14 +36,14 @@
       </Pane>
    </bottom>
    <right>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400" prefWidth="465" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="600" prefWidth="600" BorderPane.alignment="CENTER">
         <items>
-          <Pane minHeight="0.0" minWidth="0.0" prefHeight="800" prefWidth="500">
+          <Pane minHeight="0.0" minWidth="0.0" prefHeight="350" prefWidth="350">
                <children>
                   <MyJoystick fx:id="myJoystick"></MyJoystick>
                </children>
             </Pane>
-          <Pane minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="465.0">
+          <Pane minHeight="0.0" minWidth="0.0" prefHeight="250" prefWidth="550.0">
              <children>
                 <Mydashboard fx:id="mydashboard"></Mydashboard>
              </children>

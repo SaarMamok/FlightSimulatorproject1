@@ -1,37 +1,55 @@
 package view.dashboard;
 
+import eu.hansolo.medusa.Gauge;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 
 import java.io.IOException;
 
-public class Mydashboard extends Pane {
-    public StringProperty altitude,speed,direction,roll,pitch,yaw;
+
+public class Mydashboard extends AnchorPane {
+    public DoubleProperty altitude,speed,direction,roll,pitch,yaw;
+    @FXML
+    Gauge speedgauge;
+    @FXML
+    Gauge altitudegauge;
+    @FXML
+    Gauge directiongauge;
+    @FXML
+    Gauge rollgauge;
+    @FXML
+    Gauge pitchgauge;
+    @FXML
+    Gauge yawgauge;
+
     public Mydashboard(){
         super();
 
         try {
             FXMLLoader fxl=new FXMLLoader();
-            Parent root = fxl.load(getClass().getResource("Mydashboard.fxml").openStream());
-            Mydashboardcontroller mydashboardcontroller=fxl.getController();
-            altitude=new SimpleStringProperty();
-            speed=new SimpleStringProperty();
-            direction=new SimpleStringProperty();
-            roll=new SimpleStringProperty();
-            pitch=new SimpleStringProperty();
-            yaw=new SimpleStringProperty();
-            mydashboardcontroller.yaw.textProperty().bind(yaw);
-            mydashboardcontroller.pitch.textProperty().bind(pitch);
-            mydashboardcontroller.roll.textProperty().bind(roll);
-            mydashboardcontroller.direction.textProperty().bind(direction);
-            mydashboardcontroller.speed.textProperty().bind(speed);
-            mydashboardcontroller.altitude.textProperty().bind(altitude);
+            AnchorPane root = fxl.load(getClass().getResource("Mydashboard.fxml").openStream());
+            Mydashboardcontroller  mydashboardcontroller=fxl.getController();
+            altitude=new SimpleDoubleProperty();
+            speed=new SimpleDoubleProperty();
+            direction=new SimpleDoubleProperty();
+            roll=new SimpleDoubleProperty();
+            pitch=new SimpleDoubleProperty();
+            yaw=new SimpleDoubleProperty();
+            mydashboardcontroller.altitudegauge.valueProperty().bind(altitude);
+            mydashboardcontroller.speedgauge.valueProperty().bind(speed);
+            mydashboardcontroller.directiongauge.valueProperty().bind(direction);
+            mydashboardcontroller.rollgauge.valueProperty().bind(roll);
+            mydashboardcontroller.pitchgauge.valueProperty().bind(pitch);
+            mydashboardcontroller.yawgauge.valueProperty().bind(yaw);
+
             this.getChildren().add(root);
         } catch (IOException e) {
             e.printStackTrace();
