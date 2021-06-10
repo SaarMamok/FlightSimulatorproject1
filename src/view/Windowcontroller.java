@@ -178,6 +178,10 @@ public class Windowcontroller extends Observable {
     public void doublebackward(){
         this.viewModel.doublebackward();
     }
+    public void slidermove(){
+
+        this.viewModel.slidermove(this.timebar.getValue());
+    }
 
 
 }

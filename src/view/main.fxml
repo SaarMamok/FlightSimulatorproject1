@@ -24,7 +24,7 @@
       <Pane prefHeight="131.0" prefWidth="885.0" BorderPane.alignment="CENTER">
       <TextField fx:id="speed" layoutX="559.0" layoutY="22.0" prefHeight="26.0" prefWidth="55" />
       <Button fx:id="opencsv" layoutX="21.0" layoutY="20.0" mnemonicParsing="false" onAction="#Opencsv" text="Open csv file" />
-      <Slider fx:id="timebar" layoutX="27.0" layoutY="75.0" prefHeight="24.0" prefWidth="881.0" />
+      <Slider fx:id="timebar" layoutX="27.0" layoutY="75.0" prefHeight="24.0" onMouseDragReleased="#slidermove" prefWidth="881.0" />
       <Label layoutX="474.0" layoutY="26.0" text="Play speed" />
       <Label fx:id="clock" layoutX="620.0" layoutY="26.0" />
       <ImageView fx:id="play" fitHeight="24.0" fitWidth="38.0" layoutX="227.0" layoutY="23.0" onMouseClicked="#play" pickOnBounds="true" preserveRatio="true" />

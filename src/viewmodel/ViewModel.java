@@ -131,5 +131,7 @@ public class ViewModel extends Observable implements Observer {
     }
 
 
-
+  public void slidermove(double t) {
+    this.model.slidermove(t);
+  }
 }

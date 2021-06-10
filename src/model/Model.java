@@ -210,4 +210,7 @@ public class Model extends Observable {
     public int getRatedisplay() {
         return ratedisplay;
     }
+
+    public void slidermove(double t) {this.localtime=(int)t;
+    }
 }
