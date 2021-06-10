@@ -1,15 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.joystick.MyJoystickController">
    <children>
       <Slider fx:id="rudder" blockIncrement="0.1" layoutX="37.0" layoutY="313.0" max="1.0" min="-1.0" prefHeight="14.0" prefWidth="303.0" />
       <Slider fx:id="throttle" blockIncrement="0.1" layoutX="16.0" layoutY="10.0" max="1.0" orientation="VERTICAL" prefHeight="303.0" prefWidth="14.0" />
-      <Circle fx:id="bigcircle" fill="WHITE" layoutX="189.0" layoutY="162.0" radius="122.0" stroke="BLACK" strokeType="INSIDE" />
-      <Canvas fx:id="smallcircle" height="600.0" layoutX="-140.0" layoutY="-165.0" width="600.0" />
+      <Circle fx:id="bigcircle" layoutX="189.0" layoutY="162.0" radius="122.0" stroke="#00000038" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color green="0.7099999785423279" blue="0.6389999985694885" opacity="0.5667723417282104" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Circle>
+
+
+      <Circle fx:id="smallcircle1" layoutX="190.0" layoutY="167.0" radius="60.0" stroke="TRANSPARENT" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.021009312942624092" green="0.8508771657943726" blue="0.8232149481773376" opacity="0.5699999928474426" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.4809160305343512">
+                     <color>
+                        <Color red="0.021009312942624092" green="0.8508771657943726" blue="0.8232149481773376" opacity="0.5699999928474426" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color green="0.4070502817630768" blue="0.6899999976158142" opacity="0.5699999928474426" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Circle>
+
    </children>
 </Pane>

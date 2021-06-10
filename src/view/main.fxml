@@ -12,6 +12,7 @@
 <?import view.joystick.MyJoystick?>
 <?import view.attlist.AttList?>
 <?import view.dashboard.Mydashboard?>
+<?import javafx.scene.layout.AnchorPane?>
 
 
 <?import view.graph.Mygraph?>

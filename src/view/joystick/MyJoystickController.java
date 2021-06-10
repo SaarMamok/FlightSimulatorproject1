@@ -37,10 +37,14 @@ public class MyJoystickController{
 
     }
     public void paint(){
-        GraphicsContext gc= smallcircle.getGraphicsContext2D();
+       GraphicsContext gc= smallcircle.getGraphicsContext2D();
+
         mx=smallcircle.getWidth()/2;
+        //mx=smallcircle.getRadius()/2;
         my=smallcircle.getHeight()/2;
+       // my=smallcircle.getRadius()/2;
         gc.clearRect(0,0,smallcircle.getWidth(),smallcircle.getHeight());
+        //gc.clearRect(0,0,smallcircle.getRadius(),smallcircle.getRadius());
         gc.strokeOval(my+ aileron.getValue()*61,mx+elevators.getValue()*61,61,61);
 
         /*mx = smallcircle.get() / 2;
