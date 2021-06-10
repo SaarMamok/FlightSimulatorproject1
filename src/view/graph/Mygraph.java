@@ -17,6 +17,8 @@ public class Mygraph extends Pane {
     public FloatProperty listvalue;
     public FloatProperty corvalue;
     public IntegerProperty time;
+    public StringProperty lefttitle;
+    public StringProperty righttitle;
     @FXML
     public LineChart leftgraph;
     @FXML
@@ -34,6 +36,8 @@ public class Mygraph extends Pane {
             this.listvalue=new SimpleFloatProperty();
             this.time= new SimpleIntegerProperty();
             this.corvalue=new SimpleFloatProperty();
+            this.lefttitle=new SimpleStringProperty();
+            this.righttitle=new SimpleStringProperty();
             leftgraph=mygraphcontroller.leftgraph;
             rightgraph=mygraphcontroller.rightgraph;
             mygraphcontroller.listvalue.bind(this.listvalue);
