@@ -38,12 +38,15 @@ public class Mygraph extends Pane {
             this.corvalue=new SimpleFloatProperty();
             this.lefttitle=new SimpleStringProperty();
             this.righttitle=new SimpleStringProperty();
+
             leftgraph=mygraphcontroller.leftgraph;
             rightgraph=mygraphcontroller.rightgraph;
             mygraphcontroller.listvalue.bind(this.listvalue);
             mygraphcontroller.time.bind(this.time);
             series=new XYChart.Series();
             series2=new XYChart.Series();
+            this.lefttitle.addListener((o,ov,nv)->series.setName(this.lefttitle.getValue()));
+            this.righttitle.addListener((o,ov,nv)->series2.setName(this.righttitle.getValue()));
             this.leftgraph.getData().add(series);
             this.rightgraph.getData().add(series2);
             this.time.addListener((o,ov,nv)-> {

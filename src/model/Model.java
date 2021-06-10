@@ -20,6 +20,7 @@ public class Model extends Observable {
     private int localtime=0;
     private float throttle,rudder,elevators,aileron,listvalue,corvalue;
     private double altitude,speed,direction,roll,pitch,yaw;
+    private String leftval,rightval;
     protected ActiveObjectCommon ao;
     public Model(){
 
@@ -132,6 +133,8 @@ public class Model extends Observable {
 
                 this.listvalue=ts.getDataTable().get(index).valuesList.get(time);
                 this.corvalue=ts.getDataTable().get(corindex).valuesList.get(time);
+                this.leftval=ts.getDataTable().get(index).featureName;
+                this.rightval=ts.getDataTable().get(corindex).featureName;
                 this.setChanged();
                 this.notifyObservers();
                 ao.execute(()->{
@@ -149,6 +152,14 @@ public class Model extends Observable {
 
 
 
+    }
+
+    public String getLeftval() {
+        return leftval;
+    }
+
+    public String getRightval() {
+        return rightval;
     }
 
     public float getListvalue() {

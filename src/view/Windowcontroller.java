@@ -107,7 +107,8 @@ public class Windowcontroller extends Observable {
         });
 
         this.viewModel.index.bind(attributeslist.index);
-        this.mygraph.lefttitle.bind(this.attributeslist.attributeslist.);
+        this.mygraph.lefttitle.bind(this.viewModel.leftval);
+        this.mygraph.righttitle.bind(this.viewModel.rightval);
         this.attributeslist.index.addListener((o,ov,nv)->{
             this.mygraph.series.getData().clear();
             this.mygraph.series2.getData().clear();

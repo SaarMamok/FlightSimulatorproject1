@@ -19,8 +19,8 @@ public class ViewModel extends Observable implements Observer {
   private TimeSeries ts;
   private  Model model;
 
-  public DoubleProperty aileron,elevators,rudder,throttle;
-  public DoubleProperty altitude,speed,direction,roll,pitch,yaw;
+  public StringProperty leftval,rightval;
+  public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
   public IntegerProperty index,corindex,time;
   public FloatProperty listvalue,corvalue,rate;
 
@@ -45,6 +45,8 @@ public class ViewModel extends Observable implements Observer {
   corvalue=new SimpleFloatProperty();
   corindex=new SimpleIntegerProperty();
   rate=new SimpleFloatProperty();
+  leftval=new SimpleStringProperty();
+  rightval=new SimpleStringProperty();
     }
     public DoubleProperty getAileron(){
     return this.aileron;
@@ -122,6 +124,9 @@ public class ViewModel extends Observable implements Observer {
             this.altitude.set(this.model.getAltitude());
             this.speed.set(this.model.getSpeed());
             this.direction.set(this.model.getDirection());
+
+            this.leftval.set(this.model.getLeftval());
+            this.rightval.set(this.model.getRightval());
 
           });
         }
