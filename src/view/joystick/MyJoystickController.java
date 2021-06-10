@@ -41,8 +41,8 @@ public class MyJoystickController{
         mx=smallcircle.getRadius()/2;
         my=smallcircle.getRadius()/2;
 
-        smallcircle.setLayoutX(smallcircle.getCenterX()+elevators.getValue());
-        smallcircle.setLayoutY(smallcircle.getCenterY()+aileron.getValue());
+        smallcircle.setCenterX(bigcircle.getCenterX()+(elevators.getValue()*smallcircle.getRadius()));
+        smallcircle.setCenterY(bigcircle.getCenterY()+(aileron.getValue()*smallcircle.getRadius()));
         //mx=smallcircle.getRadius()/2;
 
        // my=smallcircle.getRadius()/2;
