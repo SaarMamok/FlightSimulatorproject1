@@ -19,6 +19,9 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
     public HashMap<Integer,Integer>corvalues=new HashMap<>();
     private HashMap<String,Integer> Hashvalues=new HashMap<>();
 
+    public Hybrid() {
+    }
+
     public void learnNormal(TimeSeries ts) {
         String coreFeature = null;
         float CurrentCorrlation,bestcor;

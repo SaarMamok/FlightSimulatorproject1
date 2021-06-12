@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Zscore implements TimeSeriesAnomalyDetector {
+    public Zscore() {
+    }
 
     public class Title {
         String name;

@@ -20,6 +20,7 @@ import view.graph.Mygraph;
 import view.joystick.MyJoystick;
 import viewmodel.ViewModel;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -64,6 +65,7 @@ public class Windowcontroller extends Observable {
     public FloatProperty rate;
     ViewModel viewModel;
     float sec=0,min=0,hour=0;
+    public TimeSeriesAnomalyDetector t;
 
     private String getDurationString(int seconds) {
 
@@ -146,19 +148,15 @@ public class Windowcontroller extends Observable {
 
     public void Choosealg() throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         String input,className;
-        System.out.println("enter a class directory");
-        BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
-        input=in.readLine(); // get user input
-        System.out.println("enter the class name");
-        className=in.readLine();
-        in.close();
+        input= JOptionPane.showInputDialog(null,"enter a class directory");
+        className=JOptionPane.showInputDialog(null,"enter the class name");
 // load class directory
         URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] {
                 new URL("file://"+input)
         });
         Class<?> c=urlClassLoader.loadClass(className);
-        TimeSeriesAnomalyDetector t= (TimeSeriesAnomalyDetector) c.newInstance();
-        System.out.println(c.getClass().toString());
+        t= (TimeSeriesAnomalyDetector) c.newInstance();
+
     }
     public void Opencsv(){
         FileChooser fc =new FileChooser();

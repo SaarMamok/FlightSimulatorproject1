@@ -9,6 +9,9 @@ import static test.StatLib.*;
 public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 	public static float  threshold;
 
+	public SimpleAnomalyDetector() {
+	}
+
 	public SimpleAnomalyDetector(float newVal) {
 		SetThreshold(newVal);
 	}
