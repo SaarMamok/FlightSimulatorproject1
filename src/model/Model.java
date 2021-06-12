@@ -103,6 +103,7 @@ public class Model extends Observable {
     public void SetAnomaly(Class<?> c) throws IllegalAccessException, InstantiationException {
         this.t=(TimeSeriesAnomalyDetector)c.newInstance();
         t.learnNormal(new TimeSeries(prop.getLearnpath()));
+        int x=8;
     }
    public void play(int r){
         ao=new ActiveObjectCommon();
