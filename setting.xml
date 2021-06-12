@@ -4,6 +4,9 @@
   <void property="ip">
    <string>localhost</string>
   </void>
+  <void property="learnpath">
+   <string>./reg_flight.csv</string>
+  </void>
   <void property="port">
    <int>5400</int>
   </void>

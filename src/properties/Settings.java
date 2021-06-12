@@ -8,8 +8,18 @@ public class Settings implements Serializable {
     private int port;
     private int sleep;
     private HashMap<String,Integer> prop=new HashMap<>();
+    private String Learnpath;
+
 
     public Settings() {
+    }
+
+    public String getLearnpath() {
+        return Learnpath;
+    }
+
+    public void setLearnpath(String learnpath) {
+        Learnpath = learnpath;
     }
 
     public String getIp() {
@@ -48,6 +58,7 @@ public class Settings implements Serializable {
         this.ip="localhost";
         this.port=5400;
         this.sleep=1000;
+        this.Learnpath="./reg_flight.csv";
         prop.put("aileron",0);
         prop.put("elevator",1);
         prop.put("rudder",2);

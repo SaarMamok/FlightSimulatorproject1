@@ -2,6 +2,7 @@ package model;
 
 import properties.Settings;
 import test.TimeSeries;
+import test.TimeSeriesAnomalyDetector;
 
 import java.beans.XMLDecoder;
 import java.io.*;
@@ -20,6 +21,7 @@ public class Model extends Observable {
     private double altitude,speed,direction,roll,pitch,yaw;
     private String leftval,rightval;
     protected ActiveObjectCommon ao;
+    public TimeSeriesAnomalyDetector t;
     public Model(){
 
         XMLDecoder decoder = null;
@@ -97,6 +99,10 @@ public class Model extends Observable {
     public void doublebackward() {
         this.rate+=500;
         this.ratedisplay-=500;
+    }
+    public void SetAnomaly(Class<?> c) throws IllegalAccessException, InstantiationException {
+        this.t=(TimeSeriesAnomalyDetector)c.newInstance();
+        t.learnNormal(new TimeSeries(prop.getLearnpath()));
     }
    public void play(int r){
         ao=new ActiveObjectCommon();

@@ -7,8 +7,13 @@ import model.Model;
 import test.SimpleAnomalyDetector;
 import test.StatLib;
 import test.TimeSeries;
+import test.TimeSeriesAnomalyDetector;
 
 
+import javax.swing.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -67,6 +72,18 @@ public class ViewModel extends Observable implements Observer {
     this.model.setTs(ts);
     this.setCor(ts);
     return ts.Timer();
+  }
+  public void ChooseAlg() throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+    String input,className;
+    input= JOptionPane.showInputDialog(null,"enter a class directory");
+    className=JOptionPane.showInputDialog(null,"enter the class name");
+// load class directory
+    URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] {
+            new URL("file://"+input)
+    });
+    Class<?> c=urlClassLoader.loadClass(className);
+    model.SetAnomaly(c);
+
   }
   public void setCor(TimeSeries ts) {
     float CurrentCorrlation;

@@ -25,6 +25,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Observable;
@@ -65,7 +66,7 @@ public class Windowcontroller extends Observable {
     public FloatProperty rate;
     ViewModel viewModel;
     float sec=0,min=0,hour=0;
-    public TimeSeriesAnomalyDetector t;
+
 
     private String getDurationString(int seconds) {
 
@@ -146,17 +147,21 @@ public class Windowcontroller extends Observable {
 
     }
 
-    public void Choosealg() throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
-        String input,className;
-        input= JOptionPane.showInputDialog(null,"enter a class directory");
-        className=JOptionPane.showInputDialog(null,"enter the class name");
-// load class directory
-        URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] {
-                new URL("file://"+input)
+    public void Choosealg()  {
+        Thread t=new Thread(()-> {
+            try {
+                this.viewModel.ChooseAlg();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
         });
-        Class<?> c=urlClassLoader.loadClass(className);
-        t= (TimeSeriesAnomalyDetector) c.newInstance();
-
+      t.start();
     }
     public void Opencsv(){
         FileChooser fc =new FileChooser();
