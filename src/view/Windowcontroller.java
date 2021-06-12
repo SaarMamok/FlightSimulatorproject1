@@ -1,17 +1,11 @@
 package view;
 
-import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -19,13 +13,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import test.TimeSeries;
+import test.TimeSeriesAnomalyDetector;
 import view.attlist.AttList;
 import view.dashboard.Mydashboard;
 import view.graph.Mygraph;
 import view.joystick.MyJoystick;
 import viewmodel.ViewModel;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.Observable;
 
 public class Windowcontroller extends Observable {
@@ -144,6 +144,22 @@ public class Windowcontroller extends Observable {
 
     }
 
+    public void Choosealg() throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+        String input,className;
+        System.out.println("enter a class directory");
+        BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
+        input=in.readLine(); // get user input
+        System.out.println("enter the class name");
+        className=in.readLine();
+        in.close();
+// load class directory
+        URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] {
+                new URL("file://"+input)
+        });
+        Class<?> c=urlClassLoader.loadClass(className);
+        TimeSeriesAnomalyDetector t= (TimeSeriesAnomalyDetector) c.newInstance();
+        System.out.println(c.getClass().toString());
+    }
     public void Opencsv(){
         FileChooser fc =new FileChooser();
         fc.setTitle("Choose file");

@@ -4,16 +4,17 @@ package viewmodel;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import model.Model;
-import test.Algoritms.Hybrid;
 import test.SimpleAnomalyDetector;
+import test.StatLib;
 import test.TimeSeries;
+
 
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
 import static java.lang.Math.abs;
-import static test.StatLib.pearson;
+
 
 public class ViewModel extends Observable implements Observer {
   private TimeSeries ts;
@@ -76,7 +77,7 @@ public class ViewModel extends Observable implements Observer {
     for (i = 0; i < (numOfFeatures - 1); i++) {
       bestCor = 0;
       for (j = i + 1; j < numOfFeatures; j++) {
-        float value = pearson(SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(i).valuesList), SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(j).valuesList));
+        float value = StatLib.pearson(SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(i).valuesList), SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(j).valuesList));
         CurrentCorrlation = abs(value);
         if (CurrentCorrlation > bestCor) //// I was changed from >= to >
         {

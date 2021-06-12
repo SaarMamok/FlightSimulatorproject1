@@ -1,7 +1,5 @@
 package model;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import properties.Settings;
 import test.TimeSeries;
 
