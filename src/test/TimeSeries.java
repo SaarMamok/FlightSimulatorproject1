@@ -44,6 +44,7 @@ public class TimeSeries {
 		this.dataTable.add(f1);
 		this.dataTable.add(f2);
 	}
+
 	public TimeSeries(FeaturesData f1){
 		this.dataTable.add(f1);
 	}
@@ -79,6 +80,7 @@ public class TimeSeries {
 
 		}
 	}
+
 
 }
 

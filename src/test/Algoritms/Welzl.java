@@ -8,110 +8,110 @@ import java.util.List;
 import java.util.Random;
 
 public class Welzl implements TimeSeriesAnomalyDetector {
-    public class Circle{
-        Point p;
-        float R;
-        public Circle(Point p, float R){
-            this.p=p;
-            this.R=R;
-        }
-        public Circle(Circle c){
-            this.p=c.p;
-            this.R=c.R;
-        }
-    }
-    private Circle c;
+public  Circle cir1;
+private String feat1,feat2;
 
-    public Circle getC() {
+    public  Circle makeCircle(List<Point> points) {
+        // Clone list to preserve the caller's data, randomize order
+        List<Point> shuffled = new ArrayList<>(points);
+        Collections.shuffle(shuffled, new Random());
+
+        // Progressively add points to circle or recompute circle
+        Circle c = null;
+        for (int i = 0; i < shuffled.size(); i++) {
+            Point p = shuffled.get(i);
+            if (c == null || !c.contains(p))
+                c = makeCircleOnePoint(shuffled.subList(0, i + 1), p);
+        }
         return c;
     }
 
-    private float dist(Point p1, Point p2){
-        return (float)Math.sqrt(Math.pow(p1.x-p2.x,2)+Math.pow((p1.y-p2.y),2));
-    }
-    private Boolean is_inside(Circle c, Point p1){
-        return dist(c.p,p1)<=c.R;
-
-    }
-    public Point get_circle_center(float bx, float by, float cx, float cy)
-    {
-        float B = bx * bx + by * by;
-        float C = cx * cx + cy * cy;
-        float D = bx * cy - by * cx;
-        return  new Point(((cy * B - by * C) / (2 * D)),((bx * C - cx * B) / (2 * D)));
-    }
-    public Circle circle_from(Point A, Point B,Point C){
-        Point I = new Point(get_circle_center(B.x - A.x, B.y - A.y,
-                C.x - A.x, C.y - A.y).x,get_circle_center(B.x - A.x, B.y - A.y,
-                C.x - A.x, C.y - A.y).y);
-        Point f=new Point(I.x + A.x,I.y + A.y);
-        return new Circle(f, dist(f, A)) ;
-    }
-    public Circle circle_from(Point A, Point B) {
-        Point c= new Point((A.x+B.x)/2.0f,(A.y+B.y)/2.0f);
-        return new Circle(c,dist(A,B)/2.0f);
-    }
-    public boolean is_valid_circle(Circle c,ArrayList<Point>arr){
-        for(Point p:arr){
-            if(!is_inside(c,p))
-                return false;
-        }
-        return true;
-    }
-    public Circle min_circle(ArrayList<Point>arr){
-        if(arr.size()==0)
-            return new Circle(new Point(0,0),0);
-        else if(arr.size()==1){
-            return new Circle(arr.get(0),0);
-        }
-        else if(arr.size()==2){
-            return circle_from(arr.get(0),arr.get(1));
-        }
-        int i,j;
-        for(i=0;i<3;i++){
-            for(j=i+1;j<3;j++){
-                Circle c =new Circle(circle_from(arr.get(i),arr.get(j)));
-                if(is_valid_circle(c,arr))
-                    return c;
+    private static Circle makeCircleOnePoint(List<Point> points, Point p) {
+        Circle c = new Circle(p, 0);
+        for (int i = 0; i < points.size(); i++) {
+            Point q = points.get(i);
+            if (!c.contains(q)) {
+                if (c.r == 0)
+                    c = makeDiameter(p, q);
+                else
+                    c = makeCircleTwoPoints(points.subList(0, i + 1), p, q);
             }
         }
-        return new Circle(circle_from(arr.get(0),arr.get(1),arr.get(2)));
+        return c;
     }
-    public Circle welzl_help(ArrayList<Point> arr1,ArrayList<Point> arr2,int size){
-        if(size==0||arr2.size()==3)
-            return min_circle(arr2);
-        Random r=new Random(size+1);
-        int index=r.nextInt();
-        Point p=new Point(arr1.get(index).x,arr1.get(index).y);
-        Collections.swap(arr1,index,size-1);
-        Circle d =new Circle(welzl_help(arr1,arr2,size-1));
-        if(is_inside(d,p))
-            return d;
-        arr2.add(p);
-        return welzl_help(arr1,arr2,size-1);
-    }
-    public Circle welzl(ArrayList<Point>p){
-        ArrayList<Point>p_copy=new ArrayList<>();
-        for(Point p1:p){
-            p_copy.add(p1);
+
+    private static Circle makeCircleTwoPoints(List<Point> points, Point p, Point q) {
+        Circle circ = makeDiameter(p, q);
+        Circle left = null;
+        Circle right = null;
+
+        // For each point not in the two-point circle
+        Point pq = q.subtract(p);
+        for (Point r : points) {
+            if (circ.contains(r))
+                continue;
+
+            // Form a circumcircle and classify it on left or right side
+            double cross = pq.cross(r.subtract(p));
+            Circle c = makeCircumcircle(p, q, r);
+            if (c == null)
+                continue;
+            else if (cross > 0 && (left == null || pq.cross(c.c.subtract(p)) > pq.cross(left.c.subtract(p))))
+                left = c;
+            else if (cross < 0 && (right == null || pq.cross(c.c.subtract(p)) < pq.cross(right.c.subtract(p))))
+                right = c;
         }
-        Collections.shuffle(p_copy);
-        return welzl_help(p_copy,null,p.size());
+
+        // Select which circle to return
+        if (left == null && right == null)
+            return circ;
+        else if (left == null)
+            return right;
+        else if (right == null)
+            return left;
+        else
+            return left.r <= right.r ? left : right;
     }
-    public void learnNormal(TimeSeries ts){
-        Point[]points=new Point[ts.getDataTable().get(0).valuesList.size()];
-        ArrayList<Point>col1=new ArrayList<>();
-        Collections.addAll(col1, SimpleAnomalyDetector.CreatPointsArr(ts.getDataTable().get(0).valuesList,ts.getDataTable().get(1).valuesList));
-        c= new Circle(welzl(col1));
+
+    static Circle makeDiameter(Point a, Point b) {
+        Point c = new Point((a.x + b.x) / 2, (a.y + b.y) / 2);
+        return new Circle(c, Math.max(c.distance(a), c.distance(b)));
     }
-    public List<AnomalyReport> detect(TimeSeries ts){
-        List<AnomalyReport> l=new ArrayList<>();
-        Point[]points=new Point[ts.getDataTable().get(0).valuesList.size()];
-        SimpleAnomalyDetector.CreatPointsArr(ts.getDataTable().get(0).valuesList,ts.getDataTable().get(1).valuesList);
-        long time=1;
-        for(Point p:points){
-            if(!is_inside(c,p)){
-                AnomalyReport a=new AnomalyReport(ts.getDataTable().get(0).featureName+"-"+ts.getDataTable().get(1).featureName,time);
+
+    static Circle makeCircumcircle(Point a, Point b, Point c) {
+        // Mathematical algorithm from Wikipedia: Circumscribed circle
+        double ox = (Math.min(Math.min(a.x, b.x), c.x) + Math.max(Math.max(a.x, b.x), c.x)) / 2;
+        double oy = (Math.min(Math.min(a.y, b.y), c.y) + Math.max(Math.max(a.y, b.y), c.y)) / 2;
+        double ax = a.x - ox, ay = a.y - oy;
+        double bx = b.x - ox, by = b.y - oy;
+        double cx = c.x - ox, cy = c.y - oy;
+        double d = (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by)) * 2;
+        if (d == 0)
+            return null;
+        double x = ((ax * ax + ay * ay) * (by - cy) + (bx * bx + by * by) * (cy - ay) + (cx * cx + cy * cy) * (ay - by)) / d;
+        double y = ((ax * ax + ay * ay) * (cx - bx) + (bx * bx + by * by) * (ax - cx) + (cx * cx + cy * cy) * (bx - ax)) / d;
+        Point p = new Point((float) (ox + x), (float) (oy + y));
+        double r = Math.max(Math.max(p.distance(a), p.distance(b)), p.distance(c));
+        return new Circle(p, r);
+    }
+
+    public void learnNormal(TimeSeries ts) {
+
+        ArrayList<Point> col1 = new ArrayList<>();
+        Collections.addAll(col1, SimpleAnomalyDetector.CreatPointsArr(ts.getDataTable().get(0).valuesList, ts.getDataTable().get(1).valuesList));
+        cir1 = new Circle(this.makeCircle(col1));
+        this.feat1=ts.getDataTable().get(0).featureName;
+        this.feat2=ts.getDataTable().get(1).featureName;
+    }
+
+    public List<AnomalyReport> detect(TimeSeries ts) {
+        List<AnomalyReport> l = new ArrayList<>();
+        Point[] points = new Point[ts.getDataTable().get(0).valuesList.size()];
+        points = SimpleAnomalyDetector.CreatPointsArr(ts.getDataTable().get(0).valuesList, ts.getDataTable().get(1).valuesList);
+        long time = 1;
+        for (Point p : points) {
+            if (!cir1.contains(p)) {
+                AnomalyReport a = new AnomalyReport(ts.getDataTable().get(0).featureName + "-" + ts.getDataTable().get(1).featureName, time);
                 l.add(a);
             }
             time++;
@@ -119,4 +119,19 @@ public class Welzl implements TimeSeriesAnomalyDetector {
         return l;
     }
 
+    public String getFeat1() {
+        return feat1;
+    }
+
+    public void setFeat1(String feat1) {
+        this.feat1 = feat1;
+    }
+
+    public String getFeat2() {
+        return feat2;
+    }
+
+    public void setFeat2(String feat2) {
+        this.feat2 = feat2;
+    }
 }

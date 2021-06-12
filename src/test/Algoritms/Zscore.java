@@ -3,10 +3,46 @@ package test.Algoritms;
 import test.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Zscore implements TimeSeriesAnomalyDetector {
-    List<Float> cols_treshould = new ArrayList();
+
+    public class Title {
+        String name;
+        float val;
+
+        public Title(String name, float val) {
+            this.name = name;
+            this.val = val;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public float getVal() {
+            return val;
+        }
+
+        public void setVal(float val) {
+            this.val = val;
+        }
+    }
+
+    private HashMap<Integer, Title> cols_treshould = new HashMap<>();
+
+    public HashMap<Integer, Title> getCols_treshould() {
+        return cols_treshould;
+    }
+
+    public void setCols_treshould(HashMap<Integer, Title> cols_treshould) {
+        this.cols_treshould = cols_treshould;
+    }
 
     public float[] madeARR(float[] arr, int size) {
         float[] a = new float[size];
@@ -19,23 +55,27 @@ public class Zscore implements TimeSeriesAnomalyDetector {
     @Override
     public void learnNormal(TimeSeries ts) {
         int size = ts.getDataTable().size();
-        float[] cols_Avg = new float[size];
-        float avg, avgsum,zs,dev,max;
+        float sd, avg, zs, max;
         for (int i = 0; i < size; i++) {
             List<Float> currentList = ts.getDataTable().get(i).valuesList;
-            max = Math.abs(currentList.get(0));//the first number
-            avg = 0;
-            avgsum = 0;
+            avg = StatLib.avg(SimpleAnomalyDetector.ListToArray(currentList));
+            if ((StatLib.var(SimpleAnomalyDetector.ListToArray(currentList))) <= 0)
+                sd = 0;
+            else
+                sd = (float) Math.sqrt(StatLib.var(SimpleAnomalyDetector.ListToArray(currentList)));
+            if (sd == 0)
+                max = 0;
+            else
+                max = Math.abs((currentList.get(0) - avg) / sd);//the first number
             for (int j = 1; j < currentList.size(); j++) {
-                avgsum += currentList.get(j - 1);
-                avg = avgsum / j;
-                float variance = StatLib.var(madeARR(SimpleAnomalyDetector.ListToArray(currentList), j));
-                dev = (float) Math.sqrt(variance);
-                zs = (float) (Math.abs(currentList.get(j) - avg) / dev);
+                if (sd == 0)
+                    zs = 0;
+                else
+                    zs = Math.abs((currentList.get(i) - avg) / sd);
                 if (zs > max)
                     max = zs;
             }
-            cols_treshould.add(max);
+            cols_treshould.put(i, new Title(ts.getDataTable().get(i).getFeatureName(), max));
 
         }
     }
@@ -44,20 +84,17 @@ public class Zscore implements TimeSeriesAnomalyDetector {
     public List<AnomalyReport> detect(TimeSeries ts) {
         List<AnomalyReport> AnomalyReportList = new ArrayList<>();
         int size = ts.getDataTable().size();
-        float[] cols_Avg = new float[size];
-        float avg, avgsum,max;
+        float sd, avg, zs, max;
         for (int i = 0; i < size; i++) {
             List<Float> currentList = ts.getDataTable().get(i).valuesList;
-            max = Math.abs(currentList.get(0));//the first number
-            avg = 0;
-            avgsum = 0;
-            for (int j = 1; j < currentList.size(); j++) {
-                avgsum += currentList.get(j - 1);
-                avg = avgsum / j;
-                float variance = StatLib.var(madeARR(SimpleAnomalyDetector.ListToArray(currentList), j));
-                float dev = (float) Math.sqrt(variance);
-                float zs = (float) (Math.abs(currentList.get(j) - avg) / dev);
-                if (zs > cols_treshould.get(i)) {
+            avg = StatLib.avg(SimpleAnomalyDetector.ListToArray(currentList));
+            sd = (float) Math.sqrt(StatLib.var(SimpleAnomalyDetector.ListToArray(currentList)));
+            for (int j = 0; j < currentList.size(); j++) {
+                if (sd == 0)
+                    zs = 0;
+                else
+                    zs = Math.abs((currentList.get(i) - avg) / sd);
+                if (zs > cols_treshould.get(i).val) {
                     String description = ts.getDataTable().get(i).featureName;
                     long time = j + 1;
                     AnomalyReport newReport = new AnomalyReport(description, time);

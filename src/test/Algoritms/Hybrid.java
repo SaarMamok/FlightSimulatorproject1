@@ -17,6 +17,7 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
     public ArrayList<Zscore>zscorelist=new ArrayList<>();
     public ArrayList<Welzl>welzllist=new ArrayList<>();
     public HashMap<Integer,Integer>corvalues=new HashMap<>();
+    private HashMap<String,Integer> Hashvalues=new HashMap<>();
 
     public void learnNormal(TimeSeries ts) {
         String coreFeature = null;
@@ -47,7 +48,6 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
                 Zscore z=new Zscore();
                 z.learnNormal(zs);
                 zscorelist.add(z);
-
             }
             else{
                 TimeSeries Wl=new TimeSeries(ts.getDataTable().get(i),ts.getDataTable().get(indexfeature));
@@ -56,19 +56,29 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
                 welzllist.add(W);
 
             }
+            Hashvalues.put(ts.getDataTable().get(i).getFeatureName(),i);
         }
+        Hashvalues.put(ts.getDataTable().get(i).getFeatureName(),i);
     }
+
+
     public List<AnomalyReport> detect(TimeSeries ts) {
         List<AnomalyReport> l=new ArrayList<>();
+        int feat1,feat2;
         int i;
         for(i=0; i< this.simple.size(); i++) {
-            l.addAll(simple.get(i).detect(ts));
+            feat1=Hashvalues.get(simple.get(i).corFeatures.get(0).feature1);
+            feat2=Hashvalues.get(simple.get(i).corFeatures.get(0).feature2);
+            l.addAll(simple.get(i).detect(new TimeSeries(ts.getDataTable().get(feat1),ts.getDataTable().get(feat2))));
         }
         for(i=0;i<zscorelist.size();i++){
-            l.addAll(zscorelist.get(i).detect(ts));
+            feat1=Hashvalues.get(zscorelist.get(i).getCols_treshould().get(0).name);
+            l.addAll(zscorelist.get(i).detect(new TimeSeries(ts.getDataTable().get(feat1))));
         }
         for(i=0;i<welzllist.size();i++){
-            l.addAll(welzllist.get(i).detect(ts));
+            feat1=Hashvalues.get(welzllist.get(i).getFeat1());
+            feat2=Hashvalues.get(welzllist.get(i).getFeat2());
+            l.addAll(welzllist.get(i).detect(new TimeSeries(ts.getDataTable().get(feat1),ts.getDataTable().get(feat2))));
         }
         return l;
     }
