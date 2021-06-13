@@ -148,6 +148,7 @@ public class ViewModel extends Observable implements Observer {
             this.leftval.set(this.model.getLeftval());
             this.rightval.set(this.model.getRightval());
 
+
           });
         }
        /* else{

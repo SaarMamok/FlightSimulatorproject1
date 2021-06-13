@@ -17,11 +17,12 @@ public class Model extends Observable {
     protected Thread theThread;
     private int index,time,corindex;
     private int localtime=0;
-    private float throttle,rudder,elevators,aileron,listvalue,corvalue;
+    private float throttle,rudder,elevators,aileron,listvalue,corvalue,Xnormal,Ynormal;
     private double altitude,speed,direction,roll,pitch,yaw;
     private String leftval,rightval;
     protected ActiveObjectCommon ao;
     public TimeSeriesAnomalyDetector t;
+    private TimeSeries learn;
     public Model(){
 
         XMLDecoder decoder = null;
@@ -102,8 +103,9 @@ public class Model extends Observable {
     }
     public void SetAnomaly(Class<?> c) throws IllegalAccessException, InstantiationException {
         this.t=(TimeSeriesAnomalyDetector)c.newInstance();
-        t.learnNormal(new TimeSeries(prop.getLearnpath()));
-        int x=8;
+        this.learn=new TimeSeries(prop.getLearnpath());
+        t.learnNormal(learn);
+
     }
    public void play(int r){
         ao=new ActiveObjectCommon();
@@ -140,6 +142,8 @@ public class Model extends Observable {
                 this.corvalue=ts.getDataTable().get(corindex).valuesList.get(time);
                 this.leftval=ts.getDataTable().get(index).featureName;
                 this.rightval=ts.getDataTable().get(corindex).featureName;
+
+
                 this.setChanged();
                 this.notifyObservers();
                 ao.execute(()->{
