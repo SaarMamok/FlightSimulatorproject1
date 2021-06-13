@@ -10,4 +10,11 @@ public class Line {
 		return a*x+b;
 	}
 
+	public float getA() {
+		return a;
+	}
+
+	public float getB() {
+		return b;
+	}
 }

@@ -25,7 +25,7 @@ public class ViewModel extends Observable implements Observer {
   private TimeSeries ts;
   private  Model model;
 
-  public StringProperty leftval,rightval;
+  public StringProperty leftval,rightval,Algname;
   public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
   public IntegerProperty index,corindex,time;
   public FloatProperty listvalue,corvalue,rate;
@@ -53,6 +53,7 @@ public class ViewModel extends Observable implements Observer {
   rate=new SimpleFloatProperty();
   leftval=new SimpleStringProperty();
   rightval=new SimpleStringProperty();
+  Algname=new SimpleStringProperty();
     }
     public DoubleProperty getAileron(){
     return this.aileron;
@@ -82,6 +83,7 @@ public class ViewModel extends Observable implements Observer {
             new URL("file://"+input)
     });
     Class<?> c=urlClassLoader.loadClass(className);
+    Algname.setValue(c.getName());
     model.SetAnomaly(c);
 
   }
