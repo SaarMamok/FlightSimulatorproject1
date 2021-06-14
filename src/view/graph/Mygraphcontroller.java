@@ -23,16 +23,14 @@ public class Mygraphcontroller {
     @FXML
     LineChart rightgraph;
     @FXML
-    ScatterChart<Number,Number> algo;
-    public NumberAxis xAxis = new NumberAxis();
-    public NumberAxis yAxis = new NumberAxis();
+    ScatterChart algo;
     public FloatProperty listvalue;
     public IntegerProperty time;
     final int size=10;
     public Mygraphcontroller() {
         listvalue=new SimpleFloatProperty();
         time=new SimpleIntegerProperty();
-        algo=new ScatterChart<>(xAxis,yAxis);
+
     }
 
 
@@ -42,8 +40,8 @@ public class Mygraphcontroller {
     public void AddtoGraph(XYChart.Series ser,String t,Number v) {
         Platform.runLater(()->ser.getData().add(new XYChart.Data<String, Number>(t, v)));
     }
-    public void SimpleAnomalyDetectorGraph(XYChart.Series ser,float x,float y){
-        Platform.runLater(()->ser.getData().add(new XYChart.Data(x, y)));
+    public void SimpleAnomalyDetectorGraph(XYChart.Series ser,Float x,Float y){
+        Platform.runLater(()->ser.getData().add(new XYChart.Data(x.toString(), y)));
     }
 
 

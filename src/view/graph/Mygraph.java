@@ -61,8 +61,7 @@ public class Mygraph extends Pane {
                 mygraphcontroller.AddtoGraph(series,time.getValue().toString(),listvalue.getValue());
                 mygraphcontroller.AddtoGraph(series2,time.getValue().toString(),corvalue.getValue());
                 if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0)
-                    //mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries,listvalue.getValue() ,corvalue.getValue() );
-                    Platform.runLater(()->algoseries.getData().add(new XYChart.Data(listvalue.getValue() ,corvalue.getValue())));
+                    mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries,listvalue.getValue() ,corvalue.getValue() );
             });
             //this.time.addListener((o,ov,nv)->mygraphcontroller.AddtoGraph());
 
