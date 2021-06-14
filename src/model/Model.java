@@ -1,6 +1,7 @@
 package model;
 
 import properties.Settings;
+import test.Algoritms.Zscore;
 import test.SimpleAnomalyDetector;
 import test.TimeSeries;
 import test.TimeSeriesAnomalyDetector;
@@ -18,12 +19,13 @@ public class Model extends Observable {
     protected Thread theThread;
     private int index,time,corindex;
     private int localtime=0;
-    private float throttle,rudder,elevators,aileron,listvalue,corvalue,x1line,x2line,y1line,y2line;
+    private float throttle,rudder,elevators,aileron,listvalue,corvalue,x1line,x2line,y1line,y2line,zvalue;
     private double altitude,speed,direction,roll,pitch,yaw;
-    private String leftval,rightval;
+    private String leftval,rightval,detectorname;
     protected ActiveObjectCommon ao;
     public SimpleAnomalyDetector t;
-    private TimeSeries learn;
+    public Zscore z;
+    private TimeSeries learnTimeSeries;
     public Model(){
 
         XMLDecoder decoder = null;
@@ -35,6 +37,7 @@ public class Model extends Observable {
             fGplayer.setSettings(prop);
             this.rate=prop.getSleep();
             this.ratedisplay=rate;
+            this.detectorname="";
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -103,9 +106,17 @@ public class Model extends Observable {
         this.ratedisplay-=500;
     }
     public void SetAnomaly(Class<?> c) throws IllegalAccessException, InstantiationException {
-        this.t=(SimpleAnomalyDetector) c.newInstance();
-        this.learn=new TimeSeries(prop.getLearnpath());
-        t.learnNormal(learn);
+        this.learnTimeSeries = new TimeSeries(prop.getLearnpath());
+        if(c.getClass().getName().compareTo("SimpleAnomalyDetector")==0) {
+            this.t = (SimpleAnomalyDetector) c.newInstance();
+            t.learnNormal(learnTimeSeries);
+            detectorname="SimpleAnomalyDetector";
+        }
+        else if(c.getClass().getName().compareTo("Zscore")==0){
+            this.z = (Zscore) c.newInstance();
+            z.learnNormal(learnTimeSeries);
+            detectorname="Zscore";
+        }
 
 
     }
@@ -146,11 +157,14 @@ public class Model extends Observable {
                 this.rightval=ts.getDataTable().get(corindex).featureName;
 
 
-
-                this.y2line=t.getCorFeatures().get(index).lin_reg.f(-1);
-                this.x2line=-1;
-                this.y1line=t.getCorFeatures().get(index).lin_reg.f(1);
-                this.x1line=1;
+                if(detectorname.compareTo("SimpleAnomalyDetector")==0) {
+                    this.y2line = t.getCorFeatures().get(index).lin_reg.f(-1);
+                    this.x2line = -1;
+                    this.y1line = t.getCorFeatures().get(index).lin_reg.f(1);
+                    this.x1line = 1;
+                }
+                else if(detectorname.compareTo("Zscore")==0)
+                    zvalue=this.z.getZhash().get(index).get(time);
 
                 this.setChanged();
                 this.notifyObservers();
@@ -256,5 +270,9 @@ public class Model extends Observable {
 
     public float getY2line() {
         return y2line;
+    }
+
+    public float getZvalue() {
+        return zvalue;
     }
 }

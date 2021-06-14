@@ -20,7 +20,7 @@ import java.awt.geom.Line2D;
 import java.io.IOException;
 
 public class Mygraph extends Pane {
-    public FloatProperty listvalue,x1line,x2line,y1line,y2line;;
+    public FloatProperty listvalue,x1line,x2line,y1line,y2line,zvalue;
     public FloatProperty corvalue;
     public IntegerProperty time;
     public StringProperty lefttitle;
@@ -33,10 +33,13 @@ public class Mygraph extends Pane {
     public ScatterChart<Number,Number> algo;
     @FXML
     public LineChart linegraph;
+    @FXML
+    public LineChart zscoregraph;
     public XYChart.Series <Number,Number>algoseries;
     public XYChart.Series series;
     public XYChart.Series series2;
     public XYChart.Series seriesline;
+    public XYChart.Series zscoreseries;
 
     public Mygraph() {
         super();
@@ -51,6 +54,7 @@ public class Mygraph extends Pane {
             this.lefttitle=new SimpleStringProperty();
             this.righttitle=new SimpleStringProperty();
             this.Algname=new SimpleStringProperty();
+            this.zvalue=new SimpleFloatProperty();
             x1line=new SimpleFloatProperty();
             x2line=new SimpleFloatProperty();
             y1line=new SimpleFloatProperty();
@@ -59,13 +63,16 @@ public class Mygraph extends Pane {
             rightgraph=mygraphcontroller.rightgraph;
             algo=mygraphcontroller.algo;
             linegraph=mygraphcontroller.linegraph;
+            zscoregraph=mygraphcontroller.zscoregraph;
             mygraphcontroller.listvalue.bind(this.listvalue);
             mygraphcontroller.time.bind(this.time);
             series=new XYChart.Series();
             series2=new XYChart.Series();
             algoseries =new XYChart.Series();
             seriesline=new XYChart.Series();
+            zscoreseries=new XYChart.Series();
             this.linegraph.getData().add(seriesline);
+            this.zscoregraph.getData().add(zscoreseries);
             this.lefttitle.addListener((o,ov,nv)->series.setName(this.lefttitle.getValue()));
             this.righttitle.addListener((o,ov,nv)-> {
                 series2.setName(this.righttitle.getValue());
@@ -82,7 +89,14 @@ public class Mygraph extends Pane {
                 mygraphcontroller.AddtoGraph(series2,time.getValue().toString(),corvalue.getValue());
                         if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0)
                             mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries,listvalue.getValue() ,corvalue.getValue() );
+                        else if(Algname.getValue().compareTo("test.Algoritms.Zscore")==0)
+                        {
+                            linegraph.setVisible(false);
+                            algo.setVisible(false);
+                            mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
+                        }
                     });
+
             //this.time.addListener((o,ov,nv)->mygraphcontroller.AddtoGraph());
             this.getChildren().add(root);
 

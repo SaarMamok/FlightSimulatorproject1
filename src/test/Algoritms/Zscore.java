@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Zscore implements TimeSeriesAnomalyDetector {
     public Zscore() {
+        zhash=new HashMap<>();
     }
 
     public class Title {
@@ -46,6 +47,7 @@ public class Zscore implements TimeSeriesAnomalyDetector {
         this.cols_treshould = cols_treshould;
     }
 
+    private HashMap<Integer,ArrayList<Float>>zhash;
     public float[] madeARR(float[] arr, int size) {
         float[] a = new float[size];
         for (int i = 0; i < size; i++) {
@@ -56,9 +58,11 @@ public class Zscore implements TimeSeriesAnomalyDetector {
 
     @Override
     public void learnNormal(TimeSeries ts) {
+        ArrayList<Float>temp;
         int size = ts.getDataTable().size();
         float sd, avg, zs, max;
         for (int i = 0; i < size; i++) {
+            temp=new ArrayList<>();
             List<Float> currentList = ts.getDataTable().get(i).valuesList;
             avg = StatLib.avg(SimpleAnomalyDetector.ListToArray(currentList));
             if ((StatLib.var(SimpleAnomalyDetector.ListToArray(currentList))) <= 0)
@@ -69,6 +73,7 @@ public class Zscore implements TimeSeriesAnomalyDetector {
                 max = 0;
             else
                 max = Math.abs((currentList.get(0) - avg) / sd);//the first number
+            temp.add(max);
             for (int j = 1; j < currentList.size(); j++) {
                 if (sd == 0)
                     zs = 0;
@@ -76,7 +81,9 @@ public class Zscore implements TimeSeriesAnomalyDetector {
                     zs = Math.abs((currentList.get(i) - avg) / sd);
                 if (zs > max)
                     max = zs;
+                temp.add(zs);
             }
+            zhash.put(i,temp);
             cols_treshould.put(i, new Title(ts.getDataTable().get(i).getFeatureName(), max));
 
         }
@@ -106,5 +113,9 @@ public class Zscore implements TimeSeriesAnomalyDetector {
 
         }
         return AnomalyReportList;
+    }
+
+    public HashMap<Integer, ArrayList<Float>> getZhash() {
+        return zhash;
     }
 }

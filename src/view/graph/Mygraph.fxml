@@ -8,6 +8,14 @@
 
 <Pane fx:id="graphalg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graph.Mygraphcontroller">
    <children>
+      <LineChart fx:id="zscoregraph" layoutX="166.0" layoutY="297.0" prefHeight="334.0" prefWidth="466.0">
+        <xAxis>
+          <NumberAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
       <LineChart fx:id="leftgraph" layoutY="14.0" prefHeight="283.0" prefWidth="393.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
@@ -24,12 +32,12 @@
             <NumberAxis side="LEFT" />
          </yAxis>
       </LineChart>
-      <ScatterChart fx:id="algo" layoutX="166.0" layoutY="297.0" prefHeight="334.0" prefWidth="466.0" >
+      <ScatterChart fx:id="algo" layoutX="166.0" layoutY="297.0" prefHeight="334.0" prefWidth="466.0">
         <xAxis>
-          <NumberAxis lowerBound="-1" side="BOTTOM" upperBound="1"/>
+          <NumberAxis lowerBound="-1" side="BOTTOM" upperBound="1" />
         </xAxis>
         <yAxis>
-          <NumberAxis lowerBound="-1" side="LEFT" upperBound="1"  />
+          <NumberAxis lowerBound="-1" side="LEFT" upperBound="1" />
         </yAxis>
       </ScatterChart>
       <LineChart fx:id="linegraph" alternativeRowFillVisible="false" blendMode="OVERLAY" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="166.0" layoutY="297.0" prefHeight="334.0" prefWidth="466.0" verticalGridLinesVisible="false" verticalZeroLineVisible="false">

@@ -25,37 +25,44 @@ public class Mygraphcontroller {
     @FXML
     LineChart rightgraph;
     @FXML
-    ScatterChart <Number,Number>algo;
+    ScatterChart<Number, Number> algo;
     @FXML
     LineChart linegraph;
+    @FXML
+    public LineChart zscoregraph;
     public FloatProperty listvalue;
     public IntegerProperty time;
-    final int size=10;
+    final int size = 10;
     private int counter;
+
     public Mygraphcontroller() {
-        listvalue=new SimpleFloatProperty();
-        time=new SimpleIntegerProperty();
+        listvalue = new SimpleFloatProperty();
+        time = new SimpleIntegerProperty();
 
     }
 
 
-
-
-
-    public void AddtoGraph(XYChart.Series ser,String t,Number v) {
-        Platform.runLater(()->ser.getData().add(new XYChart.Data<String, Number>(t, v)));
+    public void AddtoGraph(XYChart.Series ser, String t, Number v) {
+        Platform.runLater(() -> ser.getData().add(new XYChart.Data<String, Number>(t, v)));
     }
-    public void SimpleAnomalyDetectorGraph(XYChart.Series ser,Float x,Float y){
-        Platform.runLater(()->{
+
+    public void SimpleAnomalyDetectorGraph(XYChart.Series ser, Float x, Float y) {
+        Platform.runLater(() -> {
             ser.getData().add(new XYChart.Data(x, y));
             counter++;
-            if(counter==30){
+            if (counter == 30) {
                 ser.getData().clear();
-                counter=0;
+                counter = 0;
             }
         });
 
     }
 
+    public void ZscoreGraphadd(XYChart.Series ser, Float x, Float y) {
+        Platform.runLater(() -> {
+            ser.getData().add(new XYChart.Data(x, y));
+        });
 
+
+    }
 }

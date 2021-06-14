@@ -125,7 +125,7 @@ public class Windowcontroller extends Observable {
         this.mygraph.x2line.bind(this.viewModel.x2line);
         this.mygraph.y1line.bind(this.viewModel.y1line);
         this.mygraph.y1line.bind(this.viewModel.y2line);
-
+        this.mygraph.zvalue.bind(this.viewModel.zvalue);
 
 
         this.mydashboard.yaw.bind(this.viewModel.yaw);
