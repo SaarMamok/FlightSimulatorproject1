@@ -29,7 +29,7 @@
           <CategoryAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis side="LEFT" upperBound="500.0" />
         </yAxis>
       </ScatterChart>
    </children>

@@ -64,7 +64,6 @@ public class Mygraph extends Pane {
                     mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries,listvalue.getValue() ,corvalue.getValue() );
             });
             //this.time.addListener((o,ov,nv)->mygraphcontroller.AddtoGraph());
-
             this.getChildren().add(root);
 
         } catch (IOException e) {

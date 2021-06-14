@@ -13,7 +13,7 @@ public class Model extends Observable {
     private int rate,ratedisplay;
     private TimeSeries ts;
     private Settings prop;
-     private FGplayer fGplayer;
+    private FGplayer fGplayer;
     protected Thread theThread;
     private int index,time,corindex;
     private int localtime=0;
