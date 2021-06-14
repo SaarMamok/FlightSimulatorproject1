@@ -18,8 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Mygraphcontroller {
-    NumberAxis xAxis = new NumberAxis();
-    NumberAxis yAxis = new NumberAxis();
+
     @FXML
     LineChart leftgraph;
     @FXML
@@ -30,6 +29,10 @@ public class Mygraphcontroller {
     LineChart linegraph;
     @FXML
     public LineChart zscoregraph;
+    @FXML
+    NumberAxis linex;
+    @FXML
+    NumberAxis liney;
     public FloatProperty listvalue;
     public IntegerProperty time;
     final int size = 10;

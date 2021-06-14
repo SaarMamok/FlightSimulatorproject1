@@ -34,10 +34,10 @@
       </LineChart>
       <ScatterChart fx:id="algo" layoutX="166.0" layoutY="297.0" prefHeight="334.0" prefWidth="466.0">
         <xAxis>
-          <NumberAxis lowerBound="-1" side="BOTTOM" upperBound="1" />
+          <NumberAxis fx:id="linex" lowerBound="-1" side="BOTTOM" upperBound="1" />
         </xAxis>
         <yAxis>
-          <NumberAxis lowerBound="-1" side="LEFT" upperBound="1" />
+          <NumberAxis fx:id="liney" lowerBound="-1" side="LEFT" upperBound="1" />
         </yAxis>
       </ScatterChart>
       <LineChart fx:id="linegraph" alternativeRowFillVisible="false" blendMode="OVERLAY" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="166.0" layoutY="297.0" prefHeight="334.0" prefWidth="466.0" verticalGridLinesVisible="false" verticalZeroLineVisible="false">

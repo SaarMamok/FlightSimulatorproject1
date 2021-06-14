@@ -41,6 +41,11 @@ public class Mygraph extends Pane {
     public XYChart.Series seriesline;
     public XYChart.Series zscoreseries;
 
+    @FXML
+    NumberAxis linex;
+    @FXML
+    NumberAxis liney;
+
     public Mygraph() {
         super();
 
@@ -64,6 +69,10 @@ public class Mygraph extends Pane {
             algo=mygraphcontroller.algo;
             linegraph=mygraphcontroller.linegraph;
             zscoregraph=mygraphcontroller.zscoregraph;
+            linex= mygraphcontroller.linex;
+            liney= mygraphcontroller.liney;
+            linex.setAutoRanging(false);
+            liney.setAutoRanging(false);
             mygraphcontroller.listvalue.bind(this.listvalue);
             mygraphcontroller.time.bind(this.time);
             series=new XYChart.Series();
@@ -79,6 +88,7 @@ public class Mygraph extends Pane {
                 Platform.runLater(()-> {
                     seriesline.getData().add(new XYChart.Data(this.x1line.getValue(), this.y1line.getValue()));
                     seriesline.getData().add(new XYChart.Data(this.x2line.getValue(), this.y2line.getValue()));
+                    System.out.println(this.x1line.getValue()+"" +this.y1line.getValue());
                 });
             });
             this.leftgraph.getData().add(series);
@@ -87,13 +97,20 @@ public class Mygraph extends Pane {
             this.time.addListener((o,ov,nv)-> {
                 mygraphcontroller.AddtoGraph(series,time.getValue().toString(),listvalue.getValue());
                 mygraphcontroller.AddtoGraph(series2,time.getValue().toString(),corvalue.getValue());
-                        if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0)
-                            mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries,listvalue.getValue() ,corvalue.getValue() );
+                        if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0) {
+                            mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
+
+                            zscoregraph.setVisible(false);
+                            linegraph.setVisible(true);
+                            algo.setVisible(true);
+                        }
                         else if(Algname.getValue().compareTo("test.Algoritms.Zscore")==0)
                         {
+                            zscoregraph.setVisible(true);
                             linegraph.setVisible(false);
                             algo.setVisible(false);
-                            mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
+                            System.out.println(zvalue.getValue());
+                            //mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
                         }
                     });
 

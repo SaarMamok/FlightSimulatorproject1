@@ -89,6 +89,7 @@ public class ViewModel extends Observable implements Observer {
     });
     Class<?> c=urlClassLoader.loadClass(className);
     Algname.setValue(c.getName());
+    System.out.println(Algname.getValue());
     model.SetAnomaly(c);
 
   }
@@ -152,13 +153,13 @@ public class ViewModel extends Observable implements Observer {
 
             this.leftval.set(this.model.getLeftval());
             this.rightval.set(this.model.getRightval());
-          if(Algname.getValue().compareTo("SimpleAnomalyDetector")==0) {
+          if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0) {
             this.x1line.setValue(this.model.getX1line());
             this.x2line.setValue(this.model.getX2line());
             this.y1line.setValue(this.model.getY1line());
             this.y2line.setValue(this.model.getY2line());
           }
-          else if(Algname.getValue().compareTo("Zscore")==0)
+          else if(Algname.getValue().compareTo("test.Algoritms.Zscore")==0)
             this.zvalue.setValue(this.model.getZvalue());
 
           });

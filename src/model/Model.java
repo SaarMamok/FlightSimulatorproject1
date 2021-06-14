@@ -107,12 +107,13 @@ public class Model extends Observable {
     }
     public void SetAnomaly(Class<?> c) throws IllegalAccessException, InstantiationException {
         this.learnTimeSeries = new TimeSeries(prop.getLearnpath());
-        if(c.getClass().getName().compareTo("SimpleAnomalyDetector")==0) {
+        System.out.println(c.getName()+" "+"1111");
+        if(c.getName().compareTo("test.SimpleAnomalyDetector")==0) {
             this.t = (SimpleAnomalyDetector) c.newInstance();
             t.learnNormal(learnTimeSeries);
             detectorname="SimpleAnomalyDetector";
         }
-        else if(c.getClass().getName().compareTo("Zscore")==0){
+        else if(c.getName().compareTo("test.Algoritms.Zscore")==0){
             this.z = (Zscore) c.newInstance();
             z.learnNormal(learnTimeSeries);
             detectorname="Zscore";
