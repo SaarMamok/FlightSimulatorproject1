@@ -1,6 +1,7 @@
 package model;
 
 import properties.Settings;
+import test.SimpleAnomalyDetector;
 import test.TimeSeries;
 import test.TimeSeriesAnomalyDetector;
 
@@ -17,11 +18,11 @@ public class Model extends Observable {
     protected Thread theThread;
     private int index,time,corindex;
     private int localtime=0;
-    private float throttle,rudder,elevators,aileron,listvalue,corvalue,Xnormal,Ynormal;
+    private float throttle,rudder,elevators,aileron,listvalue,corvalue,x1line,x2line,y1line,y2line;
     private double altitude,speed,direction,roll,pitch,yaw;
     private String leftval,rightval;
     protected ActiveObjectCommon ao;
-    public TimeSeriesAnomalyDetector t;
+    public SimpleAnomalyDetector t;
     private TimeSeries learn;
     public Model(){
 
@@ -102,9 +103,10 @@ public class Model extends Observable {
         this.ratedisplay-=500;
     }
     public void SetAnomaly(Class<?> c) throws IllegalAccessException, InstantiationException {
-        this.t=(TimeSeriesAnomalyDetector)c.newInstance();
+        this.t=(SimpleAnomalyDetector) c.newInstance();
         this.learn=new TimeSeries(prop.getLearnpath());
         t.learnNormal(learn);
+
 
     }
    public void play(int r){
@@ -143,6 +145,11 @@ public class Model extends Observable {
                 this.leftval=ts.getDataTable().get(index).featureName;
                 this.rightval=ts.getDataTable().get(corindex).featureName;
 
+
+                this.y1line=t.getCorFeatures().get(index).lin_reg.f(0);
+                this.x1line=0;
+                this.y2line=t.getCorFeatures().get(index).lin_reg.f(0);
+                this.x2line=0;
 
                 this.setChanged();
                 this.notifyObservers();

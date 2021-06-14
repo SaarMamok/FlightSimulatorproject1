@@ -17,20 +17,21 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Mygraphcontroller {
-
+    NumberAxis xAxis = new NumberAxis();
+    NumberAxis yAxis = new NumberAxis();
     @FXML
     LineChart leftgraph;
     @FXML
     LineChart rightgraph;
     @FXML
-    ScatterChart algo;
+    ScatterChart <Number,Number>algo;
     public FloatProperty listvalue;
     public IntegerProperty time;
     final int size=10;
+    private int counter;
     public Mygraphcontroller() {
         listvalue=new SimpleFloatProperty();
         time=new SimpleIntegerProperty();
-
     }
 
 
@@ -41,7 +42,15 @@ public class Mygraphcontroller {
         Platform.runLater(()->ser.getData().add(new XYChart.Data<String, Number>(t, v)));
     }
     public void SimpleAnomalyDetectorGraph(XYChart.Series ser,Float x,Float y){
-        Platform.runLater(()->ser.getData().add(new XYChart.Data(x.toString(), y)));
+        Platform.runLater(()->{
+            ser.getData().add(new XYChart.Data(x, y));
+            counter++;
+            if(counter==30){
+                ser.getData().clear();
+                counter=0;
+            }
+        });
+
     }
 
 

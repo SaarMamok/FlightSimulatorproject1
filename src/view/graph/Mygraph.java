@@ -26,7 +26,7 @@ public class Mygraph extends Pane {
     @FXML
     public LineChart rightgraph;
     @FXML
-    public ScatterChart algo;
+    public ScatterChart<Number,Number> algo;
     public XYChart.Series <Number,Number>algoseries;
     public XYChart.Series series;
     public XYChart.Series series2;
@@ -53,16 +53,18 @@ public class Mygraph extends Pane {
             series2=new XYChart.Series();
             algoseries =new XYChart.Series();
             this.lefttitle.addListener((o,ov,nv)->series.setName(this.lefttitle.getValue()));
-            this.righttitle.addListener((o,ov,nv)->series2.setName(this.righttitle.getValue()));
+            this.righttitle.addListener((o,ov,nv)-> {
+                series2.setName(this.righttitle.getValue());
+            });
             this.leftgraph.getData().add(series);
             this.rightgraph.getData().add(series2);
             this.algo.getData().add(algoseries);
             this.time.addListener((o,ov,nv)-> {
                 mygraphcontroller.AddtoGraph(series,time.getValue().toString(),listvalue.getValue());
                 mygraphcontroller.AddtoGraph(series2,time.getValue().toString(),corvalue.getValue());
-                if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0)
-                    mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries,listvalue.getValue() ,corvalue.getValue() );
-            });
+                        if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0)
+                            mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries,listvalue.getValue() ,corvalue.getValue() );
+                    });
             //this.time.addListener((o,ov,nv)->mygraphcontroller.AddtoGraph());
             this.getChildren().add(root);
 

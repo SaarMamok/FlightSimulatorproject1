@@ -26,7 +26,7 @@
       </LineChart>
       <ScatterChart fx:id="algo" layoutX="166.0" layoutY="297.0" prefHeight="334.0" prefWidth="466.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <NumberAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" upperBound="500.0" />
