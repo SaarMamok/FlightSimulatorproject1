@@ -146,10 +146,11 @@ public class Model extends Observable {
                 this.rightval=ts.getDataTable().get(corindex).featureName;
 
 
-                this.y1line=t.getCorFeatures().get(index).lin_reg.f(0);
-                this.x1line=0;
-                this.y2line=t.getCorFeatures().get(index).lin_reg.f(0);
-                this.x2line=0;
+
+                this.y2line=t.getCorFeatures().get(index).lin_reg.f(-1);
+                this.x2line=-1;
+                this.y1line=t.getCorFeatures().get(index).lin_reg.f(1);
+                this.x1line=1;
 
                 this.setChanged();
                 this.notifyObservers();
@@ -239,5 +240,21 @@ public class Model extends Observable {
     }
 
     public void slidermove(double t) {this.localtime=(int)t;
+    }
+
+    public float getX1line() {
+        return x1line;
+    }
+
+    public float getX2line() {
+        return x2line;
+    }
+
+    public float getY1line() {
+        return y1line;
+    }
+
+    public float getY2line() {
+        return y2line;
     }
 }

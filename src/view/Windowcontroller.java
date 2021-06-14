@@ -121,7 +121,10 @@ public class Windowcontroller extends Observable {
         this.mygraph.corvalue.bind(this.viewModel.corvalue);
         this.mygraph.time.bind(this.time);
         this.mygraph.Algname.bind(this.viewModel.Algname);
-
+        this.mygraph.x1line.bind(this.viewModel.x1line);
+        this.mygraph.x2line.bind(this.viewModel.x2line);
+        this.mygraph.y1line.bind(this.viewModel.y1line);
+        this.mygraph.y1line.bind(this.viewModel.y2line);
 
 
 

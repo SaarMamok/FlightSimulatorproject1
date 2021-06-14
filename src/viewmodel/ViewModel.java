@@ -28,7 +28,7 @@ public class ViewModel extends Observable implements Observer {
   public StringProperty leftval,rightval,Algname;
   public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
   public IntegerProperty index,corindex,time;
-  public FloatProperty listvalue,corvalue,rate;
+  public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,y2line;
 
   private HashMap<Integer,Integer> Hashcor=new HashMap<>();
 
@@ -54,6 +54,10 @@ public class ViewModel extends Observable implements Observer {
   leftval=new SimpleStringProperty();
   rightval=new SimpleStringProperty();
   Algname=new SimpleStringProperty();
+  x1line=new SimpleFloatProperty();
+  x2line=new SimpleFloatProperty();
+  y1line=new SimpleFloatProperty();
+  y2line=new SimpleFloatProperty();
     }
     public DoubleProperty getAileron(){
     return this.aileron;
@@ -147,6 +151,11 @@ public class ViewModel extends Observable implements Observer {
 
             this.leftval.set(this.model.getLeftval());
             this.rightval.set(this.model.getRightval());
+
+            this.x1line.setValue(this.model.getX1line());
+            this.x2line.setValue(this.model.getX2line());
+            this.y1line.setValue(this.model.getY1line());
+            this.y2line.setValue(this.model.getY2line());
 
 
           });

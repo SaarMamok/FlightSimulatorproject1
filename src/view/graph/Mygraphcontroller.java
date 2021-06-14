@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
@@ -25,6 +26,8 @@ public class Mygraphcontroller {
     LineChart rightgraph;
     @FXML
     ScatterChart <Number,Number>algo;
+    @FXML
+    LineChart linegraph;
     public FloatProperty listvalue;
     public IntegerProperty time;
     final int size=10;
@@ -32,6 +35,7 @@ public class Mygraphcontroller {
     public Mygraphcontroller() {
         listvalue=new SimpleFloatProperty();
         time=new SimpleIntegerProperty();
+
     }
 
 

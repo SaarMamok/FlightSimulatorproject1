@@ -5,6 +5,8 @@ import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
@@ -13,10 +15,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import view.attlist.AttListController;
 
+import java.awt.*;
+import java.awt.geom.Line2D;
 import java.io.IOException;
 
 public class Mygraph extends Pane {
-    public FloatProperty listvalue;
+    public FloatProperty listvalue,x1line,x2line,y1line,y2line;;
     public FloatProperty corvalue;
     public IntegerProperty time;
     public StringProperty lefttitle;
@@ -27,9 +31,12 @@ public class Mygraph extends Pane {
     public LineChart rightgraph;
     @FXML
     public ScatterChart<Number,Number> algo;
+    @FXML
+    public LineChart linegraph;
     public XYChart.Series <Number,Number>algoseries;
     public XYChart.Series series;
     public XYChart.Series series2;
+    public XYChart.Series seriesline;
 
     public Mygraph() {
         super();
@@ -44,17 +51,28 @@ public class Mygraph extends Pane {
             this.lefttitle=new SimpleStringProperty();
             this.righttitle=new SimpleStringProperty();
             this.Algname=new SimpleStringProperty();
+            x1line=new SimpleFloatProperty();
+            x2line=new SimpleFloatProperty();
+            y1line=new SimpleFloatProperty();
+            y2line=new SimpleFloatProperty();
             leftgraph=mygraphcontroller.leftgraph;
             rightgraph=mygraphcontroller.rightgraph;
             algo=mygraphcontroller.algo;
+            linegraph=mygraphcontroller.linegraph;
             mygraphcontroller.listvalue.bind(this.listvalue);
             mygraphcontroller.time.bind(this.time);
             series=new XYChart.Series();
             series2=new XYChart.Series();
             algoseries =new XYChart.Series();
+            seriesline=new XYChart.Series();
+            this.linegraph.getData().add(seriesline);
             this.lefttitle.addListener((o,ov,nv)->series.setName(this.lefttitle.getValue()));
             this.righttitle.addListener((o,ov,nv)-> {
                 series2.setName(this.righttitle.getValue());
+                Platform.runLater(()-> {
+                    seriesline.getData().add(new XYChart.Data(this.x1line.getValue(), this.y1line.getValue()));
+                    seriesline.getData().add(new XYChart.Data(this.x2line.getValue(), this.y2line.getValue()));
+                });
             });
             this.leftgraph.getData().add(series);
             this.rightgraph.getData().add(series2);
