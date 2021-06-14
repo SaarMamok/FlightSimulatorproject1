@@ -109,8 +109,8 @@ public class Mygraph extends Pane {
                             zscoregraph.setVisible(true);
                             linegraph.setVisible(false);
                             algo.setVisible(false);
-                            System.out.println(zvalue.getValue());
-                            //mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
+                            //System.out.println(zvalue.getValue());
+                            mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
                         }
                     });
 

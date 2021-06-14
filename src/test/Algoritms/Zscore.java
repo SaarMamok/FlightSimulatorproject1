@@ -78,7 +78,7 @@ public class Zscore implements TimeSeriesAnomalyDetector {
                 if (sd == 0)
                     zs = 0;
                 else
-                    zs = Math.abs((currentList.get(i) - avg) / sd);
+                    zs = Math.abs((currentList.get(j) - avg) / sd);
                 if (zs > max)
                     max = zs;
                 temp.add(zs);
