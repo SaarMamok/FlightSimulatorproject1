@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -15,55 +13,57 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<?import view.graph.Mygraph?>
+        <?import view.graph.Mygraph?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.geometry.Insets?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Windowcontroller">
 
 
 
    <bottom>
-      <Pane prefHeight="131.0" prefWidth="885.0" BorderPane.alignment="CENTER">
-      <TextField fx:id="speed" layoutX="559.0" layoutY="22.0" prefHeight="26.0" prefWidth="55" />
-      <Button fx:id="opencsv" layoutX="21.0" layoutY="20.0" mnemonicParsing="false" onAction="#Opencsv" text="Open csv file" />
-          <Button fx:id="openalg" layoutX="21.0" layoutY="-20" mnemonicParsing="false" onAction="#Choosealg" text="Choose algorithm" />
-      <Slider fx:id="timebar" layoutX="27.0" layoutY="75.0" prefHeight="24.0" blockIncrement="1" onMouseReleased="#slidermove" prefWidth="881.0" />
-      <Label layoutX="474.0" layoutY="26.0" text="Play speed" />
-      <Label fx:id="clock" layoutX="620.0" layoutY="26.0" />
-      <ImageView fx:id="play" fitHeight="24.0" fitWidth="38.0" layoutX="227.0" layoutY="23.0" onMouseClicked="#play" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="backwards" fitHeight="24.0" fitWidth="38.0" layoutX="181.0" layoutY="23.0" onMouseClicked="#backward" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="skipprev" fitHeight="24.0" fitWidth="38.0" layoutX="135.0" layoutY="23.0" onMouseClicked="#doublebackward" pickOnBounds="true"  preserveRatio="true" />
-      <ImageView fx:id="pause" fitHeight="24.0" fitWidth="38.0" layoutX="275.0" layoutY="23.0" onMouseClicked="#pause" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="stop" fitHeight="24.0" fitWidth="38.0" layoutX="325.0" layoutY="23.0" onMouseClicked="#stop" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="fastforward" fitHeight="24.0" fitWidth="38.0" layoutX="371.0" layoutY="23.0" onMouseClicked="#forward" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="skipnext" fitHeight="24.0" fitWidth="38.0" layoutX="419.0" layoutY="23.0" onMouseClicked="#doubleforward" pickOnBounds="true" preserveRatio="true" />
+      <Pane prefHeight="151.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+      <TextField fx:id="speed" layoutX="552.0" layoutY="49.0" prefHeight="26.0" prefWidth="55" />
+      <Button fx:id="opencsv" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#Opencsv" text="Open csv file" />
+          <Button fx:id="openalg" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#Choosealg" text="Choose algorithm" />
+      <Slider fx:id="timebar" blockIncrement="1" layoutX="20.0" layoutY="102.0" onMouseReleased="#slidermove" prefHeight="24.0" prefWidth="881.0" />
+      <Label layoutX="467.0" layoutY="53.0" text="Play speed" />
+      <Label fx:id="clock" layoutX="613.0" layoutY="53.0" />
+      <ImageView fx:id="play" fitHeight="24.0" fitWidth="38.0" layoutX="220.0" layoutY="50.0" onMouseClicked="#play" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="backwards" fitHeight="24.0" fitWidth="38.0" layoutX="174.0" layoutY="50.0" onMouseClicked="#backward" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="skipprev" fitHeight="24.0" fitWidth="38.0" layoutX="128.0" layoutY="50.0" onMouseClicked="#doublebackward" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pause" fitHeight="24.0" fitWidth="38.0" layoutX="268.0" layoutY="50.0" onMouseClicked="#pause" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="stop" fitHeight="24.0" fitWidth="38.0" layoutX="318.0" layoutY="50.0" onMouseClicked="#stop" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fastforward" fitHeight="24.0" fitWidth="38.0" layoutX="364.0" layoutY="50.0" onMouseClicked="#forward" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="skipnext" fitHeight="24.0" fitWidth="38.0" layoutX="412.0" layoutY="50.0" onMouseClicked="#doubleforward" pickOnBounds="true" preserveRatio="true" />
       </Pane>
    </bottom>
-   <right>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="600" prefWidth="600" BorderPane.alignment="CENTER">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350" prefWidth="350">
-               <children>
-                  <MyJoystick fx:id="myJoystick"></MyJoystick>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="250" prefWidth="550.0">
-             <children>
-                <Mydashboard fx:id="mydashboard"></Mydashboard>
-             </children>
-          </AnchorPane>
-        </items>
-         <BorderPane.margin>
-            <Insets right="100.0" />
-         </BorderPane.margin>
-      </SplitPane>
-   </right>
-   <left>
-    <AnchorPane>
-      <AttList fx:id="attributeslist"></AttList>
-    </AnchorPane>
-   </left>
+    <right>
+        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="600" prefWidth="600" BorderPane.alignment="CENTER">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350" prefWidth="350">
+                    <children>
+                        <MyJoystick fx:id="myJoystick"></MyJoystick>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="250" prefWidth="550.0">
+                    <children>
+                        <Mydashboard fx:id="mydashboard"></Mydashboard>
+                    </children>
+                </AnchorPane>
+            </items>
+            <BorderPane.margin>
+                <Insets right="100.0" />
+            </BorderPane.margin>
+        </SplitPane>
+    </right>
+    <left>
+        <AnchorPane>
+            <AttList fx:id="attributeslist"></AttList>
+        </AnchorPane>
+    </left>
     <center >
         <AnchorPane>
-        <Mygraph fx:id="mygraph"></Mygraph>
+            <Mygraph fx:id="mygraph"></Mygraph>
         </AnchorPane>
     </center>
 </BorderPane>
