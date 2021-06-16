@@ -97,6 +97,7 @@ public class Mygraph extends AnchorPane {
             });
             this.leftgraph.getData().add(series);
             this.rightgraph.getData().add(series2);
+
             this.algo.getData().add(algoseries);
             this.time.addListener((o,ov,nv)-> {
                 mygraphcontroller.AddtoGraph(series,time.getValue().toString(),listvalue.getValue());
