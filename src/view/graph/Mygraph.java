@@ -89,16 +89,20 @@ public class Mygraph extends AnchorPane {
             this.lefttitle.addListener((o,ov,nv)->series.setName(this.lefttitle.getValue()));
             this.righttitle.addListener((o,ov,nv)-> {
                 series2.setName(this.righttitle.getValue());
+
+            });
+            this.leftgraph.getData().add(series);
+            this.rightgraph.getData().add(series2);
+
+            this.algo.getData().add(algoseries);
+
+            this.lefttitle.addListener((o,ov,nv)->{
                 Platform.runLater(()-> {
                     seriesline.getData().add(new XYChart.Data(this.x1line.getValue(), this.y1line.getValue()));
                     seriesline.getData().add(new XYChart.Data(this.x2line.getValue(), this.y2line.getValue()));
 
                 });
             });
-            this.leftgraph.getData().add(series);
-            this.rightgraph.getData().add(series2);
-
-            this.algo.getData().add(algoseries);
             this.time.addListener((o,ov,nv)-> {
                 mygraphcontroller.AddtoGraph(series,time.getValue().toString(),listvalue.getValue());
                 mygraphcontroller.AddtoGraph(series2,time.getValue().toString(),corvalue.getValue());

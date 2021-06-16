@@ -44,18 +44,18 @@
             </LineChart>
             <ScatterChart fx:id="algo" layoutX="143.0" prefHeight="334.0" prefWidth="466.0">
                <xAxis>
-                  <NumberAxis fx:id="linex" lowerBound="-500" side="BOTTOM" upperBound="500" />
+                  <NumberAxis fx:id="linex" lowerBound="-100" side="BOTTOM" upperBound="100" />
                </xAxis>
                <yAxis>
-                  <NumberAxis fx:id="liney" lowerBound="-500" side="LEFT" upperBound="500" />
+                  <NumberAxis fx:id="liney" lowerBound="-100" side="LEFT" upperBound="100" />
                </yAxis>
             </ScatterChart>
             <LineChart fx:id="linegraph" alternativeRowFillVisible="false" blendMode="OVERLAY" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="143.0" prefHeight="334.0" prefWidth="466.0" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
                <xAxis>
-                  <NumberAxis  lowerBound="-500" side="BOTTOM" upperBound="500"  />
+                  <NumberAxis  lowerBound="-100" side="BOTTOM" upperBound="100"  />
                </xAxis>
                <yAxis>
-                  <NumberAxis lowerBound="-500" side="LEFT" upperBound="500"  />
+                  <NumberAxis lowerBound="-100" side="LEFT" upperBound="100"  />
                </yAxis>
             </LineChart>
          </children>

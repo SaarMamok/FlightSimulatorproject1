@@ -160,10 +160,10 @@ public class Model extends Observable {
 
 
                 if(detectorname.compareTo("SimpleAnomalyDetector")==0) {
-                    this.y2line = t.getCorFeatures().get(index).lin_reg.f(-1);
-                    this.x2line = -1;
-                    this.y1line = t.getCorFeatures().get(index).lin_reg.f(1);
-                    this.x1line = 1;
+                    this.y2line = t.getCorFeatures().get(index).lin_reg.f(-100);
+                    this.x2line = -100;
+                    this.y1line = t.getCorFeatures().get(index).lin_reg.f(100);
+                    this.x1line = 100;
                 }
                 else if(detectorname.compareTo("Zscore")==0) {
                     zvalue = this.z.getZhash().get(index).get(time);

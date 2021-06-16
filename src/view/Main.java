@@ -1,9 +1,11 @@
 package view;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import model.Model;
 import properties.Settings;
@@ -31,6 +33,7 @@ public class Main extends Application {
         Model m=new Model();
         ViewModel vm=new ViewModel(m);
         wc.init(vm);
+
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 1750  , 900));
         primaryStage.show();

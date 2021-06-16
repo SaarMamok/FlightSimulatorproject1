@@ -1,12 +1,10 @@
 package view;
 
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -61,9 +59,12 @@ public class Windowcontroller extends Observable {
     TextField speed;
     @FXML
     Label clock;
+    @FXML
+    ListView algolist;
     private File chosen;
     public IntegerProperty time;
     public FloatProperty rate;
+    public StringProperty alg;
     ViewModel viewModel;
     float sec=0,min=0,hour=0;
 
@@ -90,7 +91,18 @@ public class Windowcontroller extends Observable {
         return String.valueOf(number);
     }
 
+    public void algchoose(){
+         alg.setValue((String) algolist.getSelectionModel().getSelectedItem());
+    }
     public void init(ViewModel vm){
+
+        algolist.getItems().add("Simple Anomaly");
+        algolist.getItems().add("Zscore");
+        algolist.getItems().add("Hybrid");
+        alg=new SimpleStringProperty();
+
+       alg.addListener((o,ov,nv)->System.out.println("hey"));
+
         timebar.setMin(0);
         time=new SimpleIntegerProperty();
         this.viewModel=vm;
