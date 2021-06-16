@@ -27,6 +27,7 @@
       <Pane prefHeight="98.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
       <TextField fx:id="speed" layoutX="562.0" layoutY="12.0" prefHeight="26.0" prefWidth="55" />
       <Button fx:id="opencsv" layoutX="24.0" layoutY="10.0" mnemonicParsing="false" onAction="#Opencsv" text="Open csv file" />
+         <Button fx:id="openalg" layoutX="24" layoutY="-25" mnemonicParsing="false" onAction="#Choosealg" text="Choose Algoritm"/>
       <Slider fx:id="timebar" blockIncrement="1" layoutX="30.0" layoutY="65.0" onMouseReleased="#slidermove" prefHeight="24.0" prefWidth="881.0" />
       <Label layoutX="477.0" layoutY="16.0" text="Play speed" />
       <Label fx:id="clock" layoutX="623.0" layoutY="16.0" />
@@ -62,8 +63,6 @@
    <left>
       <AnchorPane>
          <AttList fx:id="attributeslist"></AttList>
-         <ListView fx:id="algolist" layoutX="6.0" layoutY="670.0" prefHeight="115.0" onMouseClicked="#algchoose" prefWidth="158.0" />
-         <Label layoutX="6.0" layoutY="640" text="Choose algorithm" />
       </AnchorPane>
    </left>
    <center >

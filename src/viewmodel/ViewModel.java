@@ -80,8 +80,8 @@ public class ViewModel extends Observable implements Observer {
     this.setCor(ts);
     return ts.Timer();
   }
-  public void ChooseAlg(String className) throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
-
+  public void ChooseAlg() throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+    String input,className;
     input= JOptionPane.showInputDialog(null,"enter a class directory");
     className=JOptionPane.showInputDialog(null,"enter the class name");
 // load class directory

@@ -59,12 +59,10 @@ public class Windowcontroller extends Observable {
     TextField speed;
     @FXML
     Label clock;
-    @FXML
-    ListView algolist;
+
     private File chosen;
     public IntegerProperty time;
     public FloatProperty rate;
-    public StringProperty alg;
     ViewModel viewModel;
     float sec=0,min=0,hour=0;
 
@@ -91,17 +89,8 @@ public class Windowcontroller extends Observable {
         return String.valueOf(number);
     }
 
-    public void algchoose(){
-         alg.setValue((String) algolist.getSelectionModel().getSelectedItem());
-    }
     public void init(ViewModel vm){
 
-        algolist.getItems().add("Simple Anomaly");
-        algolist.getItems().add("Zscore");
-        algolist.getItems().add("Hybrid");
-        alg=new SimpleStringProperty();
-
-       alg.addListener((o,ov,nv)->System.out.println("hey"));
 
         timebar.setMin(0);
         time=new SimpleIntegerProperty();

@@ -39,7 +39,7 @@
                   <NumberAxis side="BOTTOM" />
                </xAxis>
                <yAxis>
-                  <NumberAxis side="LEFT" />
+                  <NumberAxis side="LEFT" visible="false" />
                </yAxis>
             </LineChart>
             <ScatterChart fx:id="algo" layoutX="143.0" prefHeight="334.0" prefWidth="466.0">
@@ -52,10 +52,10 @@
             </ScatterChart>
             <LineChart fx:id="linegraph" alternativeRowFillVisible="false" blendMode="OVERLAY" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="143.0" prefHeight="334.0" prefWidth="466.0" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
                <xAxis>
-                  <NumberAxis  lowerBound="-100" side="BOTTOM" upperBound="100"  />
+                  <NumberAxis lowerBound="-100" side="BOTTOM" upperBound="100" />
                </xAxis>
                <yAxis>
-                  <NumberAxis lowerBound="-100" side="LEFT" upperBound="100"  />
+                  <NumberAxis lowerBound="-100" side="LEFT" upperBound="100" visible="false" />
                </yAxis>
             </LineChart>
          </children>
