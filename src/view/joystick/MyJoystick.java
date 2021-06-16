@@ -4,12 +4,13 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 
 import java.io.IOException;
 
-public class MyJoystick extends Pane {
+public class MyJoystick extends AnchorPane {
 
     public DoubleProperty aileron,elevators,rudder,throttle;
 

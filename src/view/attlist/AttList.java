@@ -6,12 +6,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import view.joystick.MyJoystickController;
 
 import java.io.IOException;
 
-public class AttList extends Pane {
+public class AttList extends AnchorPane {
     @FXML
     public ListView attributeslist;
     public IntegerProperty index;

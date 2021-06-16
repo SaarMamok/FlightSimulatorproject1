@@ -2,163 +2,147 @@
 
 <?import eu.hansolo.medusa.Gauge?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.Color?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.dashboard.Mydashboardcontroller">
    <children>
-      <GridPane prefHeight="482.0" prefWidth="694.0" vgap="5.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Gauge fx:id="speedgauge" animated="true" maxValue="200.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Speed">
-               <titleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </titleColor>
-               <unitColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </unitColor>
-               <valueColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </valueColor>
-               <subTitleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </subTitleColor>
-               <barColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </barColor>
-               <tickLabelColor>
-                  <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
-               </tickLabelColor>
-               <tickMarkColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </tickMarkColor>
-            </Gauge>
-            <Gauge fx:id="altitudegauge" animated="true" maxValue="1000.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Altitude" GridPane.columnIndex="1">
-               <titleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </titleColor>
-               <unitColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </unitColor>
-               <valueColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </valueColor>
-               <subTitleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </subTitleColor>
-               <barColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </barColor>
-               <tickLabelColor>
-                  <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
-               </tickLabelColor>
-               <tickMarkColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </tickMarkColor>
-            </Gauge>
-            <Gauge fx:id="directiongauge" animated="true" maxValue="360.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Direction" GridPane.rowIndex="1">
-               <titleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </titleColor>
-               <unitColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </unitColor>
-               <valueColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </valueColor>
-               <subTitleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </subTitleColor>
-               <barColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </barColor>
-               <tickLabelColor>
-                  <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
-               </tickLabelColor>
-               <tickMarkColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </tickMarkColor>
-            </Gauge>
-            <Gauge fx:id="rollgauge" animated="true" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Roll" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <titleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </titleColor>
-               <unitColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </unitColor>
-               <valueColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </valueColor>
-               <subTitleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </subTitleColor>
-               <barColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </barColor>
-               <tickLabelColor>
-                  <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
-               </tickLabelColor>
-               <tickMarkColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </tickMarkColor>
-            </Gauge>
-            <Gauge fx:id="pitchgauge" animated="true" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Pitch" GridPane.rowIndex="2">
-               <titleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </titleColor>
-               <unitColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </unitColor>
-               <valueColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </valueColor>
-               <subTitleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </subTitleColor>
-               <barColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </barColor>
-               <tickLabelColor>
-                  <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
-               </tickLabelColor>
-               <tickMarkColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </tickMarkColor>
-            </Gauge>
-            <Gauge fx:id="yawgauge" animated="true" minValue="-100.0" prefHeight="173.0" prefWidth="343.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Yaw" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <titleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </titleColor>
-               <unitColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </unitColor>
-               <valueColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </valueColor>
-               <subTitleColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </subTitleColor>
-               <barColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </barColor>
-               <tickLabelColor>
-                  <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
-               </tickLabelColor>
-               <tickMarkColor>
-                  <Color red="1.0" green="1.0" blue="1.0" />
-               </tickMarkColor>
-            </Gauge>
-         </children>
-      </GridPane>
+      <Gauge fx:id="speedgauge" animated="true" layoutX="466.0" layoutY="2.0" maxValue="200.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Speed">
+         <titleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </titleColor>
+         <unitColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </unitColor>
+         <valueColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </valueColor>
+         <subTitleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </subTitleColor>
+         <barColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </barColor>
+         <tickLabelColor>
+            <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
+         </tickLabelColor>
+         <tickMarkColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </tickMarkColor>
+      </Gauge>
+      <Gauge fx:id="altitudegauge" animated="true" layoutX="14.0" layoutY="2.0" maxValue="1000.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Altitude">
+         <titleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </titleColor>
+         <unitColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </unitColor>
+         <valueColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </valueColor>
+         <subTitleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </subTitleColor>
+         <barColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </barColor>
+         <tickLabelColor>
+            <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
+         </tickLabelColor>
+         <tickMarkColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </tickMarkColor>
+      </Gauge>
+      <Gauge fx:id="directiongauge" animated="true" layoutX="240.0" layoutY="2.0" maxValue="360.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Direction">
+         <titleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </titleColor>
+         <unitColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </unitColor>
+         <valueColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </valueColor>
+         <subTitleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </subTitleColor>
+         <barColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </barColor>
+         <tickLabelColor>
+            <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
+         </tickLabelColor>
+         <tickMarkColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </tickMarkColor>
+      </Gauge>
+      <Gauge fx:id="rollgauge" animated="true" layoutX="14.0" layoutY="284.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Roll">
+         <titleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </titleColor>
+         <unitColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </unitColor>
+         <valueColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </valueColor>
+         <subTitleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </subTitleColor>
+         <barColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </barColor>
+         <tickLabelColor>
+            <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
+         </tickLabelColor>
+         <tickMarkColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </tickMarkColor>
+      </Gauge>
+      <Gauge fx:id="pitchgauge" animated="true" layoutX="466.0" layoutY="284.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Pitch">
+         <titleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </titleColor>
+         <unitColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </unitColor>
+         <valueColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </valueColor>
+         <subTitleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </subTitleColor>
+         <barColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </barColor>
+         <tickLabelColor>
+            <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
+         </tickLabelColor>
+         <tickMarkColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </tickMarkColor>
+      </Gauge>
+      <Gauge fx:id="yawgauge" animated="true" layoutX="175.0" layoutY="289.0" minValue="-100.0" prefHeight="173.0" prefWidth="343.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Yaw">
+         <titleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </titleColor>
+         <unitColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </unitColor>
+         <valueColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </valueColor>
+         <subTitleColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </subTitleColor>
+         <barColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </barColor>
+         <tickLabelColor>
+            <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
+         </tickLabelColor>
+         <tickMarkColor>
+            <Color red="1.0" green="1.0" blue="1.0" />
+         </tickMarkColor>
+      </Gauge>
    </children>
 </AnchorPane>
