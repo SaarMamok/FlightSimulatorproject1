@@ -6,7 +6,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.dashboard.Mydashboardcontroller">
    <children>
-      <Gauge fx:id="speedgauge" animated="true" layoutX="396.0" layoutY="7.0" maxValue="200.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Speed">
+      <Gauge fx:id="speedgauge"     animated="true" layoutX="400.0" layoutY="12.0"   maxValue="1000.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Speed">
          <titleColor>
             <Color red="1.0" green="1.0" blue="1.0" />
          </titleColor>
@@ -29,7 +29,7 @@
             <Color red="1.0" green="1.0" blue="1.0" />
          </tickMarkColor>
       </Gauge>
-      <Gauge fx:id="altitudegauge" animated="true" layoutX="3.0" layoutY="12.0" maxValue="1000.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Altitude">
+      <Gauge fx:id="altitudegauge"  animated="true" layoutX="0"   layoutY="12.0"  maxValue="1000.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Altitude">
          <titleColor>
             <Color red="1.0" green="1.0" blue="1.0" />
          </titleColor>
@@ -52,7 +52,7 @@
             <Color red="1.0" green="1.0" blue="1.0" />
          </tickMarkColor>
       </Gauge>
-      <Gauge fx:id="directiongauge" animated="true" layoutX="198.0" layoutY="10.0" maxValue="360.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Direction">
+      <Gauge fx:id="directiongauge" animated="true" layoutX="200.0" layoutY="12.0"  maxValue="1000.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Direction">
          <titleColor>
             <Color red="1.0" green="1.0" blue="1.0" />
          </titleColor>
@@ -75,7 +75,7 @@
             <Color red="1.0" green="1.0" blue="1.0" />
          </tickMarkColor>
       </Gauge>
-      <Gauge fx:id="rollgauge" animated="true" layoutY="212.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Roll">
+      <Gauge fx:id="rollgauge"      animated="true" layoutX="0"     layoutY="210.0" maxValue="1000.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Roll">
          <titleColor>
             <Color red="1.0" green="1.0" blue="1.0" />
          </titleColor>
@@ -98,7 +98,7 @@
             <Color red="1.0" green="1.0" blue="1.0" />
          </tickMarkColor>
       </Gauge>
-      <Gauge fx:id="pitchgauge" animated="true" layoutX="393.0" layoutY="207.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Pitch">
+      <Gauge fx:id="pitchgauge"     animated="true" layoutX="200.0" layoutY="210.0" maxValue="1000.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Pitch">
          <titleColor>
             <Color red="1.0" green="1.0" blue="1.0" />
          </titleColor>
@@ -121,7 +121,7 @@
             <Color red="1.0" green="1.0" blue="1.0" />
          </tickMarkColor>
       </Gauge>
-      <Gauge fx:id="yawgauge" animated="true" layoutX="130.0" layoutY="215.0" minValue="-100.0" prefHeight="173.0" prefWidth="343.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Yaw">
+      <Gauge fx:id="yawgauge"       animated="true" layoutX="400.0" layoutY="210.0" maxValue="1000.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Yaw">
          <titleColor>
             <Color red="1.0" green="1.0" blue="1.0" />
          </titleColor>
