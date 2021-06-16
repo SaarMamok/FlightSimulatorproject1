@@ -1,12 +1,10 @@
 package view;
 
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -61,6 +59,7 @@ public class Windowcontroller extends Observable {
     TextField speed;
     @FXML
     Label clock;
+
     private File chosen;
     public IntegerProperty time;
     public FloatProperty rate;
@@ -91,6 +90,8 @@ public class Windowcontroller extends Observable {
     }
 
     public void init(ViewModel vm){
+
+
         timebar.setMin(0);
         time=new SimpleIntegerProperty();
         this.viewModel=vm;
