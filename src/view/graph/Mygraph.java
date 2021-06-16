@@ -20,7 +20,7 @@ import java.awt.geom.Line2D;
 import java.io.IOException;
 
 public class Mygraph extends Pane {
-    public FloatProperty listvalue,x1line,x2line,y1line,y2line,zvalue;
+    public FloatProperty listvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue;
     public FloatProperty corvalue;
     public IntegerProperty time;
     public StringProperty lefttitle;
@@ -40,6 +40,7 @@ public class Mygraph extends Pane {
     public XYChart.Series series2;
     public XYChart.Series seriesline;
     public XYChart.Series zscoreseries;
+    public XYChart.Series zscoreanomalyseries;
 
     @FXML
     NumberAxis linex;
@@ -60,6 +61,7 @@ public class Mygraph extends Pane {
             this.righttitle=new SimpleStringProperty();
             this.Algname=new SimpleStringProperty();
             this.zvalue=new SimpleFloatProperty();
+            this.zanomalyvalue=new SimpleFloatProperty();
             x1line=new SimpleFloatProperty();
             x2line=new SimpleFloatProperty();
             y1line=new SimpleFloatProperty();
@@ -80,15 +82,17 @@ public class Mygraph extends Pane {
             algoseries =new XYChart.Series();
             seriesline=new XYChart.Series();
             zscoreseries=new XYChart.Series();
+            zscoreanomalyseries=new XYChart.Series();
             this.linegraph.getData().add(seriesline);
             this.zscoregraph.getData().add(zscoreseries);
+            this.zscoregraph.getData().add(zscoreanomalyseries);
             this.lefttitle.addListener((o,ov,nv)->series.setName(this.lefttitle.getValue()));
             this.righttitle.addListener((o,ov,nv)-> {
                 series2.setName(this.righttitle.getValue());
                 Platform.runLater(()-> {
                     seriesline.getData().add(new XYChart.Data(this.x1line.getValue(), this.y1line.getValue()));
                     seriesline.getData().add(new XYChart.Data(this.x2line.getValue(), this.y2line.getValue()));
-                    System.out.println(this.x1line.getValue()+"" +this.y1line.getValue());
+
                 });
             });
             this.leftgraph.getData().add(series);
@@ -111,6 +115,7 @@ public class Mygraph extends Pane {
                             algo.setVisible(false);
                             //System.out.println(zvalue.getValue());
                             mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
+                            mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries,time.floatValue(),zanomalyvalue.getValue());
                         }
                     });
 

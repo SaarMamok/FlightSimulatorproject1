@@ -19,7 +19,7 @@ public class Model extends Observable {
     protected Thread theThread;
     private int index,time,corindex;
     private int localtime=0;
-    private float throttle,rudder,elevators,aileron,listvalue,corvalue,x1line,x2line,y1line,y2line,zvalue;
+    private float throttle,rudder,elevators,aileron,listvalue,corvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue;
     private double altitude,speed,direction,roll,pitch,yaw;
     private String leftval,rightval,detectorname;
     protected ActiveObjectCommon ao;
@@ -107,7 +107,7 @@ public class Model extends Observable {
     }
     public void SetAnomaly(Class<?> c) throws IllegalAccessException, InstantiationException {
         this.learnTimeSeries = new TimeSeries(prop.getLearnpath());
-        System.out.println(c.getName()+" "+"1111");
+
         if(c.getName().compareTo("test.SimpleAnomalyDetector")==0) {
             this.t = (SimpleAnomalyDetector) c.newInstance();
             t.learnNormal(learnTimeSeries);
@@ -117,6 +117,7 @@ public class Model extends Observable {
             this.z = (Zscore) c.newInstance();
             z.learnNormal(learnTimeSeries);
             detectorname="Zscore";
+            z.detect(this.ts);
         }
 
 
@@ -164,9 +165,10 @@ public class Model extends Observable {
                     this.y1line = t.getCorFeatures().get(index).lin_reg.f(1);
                     this.x1line = 1;
                 }
-                else if(detectorname.compareTo("Zscore")==0)
-                    zvalue=this.z.getZhash().get(index).get(time);
-
+                else if(detectorname.compareTo("Zscore")==0) {
+                    zvalue = this.z.getZhash().get(index).get(time);
+                    zanomalyvalue=this.z.getAnomalymap().get(index).get(time).getVal();
+                }
                 this.setChanged();
                 this.notifyObservers();
                 ao.execute(()->{
@@ -275,5 +277,9 @@ public class Model extends Observable {
 
     public float getZvalue() {
         return zvalue;
+    }
+
+    public float getZanomalyvalue() {
+        return zanomalyvalue;
     }
 }

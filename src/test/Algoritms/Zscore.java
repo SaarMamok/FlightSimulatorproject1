@@ -9,8 +9,34 @@ import java.util.List;
 public class Zscore implements TimeSeriesAnomalyDetector {
     public Zscore() {
         zhash=new HashMap<>();
+        anomalymap=new HashMap<>();
     }
 
+    public class isAnomaly{
+        float val;
+        boolean aberrant;
+
+        public isAnomaly(float val, boolean aberrant) {
+            this.val = val;
+            this.aberrant = aberrant;
+        }
+
+        public float getVal() {
+            return val;
+        }
+
+        public void setVal(float val) {
+            this.val = val;
+        }
+
+        public boolean isAberrant() {
+            return aberrant;
+        }
+
+        public void setAberrant(boolean aberrant) {
+            this.aberrant = aberrant;
+        }
+    }
     public class Title {
         String name;
         float val;
@@ -46,8 +72,10 @@ public class Zscore implements TimeSeriesAnomalyDetector {
     public void setCols_treshould(HashMap<Integer, Title> cols_treshould) {
         this.cols_treshould = cols_treshould;
     }
-
+    private HashMap<Integer,ArrayList<isAnomaly>> anomalymap;
     private HashMap<Integer,ArrayList<Float>>zhash;
+
+
     public float[] madeARR(float[] arr, int size) {
         float[] a = new float[size];
         for (int i = 0; i < size; i++) {
@@ -92,9 +120,11 @@ public class Zscore implements TimeSeriesAnomalyDetector {
     @Override
     public List<AnomalyReport> detect(TimeSeries ts) {
         List<AnomalyReport> AnomalyReportList = new ArrayList<>();
+        ArrayList<isAnomaly> temp;
         int size = ts.getDataTable().size();
         float sd, avg, zs, max;
         for (int i = 0; i < size; i++) {
+            temp=new ArrayList<>();
             List<Float> currentList = ts.getDataTable().get(i).valuesList;
             avg = StatLib.avg(SimpleAnomalyDetector.ListToArray(currentList));
             sd = (float) Math.sqrt(StatLib.var(SimpleAnomalyDetector.ListToArray(currentList)));
@@ -103,19 +133,32 @@ public class Zscore implements TimeSeriesAnomalyDetector {
                     zs = 0;
                 else
                     zs = Math.abs((currentList.get(i) - avg) / sd);
+
                 if (zs > cols_treshould.get(i).val) {
+
                     String description = ts.getDataTable().get(i).featureName;
                     long time = j + 1;
                     AnomalyReport newReport = new AnomalyReport(description, time);
                     AnomalyReportList.add(newReport);
+                    temp.add(new isAnomaly(zs,true));
                 }
+                else
+                    temp.add(new isAnomaly(zs,false));
             }
-
+            anomalymap.put(i,temp);
         }
         return AnomalyReportList;
     }
 
     public HashMap<Integer, ArrayList<Float>> getZhash() {
         return zhash;
+    }
+
+    public HashMap<Integer, ArrayList<isAnomaly>> getAnomalymap() {
+        return anomalymap;
+    }
+
+    public void setAnomalymap(HashMap<Integer, ArrayList<isAnomaly>> anomalymap) {
+        this.anomalymap = anomalymap;
     }
 }
