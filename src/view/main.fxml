@@ -40,16 +40,16 @@
    <right>
       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="600" prefWidth="600" BorderPane.alignment="CENTER">
         <items>
-          <Pane minHeight="0.0" minWidth="0.0" prefHeight="350" prefWidth="350">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350" prefWidth="350">
                <children>
                   <MyJoystick fx:id="myJoystick"></MyJoystick>
                </children>
-            </Pane>
-          <Pane minHeight="0.0" minWidth="0.0" prefHeight="250" prefWidth="550.0">
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="250" prefWidth="550.0">
              <children>
                 <Mydashboard fx:id="mydashboard"></Mydashboard>
              </children>
-          </Pane>
+          </AnchorPane>
         </items>
          <BorderPane.margin>
             <Insets right="100.0" />
@@ -57,10 +57,13 @@
       </SplitPane>
    </right>
    <left>
-
+    <AnchorPane>
       <AttList fx:id="attributeslist"></AttList>
+    </AnchorPane>
    </left>
     <center >
+        <AnchorPane>
         <Mygraph fx:id="mygraph"></Mygraph>
+        </AnchorPane>
     </center>
 </BorderPane>
