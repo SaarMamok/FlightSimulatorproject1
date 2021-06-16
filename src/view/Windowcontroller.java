@@ -115,7 +115,9 @@ public class Windowcontroller extends Observable {
         this.attributeslist.index.addListener((o,ov,nv)->{
             this.mygraph.series.getData().clear();
             this.mygraph.series2.getData().clear();
+            this.mygraph.seriesline.getData().clear();
             //this.mygraph.time.set(time.getValue());
+            this.mygraph.algoseries.getData().clear();
         });
         this.mygraph.listvalue.bind(this.viewModel.listvalue);
         this.mygraph.corvalue.bind(this.viewModel.corvalue);
@@ -186,6 +188,7 @@ public class Windowcontroller extends Observable {
     public void stop(){
         this.mygraph.series.getData().clear();
         this.mygraph.series2.getData().clear();
+        //this.mygraph.seriesline.getData().clear();
         this.viewModel.stop();
     }
     public void pause(){

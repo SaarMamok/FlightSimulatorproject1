@@ -7,22 +7,32 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane layoutX="120.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="382.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.joystick.MyJoystickController">
+<AnchorPane layoutX="0.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="303.0" prefWidth="354.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.joystick.MyJoystickController">
    <children>
-      <Slider fx:id="rudder" blockIncrement="0.1" layoutX="47.0" layoutY="323.0" max="1.0" min="-1.0" prefHeight="14.0" prefWidth="303.0" />
-      <Slider fx:id="throttle" blockIncrement="0.1" layoutX="26.0" layoutY="20.0" max="1.0" orientation="VERTICAL" prefHeight="303.0" prefWidth="14.0" />
-      <Circle fx:id="bigcircle" layoutX="199.0" layoutY="172.0" radius="122.0" strokeType="INSIDE">
+      <Slider fx:id="rudder" blockIncrement="0.1" layoutX="28.0" layoutY="218.0" max="1.0" min="-1.0" prefHeight="14.0" prefWidth="220.0" />
+      <Slider fx:id="throttle" blockIncrement="0.1" layoutX="7.0" layoutY="-8.0" max="1.0" orientation="VERTICAL" prefHeight="220.0" prefWidth="14.0" />
+      <Circle fx:id="bigcircle" blendMode="DIFFERENCE" layoutX="138.0" layoutY="102.0" radius="110.0" strokeType="INSIDE" strokeWidth="4.0">
          <fill>
-            <LinearGradient endX="1.0" endY="1.0">
+            <LinearGradient endX="0.5619047982352121" endY="0.3396825396825396" startX="1.0" startY="0.9619047619047619">
                <stops>
                   <Stop>
                      <color>
-                        <Color green="0.7099999785423279" blue="0.6389999985694885" opacity="0.5667723417282104" />
+                        <Color red="0.5099999904632568" green="0.4641000032424927" blue="0.4641000032424927" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007633587786259542">
+                     <color>
+                        <Color red="0.5099999904632568" green="0.4641000032424927" blue="0.4641000032424927" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.16539440203562333">
+                     <color>
+                        <Color red="0.31578946113586426" green="0.31578946113586426" blue="0.31578946113586426" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
+                        <Color red="0.3698830306529999" green="0.41142788529396057" blue="0.8684210777282715" />
                      </color>
                   </Stop>
                </stops>
@@ -33,7 +43,12 @@
                <stops>
                   <Stop>
                      <color>
-                        <Color />
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.011415525114155252">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
@@ -45,23 +60,33 @@
             </LinearGradient>
          </stroke>
       </Circle>
-      <Circle fx:id="smallcircle" layoutX="199.0" layoutY="172.0" radius="60.0" strokeType="INSIDE">
+      <Circle fx:id="smallcircle" layoutX="138.0" layoutY="102.0" radius="50.0" strokeType="INSIDE" strokeWidth="4.0">
          <fill>
-            <LinearGradient endX="1.0" endY="1.0">
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.021009312942624092" green="0.8508771657943726" blue="0.8232149481773376" opacity="0.5699999928474426" />
+                        <Color red="0.03682044520974159" green="0.05068226158618927" blue="0.17543859779834747" opacity="0.5699999928474426" />
                      </color>
                   </Stop>
-                  <Stop offset="0.4809160305343512">
+                  <Stop offset="0.007633587786259542">
                      <color>
-                        <Color red="0.021009312942624092" green="0.8508771657943726" blue="0.8232149481773376" opacity="0.5699999928474426" />
+                        <Color red="0.03682044520974159" green="0.05068226158618927" blue="0.17543859779834747" opacity="0.5699999928474426" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007633587786259542">
+                     <color>
+                        <Color red="0.00476499879732728" green="0.007797271013259888" blue="0.035087719559669495" opacity="0.5699999928474426" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3613231552162847">
+                     <color>
+                        <Color red="0.022958630695939064" green="0.1129593551158905" blue="0.14035087823867798" opacity="0.5699999928474426" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color green="0.4070502817630768" blue="0.6899999976158142" opacity="0.5699999928474426" />
+                        <Color red="0.11403508484363556" green="0.004927441943436861" blue="0.004927441943436861" />
                      </color>
                   </Stop>
                </stops>
@@ -75,9 +100,19 @@
                         <Color red="0.15000000596046448" />
                      </color>
                   </Stop>
-                  <Stop offset="1.0">
+                  <Stop offset="0.007633587786259542">
                      <color>
                         <Color red="0.15000000596046448" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007633587786259542">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
                      </color>
                   </Stop>
                </stops>

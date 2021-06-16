@@ -4,14 +4,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.dashboard.Mydashboardcontroller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="310.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.dashboard.Mydashboardcontroller">
    <children>
-      <Gauge fx:id="speedgauge" animated="true" layoutX="466.0" layoutY="2.0" maxValue="200.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Speed">
+      <Gauge fx:id="speedgauge" animated="true" blendMode="DIFFERENCE" layoutX="14.0" layoutY="100.0" maxValue="200.0" prefHeight="95.0" prefWidth="95.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Speed">
          <titleColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </titleColor>
          <unitColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="0.8771929740905762" green="0.002707385690882802" blue="0.002707385690882802" />
          </unitColor>
          <valueColor>
             <Color red="1.0" green="1.0" blue="1.0" />
@@ -26,15 +26,27 @@
             <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
          </tickLabelColor>
          <tickMarkColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </tickMarkColor>
+         <mediumTickMarkColor>
+            <Color red="0.9122806787490845" green="0.016894087195396423" blue="0.016894087195396423" />
+         </mediumTickMarkColor>
+         <minorTickMarkColor>
+            <Color red="1.0" />
+         </minorTickMarkColor>
+         <thresholdColor>
+            <Color red="0.9473684430122375" green="0.005847953259944916" blue="0.19415204226970673" />
+         </thresholdColor>
+         <zeroColor>
+            <Color red="1.0" green="0.02469135820865631" blue="0.02469135820865631" />
+         </zeroColor>
       </Gauge>
-      <Gauge fx:id="altitudegauge" animated="true" layoutX="14.0" layoutY="2.0" maxValue="1000.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Altitude">
+      <Gauge fx:id="altitudegauge" animated="true" blendMode="DIFFERENCE" layoutX="14.0" maxValue="1000.0" minValue="-100.0" prefHeight="95.0" prefWidth="95.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Altitude">
          <titleColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </titleColor>
          <unitColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="0.8771929740905762" green="0.002707385690882802" blue="0.002707385690882802" />
          </unitColor>
          <valueColor>
             <Color red="1.0" green="1.0" blue="1.0" />
@@ -49,15 +61,27 @@
             <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
          </tickLabelColor>
          <tickMarkColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </tickMarkColor>
+         <mediumTickMarkColor>
+            <Color red="0.9122806787490845" green="0.016894087195396423" blue="0.016894087195396423" />
+         </mediumTickMarkColor>
+         <minorTickMarkColor>
+            <Color red="1.0" />
+         </minorTickMarkColor>
+         <thresholdColor>
+            <Color red="0.9473684430122375" green="0.005847953259944916" blue="0.19415204226970673" />
+         </thresholdColor>
+         <zeroColor>
+            <Color red="1.0" green="0.02469135820865631" blue="0.02469135820865631" />
+         </zeroColor>
       </Gauge>
-      <Gauge fx:id="directiongauge" animated="true" layoutX="240.0" layoutY="2.0" maxValue="360.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Direction">
+      <Gauge fx:id="directiongauge" animated="true" blendMode="DIFFERENCE" layoutX="166.0" maxValue="360.0" prefHeight="95.0" prefWidth="95.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Direction">
          <titleColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </titleColor>
          <unitColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="0.8771929740905762" green="0.002707385690882802" blue="0.002707385690882802" />
          </unitColor>
          <valueColor>
             <Color red="1.0" green="1.0" blue="1.0" />
@@ -72,15 +96,27 @@
             <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
          </tickLabelColor>
          <tickMarkColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </tickMarkColor>
+         <mediumTickMarkColor>
+            <Color red="0.9122806787490845" green="0.016894087195396423" blue="0.016894087195396423" />
+         </mediumTickMarkColor>
+         <minorTickMarkColor>
+            <Color red="1.0" />
+         </minorTickMarkColor>
+         <thresholdColor>
+            <Color red="0.9473684430122375" green="0.005847953259944916" blue="0.19415204226970673" />
+         </thresholdColor>
+         <zeroColor>
+            <Color red="1.0" green="0.02469135820865631" blue="0.02469135820865631" />
+         </zeroColor>
       </Gauge>
-      <Gauge fx:id="rollgauge" animated="true" layoutX="14.0" layoutY="284.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Roll">
+      <Gauge fx:id="rollgauge" animated="true" blendMode="DIFFERENCE" layoutX="166.0" layoutY="102.0" minValue="-100.0" prefHeight="95.0" prefWidth="95.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Roll">
          <titleColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </titleColor>
          <unitColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="0.8771929740905762" green="0.002707385690882802" blue="0.002707385690882802" />
          </unitColor>
          <valueColor>
             <Color red="1.0" green="1.0" blue="1.0" />
@@ -95,15 +131,27 @@
             <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
          </tickLabelColor>
          <tickMarkColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </tickMarkColor>
+         <mediumTickMarkColor>
+            <Color red="0.9122806787490845" green="0.016894087195396423" blue="0.016894087195396423" />
+         </mediumTickMarkColor>
+         <minorTickMarkColor>
+            <Color red="1.0" />
+         </minorTickMarkColor>
+         <thresholdColor>
+            <Color red="0.9473684430122375" green="0.005847953259944916" blue="0.19415204226970673" />
+         </thresholdColor>
+         <zeroColor>
+            <Color red="1.0" green="0.02469135820865631" blue="0.02469135820865631" />
+         </zeroColor>
       </Gauge>
-      <Gauge fx:id="pitchgauge" animated="true" layoutX="466.0" layoutY="284.0" minValue="-100.0" prefHeight="183.0" prefWidth="213.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Pitch">
+      <Gauge fx:id="pitchgauge" animated="true" blendMode="DIFFERENCE" layoutX="166.0" layoutY="202.0" minValue="-100.0" prefHeight="95.0" prefWidth="95.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Pitch">
          <titleColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </titleColor>
          <unitColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="0.8771929740905762" green="0.002707385690882802" blue="0.002707385690882802" />
          </unitColor>
          <valueColor>
             <Color red="1.0" green="1.0" blue="1.0" />
@@ -118,15 +166,27 @@
             <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
          </tickLabelColor>
          <tickMarkColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </tickMarkColor>
+         <mediumTickMarkColor>
+            <Color red="0.9122806787490845" green="0.016894087195396423" blue="0.016894087195396423" />
+         </mediumTickMarkColor>
+         <minorTickMarkColor>
+            <Color red="1.0" />
+         </minorTickMarkColor>
+         <thresholdColor>
+            <Color red="0.9473684430122375" green="0.005847953259944916" blue="0.19415204226970673" />
+         </thresholdColor>
+         <zeroColor>
+            <Color red="1.0" green="0.02469135820865631" blue="0.02469135820865631" />
+         </zeroColor>
       </Gauge>
-      <Gauge fx:id="yawgauge" animated="true" layoutX="175.0" layoutY="289.0" minValue="-100.0" prefHeight="173.0" prefWidth="343.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Yaw">
+      <Gauge fx:id="yawgauge" animated="true" blendMode="DIFFERENCE" layoutX="14.0" layoutY="202.0" minValue="-100.0" prefHeight="95.0" prefWidth="95.0" skinType="MODERN" thresholdVisible="true" tickLabelOrientation="ORTHOGONAL" title="Yaw">
          <titleColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </titleColor>
          <unitColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="0.8771929740905762" green="0.002707385690882802" blue="0.002707385690882802" />
          </unitColor>
          <valueColor>
             <Color red="1.0" green="1.0" blue="1.0" />
@@ -141,8 +201,20 @@
             <Color red="0.5921568870544434" green="0.5921568870544434" blue="0.5921568870544434" />
          </tickLabelColor>
          <tickMarkColor>
-            <Color red="1.0" green="1.0" blue="1.0" />
+            <Color red="1.0" />
          </tickMarkColor>
+         <mediumTickMarkColor>
+            <Color red="0.9122806787490845" green="0.016894087195396423" blue="0.016894087195396423" />
+         </mediumTickMarkColor>
+         <minorTickMarkColor>
+            <Color red="1.0" />
+         </minorTickMarkColor>
+         <thresholdColor>
+            <Color red="0.9473684430122375" green="0.005847953259944916" blue="0.19415204226970673" />
+         </thresholdColor>
+         <zeroColor>
+            <Color red="1.0" green="0.02469135820865631" blue="0.02469135820865631" />
+         </zeroColor>
       </Gauge>
    </children>
 </AnchorPane>

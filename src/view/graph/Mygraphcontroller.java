@@ -53,10 +53,12 @@ public class Mygraphcontroller {
         Platform.runLater(() -> {
             ser.getData().add(new XYChart.Data(x, y));
             counter++;
-            if (counter == 30) {
+           /* if (counter == 70) {
                 ser.getData().clear();
                 counter = 0;
             }
+
+            */
         });
 
     }
