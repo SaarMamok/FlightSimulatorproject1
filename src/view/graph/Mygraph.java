@@ -19,7 +19,7 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import java.io.IOException;
 
-public class Mygraph extends Pane {
+public class Mygraph extends AnchorPane {
     public FloatProperty listvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue;
     public FloatProperty corvalue;
     public IntegerProperty time;
