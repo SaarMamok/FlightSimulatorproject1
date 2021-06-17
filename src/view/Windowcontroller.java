@@ -114,11 +114,13 @@ public class Windowcontroller extends Observable {
         this.mygraph.lefttitle.bind(this.viewModel.leftval);
         this.mygraph.righttitle.bind(this.viewModel.rightval);
         this.attributeslist.index.addListener((o,ov,nv)->{
+            System.out.println(this.attributeslist.index.getValue());
             this.mygraph.series.getData().clear();
             this.mygraph.series2.getData().clear();
             this.mygraph.seriesline.getData().clear();
             //this.mygraph.time.set(time.getValue());
             this.mygraph.algoseries.getData().clear();
+            this.mygraph.detectlinegraph.getData().clear();
         });
         this.mygraph.listvalue.bind(this.viewModel.listvalue);
         this.mygraph.corvalue.bind(this.viewModel.corvalue);
@@ -128,6 +130,10 @@ public class Windowcontroller extends Observable {
         this.mygraph.x2line.bind(this.viewModel.x2line);
         this.mygraph.y1line.bind(this.viewModel.y1line);
         this.mygraph.y1line.bind(this.viewModel.y2line);
+        this.mygraph.px.bind(this.viewModel.px);
+        this.mygraph.py.bind(this.viewModel.py);
+        this.mygraph.abberant.bind(this.viewModel.aberrant);
+
         this.mygraph.zvalue.bind(this.viewModel.zvalue);
         this.mygraph.zanomalyvalue.bind(this.viewModel.zanomalyvalue);
 

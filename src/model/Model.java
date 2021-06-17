@@ -2,6 +2,7 @@ package model;
 
 import properties.Settings;
 import test.Algoritms.Zscore;
+import test.Point;
 import test.SimpleAnomalyDetector;
 import test.TimeSeries;
 import test.TimeSeriesAnomalyDetector;
@@ -22,6 +23,7 @@ public class Model extends Observable {
     private float throttle,rudder,elevators,aileron,listvalue,corvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue;
     private double altitude,speed,direction,roll,pitch,yaw;
     private String leftval,rightval,detectorname;
+    private SimpleAnomalyDetector.Pointanomaly p;
     protected ActiveObjectCommon ao;
     public SimpleAnomalyDetector t;
     public Zscore z;
@@ -38,6 +40,7 @@ public class Model extends Observable {
             this.rate=prop.getSleep();
             this.ratedisplay=rate;
             this.detectorname="";
+            this.learnTimeSeries = new TimeSeries(prop.getLearnpath());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -106,12 +109,13 @@ public class Model extends Observable {
         this.ratedisplay-=500;
     }
     public void SetAnomaly(Class<?> c) throws IllegalAccessException, InstantiationException {
-        this.learnTimeSeries = new TimeSeries(prop.getLearnpath());
+
 
         if(c.getName().compareTo("test.SimpleAnomalyDetector")==0) {
             this.t = (SimpleAnomalyDetector) c.newInstance();
             t.learnNormal(learnTimeSeries);
             detectorname="SimpleAnomalyDetector";
+            t.detect(this.ts);
         }
         else if(c.getName().compareTo("test.Algoritms.Zscore")==0){
             this.z = (Zscore) c.newInstance();
@@ -164,10 +168,13 @@ public class Model extends Observable {
                     this.x2line = -1;
                     this.y1line = t.getCorFeatures().get(index).lin_reg.f(500);
                     this.x1line = 1;
+                    p=new SimpleAnomalyDetector.Pointanomaly(new Point(t.getAnomalymap().get(index).get(localtime).getP().x,
+                            t.getAnomalymap().get(index).get(localtime).getP().y),
+                            t.getAnomalymap().get(index).get(localtime).isAberrant());
                 }
                 else if(detectorname.compareTo("Zscore")==0) {
-                    zvalue = this.z.getZhash().get(index).get(time);
-                    zanomalyvalue=this.z.getAnomalymap().get(index).get(time).getVal();
+                    zvalue = this.z.getZhash().get(index).get(localtime);
+                    zanomalyvalue=this.z.getAnomalymap().get(index).get(localtime).getVal();
                 }
                 this.setChanged();
                 this.notifyObservers();
@@ -281,5 +288,9 @@ public class Model extends Observable {
 
     public float getZanomalyvalue() {
         return zanomalyvalue;
+    }
+
+    public SimpleAnomalyDetector.Pointanomaly getP() {
+        return p;
     }
 }

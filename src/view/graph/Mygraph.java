@@ -20,11 +20,10 @@ import java.awt.geom.Line2D;
 import java.io.IOException;
 
 public class Mygraph extends AnchorPane {
-    public FloatProperty listvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue;
-    public FloatProperty corvalue;
+    public FloatProperty listvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,corvalue,px,py;
     public IntegerProperty time;
-    public StringProperty lefttitle;
-    public StringProperty righttitle,Algname;
+    public StringProperty righttitle,Algname,lefttitle;
+    public BooleanProperty abberant;
     @FXML
     public LineChart leftgraph;
     @FXML
@@ -41,6 +40,7 @@ public class Mygraph extends AnchorPane {
     public XYChart.Series seriesline;
     public XYChart.Series zscoreseries;
     public XYChart.Series zscoreanomalyseries;
+    public XYChart.Series detectlinegraph;
 
     @FXML
     NumberAxis linex;
@@ -62,6 +62,9 @@ public class Mygraph extends AnchorPane {
             this.Algname=new SimpleStringProperty();
             this.zvalue=new SimpleFloatProperty();
             this.zanomalyvalue=new SimpleFloatProperty();
+            px=new SimpleFloatProperty();
+            py=new SimpleFloatProperty();
+            abberant=new SimpleBooleanProperty();
             x1line=new SimpleFloatProperty();
             x2line=new SimpleFloatProperty();
             y1line=new SimpleFloatProperty();
@@ -83,9 +86,11 @@ public class Mygraph extends AnchorPane {
             seriesline=new XYChart.Series();
             zscoreseries=new XYChart.Series();
             zscoreanomalyseries=new XYChart.Series();
+            detectlinegraph=new XYChart.Series();
             this.linegraph.getData().add(seriesline);
             this.zscoregraph.getData().add(zscoreseries);
             this.zscoregraph.getData().add(zscoreanomalyseries);
+            this.algo.getData().add(detectlinegraph);
             this.lefttitle.addListener((o,ov,nv)->series.setName(this.lefttitle.getValue()));
             this.righttitle.addListener((o,ov,nv)-> {
                 series2.setName(this.righttitle.getValue());
@@ -108,6 +113,7 @@ public class Mygraph extends AnchorPane {
                 mygraphcontroller.AddtoGraph(series2,time.getValue().toString(),corvalue.getValue());
                         if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0) {
                             mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
+                            mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph,px.getValue(),py.getValue());
 
                             zscoregraph.setVisible(false);
                             linegraph.setVisible(true);

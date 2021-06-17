@@ -28,7 +28,8 @@ public class ViewModel extends Observable implements Observer {
   public StringProperty leftval,rightval,Algname;
   public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
   public IntegerProperty index,corindex,time;
-  public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue;
+  public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,px,py;
+  public BooleanProperty aberrant;
 
   private HashMap<Integer,Integer> Hashcor=new HashMap<>();
 
@@ -60,6 +61,9 @@ public class ViewModel extends Observable implements Observer {
   y2line=new SimpleFloatProperty();
   zvalue=new SimpleFloatProperty();
     zanomalyvalue=new SimpleFloatProperty();
+    px=new SimpleFloatProperty();
+    py=new SimpleFloatProperty();
+    aberrant=new SimpleBooleanProperty();
     }
     public DoubleProperty getAileron(){
     return this.aileron;
@@ -159,6 +163,10 @@ public class ViewModel extends Observable implements Observer {
             this.x2line.setValue(this.model.getX2line());
             this.y1line.setValue(this.model.getY1line());
             this.y2line.setValue(this.model.getY2line());
+            this.px.setValue(this.model.getP().getP().x);
+            this.py.setValue(this.model.getP().getP().y);
+            this.aberrant.setValue(this.model.getP().isAberrant());
+
           }
           else if(Algname.getValue().compareTo("test.Algoritms.Zscore")==0)
             this.zvalue.setValue(this.model.getZvalue());
