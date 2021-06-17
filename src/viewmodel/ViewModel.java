@@ -36,6 +36,7 @@ public class ViewModel extends Observable implements Observer {
   public ViewModel(Model m){
     this.model=m;
     m.addObserver(this);
+    this.setCor(new TimeSeries("reg_flight.csv"));
     aileron=new SimpleDoubleProperty();
     elevators=new SimpleDoubleProperty();
     rudder=new SimpleDoubleProperty();
@@ -81,7 +82,7 @@ public class ViewModel extends Observable implements Observer {
   public int setTs(TimeSeries ts) {
     this.ts = ts;
     this.model.setTs(ts);
-    this.setCor(ts);
+
     return ts.Timer();
   }
   public void ChooseAlg() throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
@@ -104,15 +105,17 @@ public class ViewModel extends Observable implements Observer {
     int i, j;
     int index = 0;
     int numOfFeatures = ts.getDataTable().size();
-    for (i = 0; i < (numOfFeatures - 1); i++) {
+    for (i = 0; i < numOfFeatures ; i++) {
       bestCor = 0;
-      for (j = i + 1; j < numOfFeatures; j++) {
-        float value = StatLib.pearson(SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(i).valuesList), SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(j).valuesList));
-        CurrentCorrlation = abs(value);
-        if (CurrentCorrlation > bestCor) //// I was changed from >= to >
-        {
-          index = j;
-          bestCor = CurrentCorrlation;
+      for (j = 0; j < numOfFeatures; j++) {
+        if(i!=j) {
+          float value = StatLib.pearson(SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(i).valuesList), SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(j).valuesList));
+          CurrentCorrlation = abs(value);
+          if (CurrentCorrlation > bestCor) //// I was changed from >= to >
+          {
+            index = j;
+            bestCor = CurrentCorrlation;
+          }
         }
       }
       Hashcor.put(i,index);

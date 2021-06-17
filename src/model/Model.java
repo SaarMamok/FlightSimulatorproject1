@@ -25,8 +25,8 @@ public class Model extends Observable {
     private String leftval,rightval,detectorname;
     private SimpleAnomalyDetector.Pointanomaly p;
     protected ActiveObjectCommon ao;
-    public SimpleAnomalyDetector t;
-    public Zscore z;
+
+    private TimeSeriesAnomalyDetector ta;
     private TimeSeries learnTimeSeries;
     public Model(){
 
@@ -112,20 +112,20 @@ public class Model extends Observable {
 
 
         if(c.getName().compareTo("test.SimpleAnomalyDetector")==0) {
-            this.t = (SimpleAnomalyDetector) c.newInstance();
-            t.learnNormal(learnTimeSeries);
+            this.ta=(SimpleAnomalyDetector) c.newInstance();
+            ta.learnNormal(learnTimeSeries);
             detectorname="SimpleAnomalyDetector";
-            t.detect(this.ts);
+            ta.detect(this.ts);
         }
         else if(c.getName().compareTo("test.Algoritms.Zscore")==0){
-            this.z = (Zscore) c.newInstance();
-            z.learnNormal(learnTimeSeries);
+            this.ta = (Zscore) c.newInstance();
+            ta.learnNormal(learnTimeSeries);
             detectorname="Zscore";
-            z.detect(this.ts);
+            ta.detect(this.ts);
         }
-
-
     }
+
+
    public void play(int r){
         ao=new ActiveObjectCommon();
         try {
@@ -164,17 +164,18 @@ public class Model extends Observable {
 
 
                 if(detectorname.compareTo("SimpleAnomalyDetector")==0) {
-                    this.y2line = t.getCorFeatures().get(index).lin_reg.f(-500);
-                    this.x2line = -1;
-                    this.y1line = t.getCorFeatures().get(index).lin_reg.f(500);
-                    this.x1line = 1;
-                    p=new SimpleAnomalyDetector.Pointanomaly(new Point(t.getAnomalymap().get(index).get(localtime).getP().x,
-                            t.getAnomalymap().get(index).get(localtime).getP().y),
-                            t.getAnomalymap().get(index).get(localtime).isAberrant());
+
+                    this.y2line = ((SimpleAnomalyDetector)ta).getCorFeatures().get(index).lin_reg.f(-500);
+                    this.x2line = -500;
+                    this.y1line = ((SimpleAnomalyDetector)ta).getCorFeatures().get(index).lin_reg.f(500);
+                    this.x1line = 500;
+                    p=new SimpleAnomalyDetector.Pointanomaly(new Point(((SimpleAnomalyDetector)ta).getAnomalymap().get(index).get(localtime).getP().x,
+                            ((SimpleAnomalyDetector)ta).getAnomalymap().get(index).get(localtime).getP().y),
+                            ((SimpleAnomalyDetector)ta).getAnomalymap().get(index).get(localtime).isAberrant());
                 }
                 else if(detectorname.compareTo("Zscore")==0) {
-                    zvalue = this.z.getZhash().get(index).get(localtime);
-                    zanomalyvalue=this.z.getAnomalymap().get(index).get(localtime).getVal();
+                    zvalue = ((Zscore)ta).getZhash().get(index).get(localtime);
+                    zanomalyvalue=((Zscore)ta).getAnomalymap().get(index).get(localtime).getVal();
                 }
                 this.setChanged();
                 this.notifyObservers();
