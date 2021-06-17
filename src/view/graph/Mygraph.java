@@ -11,6 +11,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import view.attlist.AttListController;
@@ -21,7 +22,7 @@ import java.io.IOException;
 
 public class Mygraph extends AnchorPane {
     public FloatProperty listvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,corvalue,px,py;
-    public IntegerProperty time;
+    public IntegerProperty time,check;
     public StringProperty righttitle,Algname,lefttitle;
     public BooleanProperty abberant;
     @FXML
@@ -46,14 +47,19 @@ public class Mygraph extends AnchorPane {
     NumberAxis linex;
     @FXML
     NumberAxis liney;
+    @FXML
+    Label cover;
 
     public Mygraph() {
         super();
 
         try {
+
             FXMLLoader fxl = new FXMLLoader();
             Parent root = fxl.load(getClass().getResource("Mygraph.fxml").openStream());
             Mygraphcontroller mygraphcontroller = fxl.getController();
+            this.cover=mygraphcontroller.cover;
+            this.cover.setVisible(false);
             this.listvalue=new SimpleFloatProperty();
             this.time= new SimpleIntegerProperty();
             this.corvalue=new SimpleFloatProperty();
@@ -62,6 +68,7 @@ public class Mygraph extends AnchorPane {
             this.Algname=new SimpleStringProperty();
             this.zvalue=new SimpleFloatProperty();
             this.zanomalyvalue=new SimpleFloatProperty();
+            check=new SimpleIntegerProperty();
             px=new SimpleFloatProperty();
             py=new SimpleFloatProperty();
             abberant=new SimpleBooleanProperty();
@@ -100,6 +107,7 @@ public class Mygraph extends AnchorPane {
             this.rightgraph.getData().add(series2);
 
             this.algo.getData().add(algoseries);
+
             this.algo.getData().add(detectlinegraph);
             this.lefttitle.addListener((o,ov,nv)->{
                 Platform.runLater(()-> {
@@ -112,9 +120,17 @@ public class Mygraph extends AnchorPane {
                 mygraphcontroller.AddtoGraph(series,time.getValue().toString(),listvalue.getValue());
                 mygraphcontroller.AddtoGraph(series2,time.getValue().toString(),corvalue.getValue());
                         if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0) {
+                            if(check.getValue()==-1){
+                                cover.setVisible(true);
+                            }
+                            else
+                                cover.setVisible(false);
                            mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
-                            mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph,px.getValue(),py.getValue());
 
+                            mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph,px.getValue(),py.getValue());
+                          /* if(abberant.getValue()==true){
+                               this.algoseries.getNode().setStyle("-fx-stroke: #ff0000;");
+                           }*/
                             zscoregraph.setVisible(false);
                             linegraph.setVisible(true);
                             algo.setVisible(true);
@@ -124,6 +140,7 @@ public class Mygraph extends AnchorPane {
                             zscoregraph.setVisible(true);
                             linegraph.setVisible(false);
                             algo.setVisible(false);
+                            cover.setVisible(false);
                             //System.out.println(zvalue.getValue());
                             mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
                             mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries,time.floatValue(),zanomalyvalue.getValue());

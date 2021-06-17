@@ -27,7 +27,7 @@ public class ViewModel extends Observable implements Observer {
 
   public StringProperty leftval,rightval,Algname;
   public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
-  public IntegerProperty index,corindex,time;
+  public IntegerProperty index,corindex,time,check;
   public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,px,py;
   public BooleanProperty aberrant;
 
@@ -65,6 +65,7 @@ public class ViewModel extends Observable implements Observer {
     px=new SimpleFloatProperty();
     py=new SimpleFloatProperty();
     aberrant=new SimpleBooleanProperty();
+    check=new SimpleIntegerProperty();
     }
     public DoubleProperty getAileron(){
     return this.aileron;
@@ -161,6 +162,7 @@ public class ViewModel extends Observable implements Observer {
 
             this.leftval.set(this.model.getLeftval());
             this.rightval.set(this.model.getRightval());
+            this.check.set(this.model.getCheck());
           if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0) {
             if(this.model.getCheck()!=-1) {
               this.x1line.setValue(this.model.getX1line());

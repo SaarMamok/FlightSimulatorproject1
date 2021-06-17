@@ -9,7 +9,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
@@ -33,6 +35,8 @@ public class Mygraphcontroller {
     NumberAxis linex;
     @FXML
     NumberAxis liney;
+    @FXML
+    Label cover;
     public FloatProperty listvalue;
     public IntegerProperty time;
     final int size = 10;

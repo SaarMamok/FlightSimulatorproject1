@@ -133,7 +133,7 @@ public class Windowcontroller extends Observable {
         this.mygraph.px.bind(this.viewModel.px);
         this.mygraph.py.bind(this.viewModel.py);
         this.mygraph.abberant.bind(this.viewModel.aberrant);
-
+        this.mygraph.check.bind(this.viewModel.check);
         this.mygraph.zvalue.bind(this.viewModel.zvalue);
         this.mygraph.zanomalyvalue.bind(this.viewModel.zanomalyvalue);
 
