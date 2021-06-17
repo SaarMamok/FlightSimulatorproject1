@@ -18,7 +18,7 @@ public class Model extends Observable {
     private Settings prop;
     private FGplayer fGplayer;
     protected Thread theThread;
-    private int index,time,corindex;
+    private int index,time,corindex,check=0;
     private int localtime=0;
     private float throttle,rudder,elevators,aileron,listvalue,corvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue;
     private double altitude,speed,direction,roll,pitch,yaw;
@@ -164,14 +164,20 @@ public class Model extends Observable {
 
 
                 if(detectorname.compareTo("SimpleAnomalyDetector")==0) {
+                     check=((SimpleAnomalyDetector)ta).getcorindex(index,ts);
+                    if(check!=-1) {
+                        this.y2line = ((SimpleAnomalyDetector) ta).getCorFeatures().get(check).lin_reg.f(-500);
+                        this.x2line = -500;
+                        this.y1line = ((SimpleAnomalyDetector) ta).getCorFeatures().get(check).lin_reg.f(500);
+                        this.x1line = 500;
 
-                    this.y2line = ((SimpleAnomalyDetector)ta).getCorFeatures().get(index).lin_reg.f(-500);
-                    this.x2line = -500;
-                    this.y1line = ((SimpleAnomalyDetector)ta).getCorFeatures().get(index).lin_reg.f(500);
-                    this.x1line = 500;
-                    p=new SimpleAnomalyDetector.Pointanomaly(new Point(((SimpleAnomalyDetector)ta).getAnomalymap().get(index).get(localtime).getP().x,
-                            ((SimpleAnomalyDetector)ta).getAnomalymap().get(index).get(localtime).getP().y),
-                            ((SimpleAnomalyDetector)ta).getAnomalymap().get(index).get(localtime).isAberrant());
+                        p = new SimpleAnomalyDetector.Pointanomaly(new Point(((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).getP().x,
+                                ((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).getP().y),
+                                ((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).isAberrant());
+                    }
+                    else{
+                        System.out.println("no correlated feature");
+                    }
                 }
                 else if(detectorname.compareTo("Zscore")==0) {
                     zvalue = ((Zscore)ta).getZhash().get(index).get(localtime);
@@ -293,5 +299,9 @@ public class Model extends Observable {
 
     public SimpleAnomalyDetector.Pointanomaly getP() {
         return p;
+    }
+
+    public int getCheck() {
+        return check;
     }
 }

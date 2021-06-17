@@ -90,7 +90,7 @@ public class Mygraph extends AnchorPane {
             this.linegraph.getData().add(seriesline);
             this.zscoregraph.getData().add(zscoreseries);
             this.zscoregraph.getData().add(zscoreanomalyseries);
-            this.algo.getData().add(detectlinegraph);
+
             this.lefttitle.addListener((o,ov,nv)->series.setName(this.lefttitle.getValue()));
             this.righttitle.addListener((o,ov,nv)-> {
                 series2.setName(this.righttitle.getValue());
@@ -100,7 +100,7 @@ public class Mygraph extends AnchorPane {
             this.rightgraph.getData().add(series2);
 
             this.algo.getData().add(algoseries);
-
+            this.algo.getData().add(detectlinegraph);
             this.lefttitle.addListener((o,ov,nv)->{
                 Platform.runLater(()-> {
                     seriesline.getData().add(new XYChart.Data(this.x1line.getValue(), this.y1line.getValue()));
@@ -112,7 +112,7 @@ public class Mygraph extends AnchorPane {
                 mygraphcontroller.AddtoGraph(series,time.getValue().toString(),listvalue.getValue());
                 mygraphcontroller.AddtoGraph(series2,time.getValue().toString(),corvalue.getValue());
                         if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0) {
-                            mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
+                           mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
                             mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph,px.getValue(),py.getValue());
 
                             zscoregraph.setVisible(false);

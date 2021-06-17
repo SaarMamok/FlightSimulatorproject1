@@ -162,14 +162,15 @@ public class ViewModel extends Observable implements Observer {
             this.leftval.set(this.model.getLeftval());
             this.rightval.set(this.model.getRightval());
           if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0) {
-            this.x1line.setValue(this.model.getX1line());
-            this.x2line.setValue(this.model.getX2line());
-            this.y1line.setValue(this.model.getY1line());
-            this.y2line.setValue(this.model.getY2line());
-            this.px.setValue(this.model.getP().getP().x);
-            this.py.setValue(this.model.getP().getP().y);
-            this.aberrant.setValue(this.model.getP().isAberrant());
-
+            if(this.model.getCheck()!=-1) {
+              this.x1line.setValue(this.model.getX1line());
+              this.x2line.setValue(this.model.getX2line());
+              this.y1line.setValue(this.model.getY1line());
+              this.y2line.setValue(this.model.getY2line());
+              this.px.setValue(this.model.getP().getP().x);
+              this.py.setValue(this.model.getP().getP().y);
+              this.aberrant.setValue(this.model.getP().isAberrant());
+            }
           }
           else if(Algname.getValue().compareTo("test.Algoritms.Zscore")==0)
             this.zvalue.setValue(this.model.getZvalue());

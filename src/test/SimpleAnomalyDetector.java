@@ -132,8 +132,26 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 			if (featureName.equals(ts.dataTable.get(i).featureName))
 				return i;
 		}
-		return 0;
+
+		return -1;
 	}
+	public int getcorindex(int index,TimeSeries ts){
+		String col=ts.getDataTable().get(index).featureName;
+		for(int i=0;i<this.corFeatures.size();i++){
+			if(this.corFeatures.get(i).feature1.compareTo(col)==0)
+			{
+				return i;
+			}
+		}
+		for(int i=0;i<this.corFeatures.size();i++){
+			if(this.corFeatures.get(i).feature2.compareTo(col)==0)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
 
 	public static long getTime (Point[] pointsArray, Line curLine,TimeSeries ts,int feature1, int feature2 )
 	{
