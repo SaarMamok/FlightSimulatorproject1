@@ -1,6 +1,7 @@
 package model;
 
 import properties.Settings;
+import test.Algoritms.Hybrid;
 import test.Algoritms.Zscore;
 import test.Point;
 import test.SimpleAnomalyDetector;
@@ -10,6 +11,7 @@ import test.TimeSeriesAnomalyDetector;
 import java.beans.XMLDecoder;
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Observable;
 
 public class Model extends Observable {
@@ -28,6 +30,13 @@ public class Model extends Observable {
 
     private TimeSeriesAnomalyDetector ta;
     private TimeSeries learnTimeSeries;
+
+    ///////////////////////////////////////////////////////////
+    public HashMap<Integer,Integer> corvalues=new HashMap<>();
+    private HashMap<String,Integer> Hashvalues=new HashMap<>();
+    ///////////////////////////////////////////////////////////
+
+
     public Model(){
 
         XMLDecoder decoder = null;
@@ -123,6 +132,12 @@ public class Model extends Observable {
             detectorname="Zscore";
             ta.detect(this.ts);
         }
+        else if(c.getName().compareTo("test.Algoritms.Hybrid")==0){
+            this.ta = (Hybrid) c.newInstance();
+            ta.learnNormal(learnTimeSeries);
+            detectorname="Hybrid";
+            ta.detect(this.ts);
+        }
     }
 
 
@@ -183,6 +198,11 @@ public class Model extends Observable {
                     zvalue = ((Zscore)ta).getZhash().get(index).get(localtime);
                     zanomalyvalue=((Zscore)ta).getAnomalymap().get(index).get(localtime).getVal();
                 }
+                else if(detectorname.compareTo("Hybrid")==0) {
+                    this.corvalues= ((Hybrid)ta).getCorvalues();
+                    this.Hashvalues=((Hybrid)ta).getHashvalues();
+
+                }
                 this.setChanged();
                 this.notifyObservers();
                 ao.execute(()->{
@@ -192,6 +212,7 @@ public class Model extends Observable {
                 Thread.sleep(this.rate);
                 localtime++;
             }
+
             out.close();
             fg.close();
         } catch (IOException | InterruptedException e) {

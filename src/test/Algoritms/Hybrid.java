@@ -13,6 +13,13 @@ import static java.lang.Math.abs;
 import static test.StatLib.pearson;
 
 public class Hybrid implements TimeSeriesAnomalyDetector {
+    public class HybridData{
+        int f1;
+        int f2;
+        String algo;
+
+    }
+
     public ArrayList<SimpleAnomalyDetector>simple=new ArrayList<>();
     public ArrayList<Zscore>zscorelist=new ArrayList<>();
     public ArrayList<Welzl>welzllist=new ArrayList<>();
@@ -22,20 +29,39 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
     public Hybrid() {
     }
 
+    public HashMap<Integer, Integer> getCorvalues() {
+        return corvalues;
+    }
+
+    public void setCorvalues(HashMap<Integer, Integer> corvalues) {
+        this.corvalues = corvalues;
+    }
+
+    public HashMap<String, Integer> getHashvalues() {
+        return Hashvalues;
+    }
+
+    public void setHashvalues(HashMap<String, Integer> hashvalues) {
+        Hashvalues = hashvalues;
+    }
+
     public void learnNormal(TimeSeries ts) {
         String coreFeature = null;
         float CurrentCorrlation,bestcor;
         int i, j;
         int indexfeature=0;
         int numOfFeatures = ts.getDataTable().size();
-        for (i = 0; i < (numOfFeatures - 1); i++) {
+        for (i = 0; i < numOfFeatures; i++) {
             bestcor=0;
-            for (j = i + 1; j < numOfFeatures; j++) {
-                float value = pearson(SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(i).valuesList), SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(j).valuesList));
-                CurrentCorrlation = abs(value);
-                if(bestcor<CurrentCorrlation) {
-                    bestcor = CurrentCorrlation;
-                    indexfeature=j;
+            for (j = 0; j < numOfFeatures; j++) {
+                if(i!=j)
+                {
+                    float value = pearson(SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(i).valuesList), SimpleAnomalyDetector.ListToArray(ts.getDataTable().get(j).valuesList));
+                    CurrentCorrlation = abs(value);
+                    if(bestcor<CurrentCorrlation) {
+                        bestcor = CurrentCorrlation;
+                        indexfeature=j;
+                    }
                 }
             }
             corvalues.put(i,indexfeature);
@@ -57,11 +83,9 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
                 Welzl W=new Welzl();
                 W.learnNormal(Wl);
                 welzllist.add(W);
-
             }
             Hashvalues.put(ts.getDataTable().get(i).getFeatureName(),i);
         }
-        Hashvalues.put(ts.getDataTable().get(i).getFeatureName(),i);
     }
 
 
