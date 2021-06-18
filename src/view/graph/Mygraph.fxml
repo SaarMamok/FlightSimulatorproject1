@@ -60,11 +60,22 @@
                   <NumberAxis layoutY="-44.0" side="LEFT" />
                </yAxis>
             </LineChart>
-            <Label fx:id="cover" alignment="CENTER" layoutX="10.0" layoutY="-40.0" prefHeight="270.0" prefWidth="600.0" style="-fx-background-color: red;" text="No correlated feature" textAlignment="CENTER" textFill="#5e5a5a">
+            <Label fx:id="cover" alignment="CENTER" layoutX="10.0" layoutY="-40.0" prefHeight="270.0" prefWidth="600.0" style="-fx-background-color: #ff0000;" text="No correlated feature" textAlignment="CENTER" textFill="#5e5a5a">
                <font>
                   <Font name="Calibri Bold" size="23.0" />
                </font></Label>
+            <ScatterChart fx:id="welzel" layoutX="10.0" layoutY="-40.0" prefHeight="270.0" prefWidth="600.0">
+               <xAxis>
+                  <NumberAxis fx:id="linex1" layoutY="-44.0" lowerBound="-200" side="BOTTOM" upperBound="200" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis fx:id="liney1" lowerBound="-200" side="LEFT" upperBound="200" />
+               </yAxis>
+            </ScatterChart>
          </children>
       </AnchorPane>
    </children>
+
+
+
 </AnchorPane>

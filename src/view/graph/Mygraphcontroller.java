@@ -28,6 +28,8 @@ public class Mygraphcontroller {
     @FXML
     ScatterChart<Number, Number> algo;
     @FXML
+    public ScatterChart<Number,Number> welzel;
+    @FXML
     LineChart linegraph;
     @FXML
     public LineChart zscoregraph;
@@ -35,6 +37,7 @@ public class Mygraphcontroller {
     NumberAxis linex;
     @FXML
     NumberAxis liney;
+
     @FXML
     Label cover;
     public FloatProperty listvalue;

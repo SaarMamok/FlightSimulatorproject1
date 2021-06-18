@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="eu">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../Medusa-8.0.jar!/eu" />
+      <root url="jar://$USER_HOME$/Medusa-8.0.jar!/eu" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

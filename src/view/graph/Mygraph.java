@@ -32,16 +32,21 @@ public class Mygraph extends AnchorPane {
     @FXML
     public ScatterChart<Number,Number> algo;
     @FXML
+    public ScatterChart<Number,Number> welzel;
+    @FXML
     public LineChart linegraph;
     @FXML
     public LineChart zscoregraph;
     public XYChart.Series <Number,Number>algoseries;
     public XYChart.Series series;
     public XYChart.Series series2;
+    public XYChart.Series welzelpoints;
+    public XYChart.Series welzelcircle;
     public XYChart.Series seriesline;
     public XYChart.Series zscoreseries;
     public XYChart.Series zscoreanomalyseries;
     public XYChart.Series detectlinegraph;
+
 
     @FXML
     NumberAxis linex;
@@ -79,6 +84,7 @@ public class Mygraph extends AnchorPane {
             leftgraph=mygraphcontroller.leftgraph;
             rightgraph=mygraphcontroller.rightgraph;
             algo=mygraphcontroller.algo;
+            welzel= mygraphcontroller.welzel;
             linegraph=mygraphcontroller.linegraph;
             zscoregraph=mygraphcontroller.zscoregraph;
             linex= mygraphcontroller.linex;
@@ -89,6 +95,8 @@ public class Mygraph extends AnchorPane {
             mygraphcontroller.time.bind(this.time);
             series=new XYChart.Series();
             series2=new XYChart.Series();
+            welzelcircle=new XYChart.Series();
+            welzelpoints=new XYChart.Series();
             algoseries =new XYChart.Series();
             seriesline=new XYChart.Series();
             zscoreseries=new XYChart.Series();
@@ -97,7 +105,9 @@ public class Mygraph extends AnchorPane {
             this.linegraph.getData().add(seriesline);
             this.zscoregraph.getData().add(zscoreseries);
             this.zscoregraph.getData().add(zscoreanomalyseries);
-
+            this.welzel.getData().add(welzelcircle);
+            this.welzel.getData().add(welzelpoints);
+            welzel.setVisible(false);
             this.lefttitle.addListener((o,ov,nv)->series.setName(this.lefttitle.getValue()));
             this.righttitle.addListener((o,ov,nv)-> {
                 series2.setName(this.righttitle.getValue());
