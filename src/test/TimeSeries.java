@@ -51,6 +51,9 @@ public class TimeSeries {
 	public int Timer(){
 		return this.dataTable.get(0).valuesList.size();
 	}
+	public String getName(int index){
+		return this.dataTable.get(index).featureName;
+	}
 
 	public TimeSeries(String csvFileName)
 	{

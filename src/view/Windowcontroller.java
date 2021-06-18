@@ -121,6 +121,8 @@ public class Windowcontroller extends Observable {
             //this.mygraph.time.set(time.getValue());
             this.mygraph.algoseries.getData().clear();
             this.mygraph.detectlinegraph.getData().clear();
+            this.mygraph.zscoreseries.getData().clear();
+            this.mygraph.zscoreanomalyseries.getData().clear();
         });
         this.mygraph.listvalue.bind(this.viewModel.listvalue);
         this.mygraph.corvalue.bind(this.viewModel.corvalue);
@@ -136,7 +138,12 @@ public class Windowcontroller extends Observable {
         this.mygraph.check.bind(this.viewModel.check);
         this.mygraph.zvalue.bind(this.viewModel.zvalue);
         this.mygraph.zanomalyvalue.bind(this.viewModel.zanomalyvalue);
-
+        this.mygraph.cx.bind(this.viewModel.cx);
+        this.mygraph.cy.bind(this.viewModel.cy);
+        this.mygraph.radius.bind(this.viewModel.radius);
+        this.mygraph.welzlx.bind(this.viewModel.welzlx);
+        this.mygraph.welzly.bind(this.viewModel.welzly);
+        this.mygraph.type.bind(this.viewModel.type);
 
         this.mydashboard.yaw.bind(this.viewModel.yaw);
         this.mydashboard.direction.bind(this.viewModel.direction);

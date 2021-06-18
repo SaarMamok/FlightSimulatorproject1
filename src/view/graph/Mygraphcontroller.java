@@ -74,7 +74,22 @@ public class Mygraphcontroller {
         Platform.runLater(() -> {
             ser.getData().add(new XYChart.Data(x, y));
         });
+    }
+
+    public void createCircle(XYChart.Series ser,float cx,float cy,float r){
+
+        Platform.runLater(() -> {
+            float x,y;
+            for(int i=0;i<360;i++) {
+                x= (float) (cx+(r*Math.cos(i)));
+                y= (float) (cy+(r*Math.sin(i)));
+                ser.getData().add(new XYChart.Data(x, y));
 
 
+            }
+        });
+    }
+    public void addWelzlpoints(XYChart.Series ser,float x,float y){
+        Platform.runLater(() -> ser.getData().add(new XYChart.Data(x,y)));
     }
 }

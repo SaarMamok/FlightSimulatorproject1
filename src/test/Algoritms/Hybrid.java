@@ -14,26 +14,45 @@ import static test.StatLib.pearson;
 
 public class Hybrid implements TimeSeriesAnomalyDetector {
     public class HybridData{
-        int f1;
-        int f2;
+        int index;
         String algo;
 
+        public HybridData(int index, String algo) {
+            this.index = index;
+            this.algo = algo;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
+        }
+
+        public String getAlgo() {
+            return algo;
+        }
+
+        public void setAlgo(String algo) {
+            this.algo = algo;
+        }
     }
 
     public ArrayList<SimpleAnomalyDetector>simple=new ArrayList<>();
     public ArrayList<Zscore>zscorelist=new ArrayList<>();
     public ArrayList<Welzl>welzllist=new ArrayList<>();
-    public HashMap<Integer,Integer>corvalues=new HashMap<>();
+    public HashMap<Integer,HybridData>corvalues=new HashMap<>();
     private HashMap<String,Integer> Hashvalues=new HashMap<>();
 
     public Hybrid() {
     }
 
-    public HashMap<Integer, Integer> getCorvalues() {
+    public HashMap<Integer, HybridData> getCorvalues() {
         return corvalues;
     }
 
-    public void setCorvalues(HashMap<Integer, Integer> corvalues) {
+    public void setCorvalues(HashMap<Integer, HybridData> corvalues) {
         this.corvalues = corvalues;
     }
 
@@ -49,6 +68,7 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
         String coreFeature = null;
         float CurrentCorrlation,bestcor;
         int i, j;
+        int countl=0,countz=0,countw=0;
         int indexfeature=0;
         int numOfFeatures = ts.getDataTable().size();
         for (i = 0; i < numOfFeatures; i++) {
@@ -64,8 +84,10 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
                     }
                 }
             }
-            corvalues.put(i,indexfeature);
+
             if(bestcor>=0.95){
+                corvalues.put(i,new HybridData(countl,"l"));
+                countl++;
                 TimeSeries linear=new TimeSeries(ts.getDataTable().get(i),ts.getDataTable().get(indexfeature));
                 SimpleAnomalyDetector s= new SimpleAnomalyDetector(bestcor);
                 s.learnNormal(linear);
@@ -73,12 +95,16 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
             }
             else if(bestcor<=0.5)
             {
+                corvalues.put(i,new HybridData(countz,"z"));
+                countz++;
                 TimeSeries zs=new TimeSeries(ts.getDataTable().get(i));
                 Zscore z=new Zscore();
                 z.learnNormal(zs);
                 zscorelist.add(z);
             }
             else{
+                corvalues.put(i,new HybridData(countw,"w"));
+                countw++;
                 TimeSeries Wl=new TimeSeries(ts.getDataTable().get(i),ts.getDataTable().get(indexfeature));
                 Welzl W=new Welzl();
                 W.learnNormal(Wl);

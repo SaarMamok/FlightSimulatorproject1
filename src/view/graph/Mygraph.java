@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -19,11 +20,12 @@ import view.attlist.AttListController;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.io.IOException;
+import java.util.Set;
 
 public class Mygraph extends AnchorPane {
-    public FloatProperty listvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,corvalue,px,py;
+    public FloatProperty listvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,corvalue,px,py,cx,cy,radius,welzlx,welzly;
     public IntegerProperty time,check;
-    public StringProperty righttitle,Algname,lefttitle;
+    public StringProperty righttitle,Algname,lefttitle,type;
     public BooleanProperty abberant;
     @FXML
     public LineChart leftgraph;
@@ -73,6 +75,12 @@ public class Mygraph extends AnchorPane {
             this.Algname=new SimpleStringProperty();
             this.zvalue=new SimpleFloatProperty();
             this.zanomalyvalue=new SimpleFloatProperty();
+            this.type=new SimpleStringProperty();
+            cx=new SimpleFloatProperty();
+            cy=new SimpleFloatProperty();
+            radius=new SimpleFloatProperty();
+            welzlx=new SimpleFloatProperty();
+            welzly=new SimpleFloatProperty();
             check=new SimpleIntegerProperty();
             px=new SimpleFloatProperty();
             py=new SimpleFloatProperty();
@@ -126,24 +134,33 @@ public class Mygraph extends AnchorPane {
 
                 });
             });
+            Set<Node> nodes = welzel.lookupAll(".series" + 0);
+            for (Node n : nodes) {
+                n.setStyle("-fx-background-color: #860061, black;\n"
+                        + "    -fx-background-insets: 0, 2;\n"
+                        + "    -fx-background-radius: 1px;\n"
+                        + "    -fx-padding: 1px;");
+            }
+
             this.time.addListener((o,ov,nv)-> {
                 mygraphcontroller.AddtoGraph(series,time.getValue().toString(),listvalue.getValue());
                 mygraphcontroller.AddtoGraph(series2,time.getValue().toString(),corvalue.getValue());
                         if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0) {
-                            if(check.getValue()==-1){
+                            if (check.getValue() == -1) {
                                 cover.setVisible(true);
-                            }
-                            else
+                            } else
                                 cover.setVisible(false);
-                           mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
-
-                            mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph,px.getValue(),py.getValue());
-                          /* if(abberant.getValue()==true){
-                               this.algoseries.getNode().setStyle("-fx-stroke: #ff0000;");
-                           }*/
                             zscoregraph.setVisible(false);
                             linegraph.setVisible(true);
                             algo.setVisible(true);
+                            welzel.setVisible(false);
+                            mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
+
+                            mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph, px.getValue(), py.getValue());
+                          /* if(abberant.getValue()==true){
+                               this.algoseries.getNode().setStyle("-fx-stroke: #ff0000;");
+                           }*/
+
                         }
                         else if(Algname.getValue().compareTo("test.Algoritms.Zscore")==0)
                         {
@@ -151,9 +168,41 @@ public class Mygraph extends AnchorPane {
                             linegraph.setVisible(false);
                             algo.setVisible(false);
                             cover.setVisible(false);
+                            welzel.setVisible(false);
                             //System.out.println(zvalue.getValue());
                             mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
                             mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries,time.floatValue(),zanomalyvalue.getValue());
+                        }
+                        else if(Algname.getValue().compareTo("test.Algoritms.Hybrid")==0){
+                            cover.setVisible(false);
+                                if(type.getValue().compareTo("l")==0){
+                                    zscoregraph.setVisible(false);
+                                    linegraph.setVisible(true);
+                                    algo.setVisible(true);
+                                    welzel.setVisible(false);
+                                    mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
+
+                                    mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph,px.getValue(),py.getValue());
+                                }
+                                else if(type.getValue().compareTo("z")==0){
+                                    zscoregraph.setVisible(true);
+                                    linegraph.setVisible(false);
+                                    algo.setVisible(false);
+                                    cover.setVisible(false);
+                                    welzel.setVisible(false);
+                                    mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
+                                    mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries,time.floatValue(),zanomalyvalue.getValue());
+
+                                }
+                                else if((type.getValue().compareTo("w")==0)){
+                                    zscoregraph.setVisible(false);
+                                    linegraph.setVisible(false);
+                                    algo.setVisible(false);
+                                    cover.setVisible(false);
+                                    welzel.setVisible(true);
+                                    mygraphcontroller.createCircle(welzelcircle,this.cx.getValue(),this.cy.getValue(),this.radius.getValue());
+                                    mygraphcontroller.addWelzlpoints(welzelpoints,welzlx.getValue(),welzly.getValue());
+                                }
                         }
                     });
 

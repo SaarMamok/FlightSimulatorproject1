@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import properties.Settings;
 import test.Algoritms.Hybrid;
 import test.Algoritms.Zscore;
@@ -22,19 +24,16 @@ public class Model extends Observable {
     protected Thread theThread;
     private int index,time,corindex,check=0;
     private int localtime=0;
-    private float throttle,rudder,elevators,aileron,listvalue,corvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue;
+    private float throttle,rudder,elevators,aileron,listvalue,corvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,cx,cy,radius,welzlx,welzly;
     private double altitude,speed,direction,roll,pitch,yaw;
     private String leftval,rightval,detectorname;
     private SimpleAnomalyDetector.Pointanomaly p;
+    public StringProperty type;
     protected ActiveObjectCommon ao;
 
     private TimeSeriesAnomalyDetector ta;
     private TimeSeries learnTimeSeries;
 
-    ///////////////////////////////////////////////////////////
-    public HashMap<Integer,Integer> corvalues=new HashMap<>();
-    private HashMap<String,Integer> Hashvalues=new HashMap<>();
-    ///////////////////////////////////////////////////////////
 
 
     public Model(){
@@ -50,6 +49,7 @@ public class Model extends Observable {
             this.ratedisplay=rate;
             this.detectorname="";
             this.learnTimeSeries = new TimeSeries(prop.getLearnpath());
+            type=new SimpleStringProperty();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -199,8 +199,34 @@ public class Model extends Observable {
                     zanomalyvalue=((Zscore)ta).getAnomalymap().get(index).get(localtime).getVal();
                 }
                 else if(detectorname.compareTo("Hybrid")==0) {
-                    this.corvalues= ((Hybrid)ta).getCorvalues();
-                    this.Hashvalues=((Hybrid)ta).getHashvalues();
+                    //this.corvalues= ((Hybrid)ta).getCorvalues();
+                    //this.Hashvalues=((Hybrid)ta).getHashvalues();
+                    type.setValue(((Hybrid)ta).getCorvalues().get(index).getAlgo());
+                    int innerindex=((Hybrid)ta).getCorvalues().get(index).getIndex();
+                    if(type.getValue().compareTo("l")==0){
+                        this.y2line = ((Hybrid)ta).simple.get(innerindex).getCorFeatures().get(0).lin_reg.f(-500);
+                        this.x2line = -500;
+                        this.y1line = ((Hybrid)ta).simple.get(innerindex).getCorFeatures().get(0).lin_reg.f(500);
+                        this.x1line = 500;
+
+                        p = new SimpleAnomalyDetector.Pointanomaly(new Point(((Hybrid)ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).getP().x,
+                                ((Hybrid)ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).getP().y),
+                                ((Hybrid)ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).isAberrant());
+
+                    }
+                    else if(type.getValue().compareTo("z")==0){
+                        zvalue = ((Hybrid)ta).zscorelist.get(innerindex).getZhash().get(0).get(localtime);
+                        zanomalyvalue=((Hybrid)ta).zscorelist.get(innerindex).getAnomalymap().get(0).get(localtime).getVal();
+                    }
+                    else if(type.getValue().compareTo("w")==0){
+                        cx=((Hybrid)ta).welzllist.get(innerindex).cir1.c.x;
+                        cy=((Hybrid)ta).welzllist.get(innerindex).cir1.c.y;
+                        radius=(float)((Hybrid)ta).welzllist.get(innerindex).cir1.r;
+                        int index1=((Hybrid)ta).getHashvalues().get(((Hybrid)ta).welzllist.get(innerindex).getFeat1());
+                        int index2=((Hybrid)ta).getHashvalues().get(((Hybrid)ta).welzllist.get(innerindex).getFeat2());
+                        welzlx=ts.getDataTable().get(index1).valuesList.get(localtime);
+                        welzly=ts.getDataTable().get(index2).valuesList.get(localtime);
+                    }
 
                 }
                 this.setChanged();
@@ -324,5 +350,33 @@ public class Model extends Observable {
 
     public int getCheck() {
         return check;
+    }
+
+    public float getCx() {
+        return cx;
+    }
+
+    public float getCy() {
+        return cy;
+    }
+
+    public float getRadius() {
+        return radius;
+    }
+
+    public float getWelzlx() {
+        return welzlx;
+    }
+
+    public float getWelzly() {
+        return welzly;
+    }
+
+    public String getType() {
+        return type.get();
+    }
+
+    public StringProperty typeProperty() {
+        return type;
     }
 }

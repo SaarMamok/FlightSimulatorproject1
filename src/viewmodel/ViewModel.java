@@ -25,10 +25,10 @@ public class ViewModel extends Observable implements Observer {
   private TimeSeries ts;
   private  Model model;
 
-  public StringProperty leftval,rightval,Algname;
+  public StringProperty leftval,rightval,Algname,type;
   public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
   public IntegerProperty index,corindex,time,check;
-  public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,px,py;
+  public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,px,py,cx,cy,radius,welzlx,welzly;
   public BooleanProperty aberrant;
 
   private HashMap<Integer,Integer> Hashcor=new HashMap<>();
@@ -66,6 +66,12 @@ public class ViewModel extends Observable implements Observer {
     py=new SimpleFloatProperty();
     aberrant=new SimpleBooleanProperty();
     check=new SimpleIntegerProperty();
+    cx=new SimpleFloatProperty();
+    cy=new SimpleFloatProperty();
+    radius=new SimpleFloatProperty();
+    welzlx=new SimpleFloatProperty();
+    welzly=new SimpleFloatProperty();
+    type=new SimpleStringProperty();
     }
     public DoubleProperty getAileron(){
     return this.aileron;
@@ -138,7 +144,7 @@ public class ViewModel extends Observable implements Observer {
   @Override
     public void update(Observable o, Object arg) {
         if(o==this.model){
-          Platform.runLater(()->{
+          Platform.runLater(()-> {
             this.time.set(this.model.getTime());
 
             this.throttle.set((this.model.getThrottle()));
@@ -151,7 +157,7 @@ public class ViewModel extends Observable implements Observer {
             this.listvalue.set(this.model.getListvalue());
             this.corvalue.set(this.model.getCorvalue());
 
-            this.rate.set(this.model.getRatedisplay()/1000f);
+            this.rate.set(this.model.getRatedisplay() / 1000f);
 
             this.yaw.set(this.model.getYaw());
             this.roll.set(this.model.getRoll());
@@ -163,21 +169,43 @@ public class ViewModel extends Observable implements Observer {
             this.leftval.set(this.model.getLeftval());
             this.rightval.set(this.model.getRightval());
             this.check.set(this.model.getCheck());
-          if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0) {
-            if(this.model.getCheck()!=-1) {
-              this.x1line.setValue(this.model.getX1line());
-              this.x2line.setValue(this.model.getX2line());
-              this.y1line.setValue(this.model.getY1line());
-              this.y2line.setValue(this.model.getY2line());
-              this.px.setValue(this.model.getP().getP().x);
-              this.py.setValue(this.model.getP().getP().y);
-              this.aberrant.setValue(this.model.getP().isAberrant());
+            if (Algname.getValue().compareTo("test.SimpleAnomalyDetector") == 0) {
+              if (this.model.getCheck() != -1) {
+                this.x1line.setValue(this.model.getX1line());
+                this.x2line.setValue(this.model.getX2line());
+                this.y1line.setValue(this.model.getY1line());
+                this.y2line.setValue(this.model.getY2line());
+                this.px.setValue(this.model.getP().getP().x);
+                this.py.setValue(this.model.getP().getP().y);
+                this.aberrant.setValue(this.model.getP().isAberrant());
+              }
+            } else if (Algname.getValue().compareTo("test.Algoritms.Zscore") == 0) {
+              this.zvalue.setValue(this.model.getZvalue());
+              this.zanomalyvalue.setValue(this.model.getZanomalyvalue());
             }
-          }
-          else if(Algname.getValue().compareTo("test.Algoritms.Zscore")==0)
-            this.zvalue.setValue(this.model.getZvalue());
-          this.zanomalyvalue.setValue(this.model.getZanomalyvalue());
-
+            else if (Algname.getValue().compareTo("test.Algoritms.Hybrid") == 0) {
+              type.setValue(model.type.getValue());
+                    if(model.getType().compareTo("l")==0){
+                      this.x1line.setValue(this.model.getX1line());
+                      this.x2line.setValue(this.model.getX2line());
+                      this.y1line.setValue(this.model.getY1line());
+                      this.y2line.setValue(this.model.getY2line());
+                      this.px.setValue(this.model.getP().getP().x);
+                      this.py.setValue(this.model.getP().getP().y);
+                      this.aberrant.setValue(this.model.getP().isAberrant());
+                    }
+                    else if(model.getType().compareTo("z")==0){
+                      this.zvalue.setValue(this.model.getZvalue());
+                       this.zanomalyvalue.setValue(this.model.getZanomalyvalue());
+                     }
+                    else if(model.getType().compareTo("w")==0){
+                      cx.setValue(model.getCx());
+                      cy.setValue(model.getCy());
+                      radius.setValue(model.getRadius());
+                      welzlx.setValue(model.getWelzlx());
+                      welzly.setValue(model.getWelzly());
+                    }
+            }
           });
         }
        /* else{
