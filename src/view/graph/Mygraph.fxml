@@ -64,7 +64,7 @@
                <font>
                   <Font name="Calibri Bold" size="23.0" />
                </font></Label>
-            <ScatterChart fx:id="welzel" layoutX="90.0" layoutY="-40.0" prefHeight="400" prefWidth="400">
+            <ScatterChart fx:id="welzel" layoutX="130.0" layoutY="-40.0" prefHeight="300" prefWidth="300">
                <xAxis>
                   <NumberAxis fx:id="linex1" layoutY="-44.0" lowerBound="-200" side="BOTTOM" upperBound="200" />
                </xAxis>

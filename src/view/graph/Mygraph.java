@@ -157,9 +157,16 @@ public class Mygraph extends AnchorPane {
                             mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
 
                             mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph, px.getValue(), py.getValue());
-                          /* if(abberant.getValue()==true){
+
+
+
+                            /*  if(abberant.getValue()==true){
                                this.algoseries.getNode().setStyle("-fx-stroke: #ff0000;");
-                           }*/
+                               this.algoseries.getNode().setStyle("-fx-background-color: #ff0000");
+                               System.out.println("jjjjj");
+                           }
+                        */
+
 
                         }
                         else if(Algname.getValue().compareTo("test.Algoritms.Zscore")==0)
@@ -179,7 +186,7 @@ public class Mygraph extends AnchorPane {
                                     zscoregraph.setVisible(false);
                                     linegraph.setVisible(true);
                                     algo.setVisible(true);
-                                    seriesline.setName("");
+                                    seriesline.setName(" ");
                                     detectlinegraph.setName("linear regression");
                                     welzel.setVisible(false);
                                     mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
@@ -189,7 +196,7 @@ public class Mygraph extends AnchorPane {
                                 else if(type.getValue().compareTo("z")==0){
                                     zscoregraph.setVisible(true);
                                     zscoreseries.setName("Zscore");
-                                    zscoreanomalyseries.setName("");
+                                    zscoreanomalyseries.setName(" ");
                                     linegraph.setVisible(false);
                                     algo.setVisible(false);
                                     cover.setVisible(false);

@@ -3,6 +3,11 @@ package viewmodel;
 
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import model.Model;
 import test.SimpleAnomalyDetector;
 import test.StatLib;
@@ -11,6 +16,9 @@ import test.TimeSeriesAnomalyDetector;
 
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -94,8 +102,8 @@ public class ViewModel extends Observable implements Observer {
   }
   public void ChooseAlg() throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
     String input,className;
-    input= JOptionPane.showInputDialog(null,"enter a class directory");
-    className=JOptionPane.showInputDialog(null,"enter the class name");
+    input= JOptionPane.showInputDialog(null,"Enter a class directory");
+    className=JOptionPane.showInputDialog(null,"Enter the class name");
 
 // load class directory
     URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] {
