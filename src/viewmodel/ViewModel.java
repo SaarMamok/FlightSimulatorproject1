@@ -96,6 +96,7 @@ public class ViewModel extends Observable implements Observer {
     String input,className;
     input= JOptionPane.showInputDialog(null,"enter a class directory");
     className=JOptionPane.showInputDialog(null,"enter the class name");
+
 // load class directory
     URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] {
             new URL("file://"+input)
@@ -104,6 +105,8 @@ public class ViewModel extends Observable implements Observer {
     Algname.setValue(c.getName());
     System.out.println(Algname.getValue());
     model.SetAnomaly(c);
+
+
 
   }
   public void setCor(TimeSeries ts) {
