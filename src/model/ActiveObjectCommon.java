@@ -3,7 +3,7 @@ package model;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class ActiveObjectCommon {
+public class ActiveObjectCommon extends Model {
     protected BlockingDeque<Runnable>tasks;
     protected Thread activeThread;
     protected volatile boolean stop;

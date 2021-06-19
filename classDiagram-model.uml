@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>model</OriginalElement>
+  <nodes>
+    <node x="0.0" y="1317.0">model.ActiveObjectCommon</node>
+    <node x="269.0" y="0.0">model.FGplayer</node>
+    <node x="6.5" y="0.0">model.Model</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.ActiveObjectCommon" target="model.Model">
+      <point x="0.0" y="-105.0" />
+      <point x="0.0" y="633.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.43309631544925664" x="226.0" y="763.5" />
+  <SelectedNodes>
+    <node>model.Model</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
