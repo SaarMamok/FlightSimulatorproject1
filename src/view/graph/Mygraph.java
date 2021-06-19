@@ -179,6 +179,8 @@ public class Mygraph extends AnchorPane {
                                     zscoregraph.setVisible(false);
                                     linegraph.setVisible(true);
                                     algo.setVisible(true);
+                                    seriesline.setName("");
+                                    detectlinegraph.setName("linear regression");
                                     welzel.setVisible(false);
                                     mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
 
@@ -186,6 +188,8 @@ public class Mygraph extends AnchorPane {
                                 }
                                 else if(type.getValue().compareTo("z")==0){
                                     zscoregraph.setVisible(true);
+                                    zscoreseries.setName("Zscore");
+                                    zscoreanomalyseries.setName("");
                                     linegraph.setVisible(false);
                                     algo.setVisible(false);
                                     cover.setVisible(false);
@@ -200,6 +204,8 @@ public class Mygraph extends AnchorPane {
                                     algo.setVisible(false);
                                     cover.setVisible(false);
                                     welzel.setVisible(true);
+                                    welzelcircle.setName("Welzel");
+
                                     mygraphcontroller.createCircle(welzelcircle,this.cx.getValue(),this.cy.getValue(),this.radius.getValue());
                                     mygraphcontroller.addWelzlpoints(welzelpoints,welzlx.getValue(),welzly.getValue());
                                 }
