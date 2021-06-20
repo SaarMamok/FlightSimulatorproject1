@@ -10,9 +10,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graph.Mygraphcontroller">
    <children>
-      <AnchorPane prefHeight="300.0" prefWidth="300.0">
+      <AnchorPane layoutY="4.0" prefHeight="250.0" prefWidth="250.0">
          <children>
-            <LineChart fx:id="leftgraph" prefHeight="253.0" prefWidth="261.0">
+            <LineChart fx:id="leftgraph" prefHeight="250.0" prefWidth="250.0">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>
@@ -22,9 +22,9 @@
             </LineChart>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="320.0" layoutY="4.0" prefHeight="300.0" prefWidth="300.0">
+      <AnchorPane layoutX="320.0" layoutY="4.0" prefHeight="250.0" prefWidth="250.0">
          <children>
-            <LineChart fx:id="rightgraph" prefHeight="262.0" prefWidth="261.0">
+            <LineChart fx:id="rightgraph" prefHeight="250.0" prefWidth="250.0">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>

@@ -131,6 +131,11 @@ public class Mygraph extends AnchorPane {
                 rightgraph.setTitle(this.righttitle.getValue());
                 series2.setName("Learn");
             });
+
+            leftgraph.setCreateSymbols(false);
+            rightgraph.setCreateSymbols(false);
+
+
             this.leftgraph.getData().add(series);
             this.rightgraph.getData().add(series2);
 
@@ -153,8 +158,17 @@ public class Mygraph extends AnchorPane {
             }
 
             this.time.addListener((o,ov,nv)-> {
-                mygraphcontroller.AddtoGraph(series,time.getValue().toString(),listvalue.getValue());
-                mygraphcontroller.AddtoGraph(series2,time.getValue().toString(),corvalue.getValue());
+                if(!abberant.getValue()) {
+                    mygraphcontroller.AddtoGraph(series, time.getValue().toString(), listvalue.getValue());
+                    mygraphcontroller.AddtoGraph(series2, time.getValue().toString(), corvalue.getValue());
+                    linegraph.setStyle("-fx-background-color: none;\n");
+                }
+                else {
+                    mygraphcontroller.AddtoGraph(series, time.getValue().toString(), listvalue.getValue());
+                    mygraphcontroller.AddtoGraph(series2, time.getValue().toString(), corvalue.getValue());
+                    linegraph.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n");
+                }
+
                         if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0) {
                             if (check.getValue() == -1) {
                                 cover.setVisible(true);
@@ -166,23 +180,45 @@ public class Mygraph extends AnchorPane {
                             welzel.setVisible(false);
                             linegraph.setLegendVisible(true);
                             algo.setLegendVisible(true);
-                            linegraph.setTitle("Linear regression");
+                            algo.setTitle("Linear regression");
                             detectlinegraph.setName("Detect");
                             seriesline.setName("Learn");
-                            mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
-                            mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph, px.getValue(), py.getValue());
+
+                            if(!abberant.getValue()) {
+                                mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
+                                mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph, px.getValue(), py.getValue());
+                                linegraph.setStyle("-fx-background-color: none;\n");
+                            }
+                            else {
+                                mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
+                                mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph, px.getValue(), py.getValue());
+                                linegraph.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n");
+
+                                Set<Node> linesnodes = algo.lookupAll(".series" + 0);
+                                for (Node n : linesnodes) {
+                                    n.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n"
+                                            + "    -fx-background-insets: 0, 2;\n"
+                                            + "    -fx-background-radius: 10px;\n"
+                                            + "    -fx-padding: 10px;\n"
+                                            + "     -fx-stroke: #33FFF4;");
+                                }
 
 
+                                /*
+                                this.algo.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n"
+                                        + "    -fx-background-insets: 0, 2;\n"
+                                        + "    -fx-background-radius: 3px;\n"
+                                        + "    -fx-padding: 3px;\n"
+                                        + "    -fx-stroke: #33FFF4;\n"
+                                        + "    -fx-blend-mode: #33FFF4;");
 
-                            /*  if(abberant.getValue()==true){
-                               this.algoseries.getNode().setStyle("-fx-stroke: #ff0000;");
-                               this.algoseries.getNode().setStyle("-fx-background-color: #ff0000");
-                               System.out.println("jjjjj");
-                           }
-                        */
+
+                                 */
 
 
+                            }
                         }
+
                         else if(Algname.getValue().compareTo("test.Algoritms.Zscore")==0)
                         {
                             zscoregraph.setVisible(true);
@@ -194,9 +230,28 @@ public class Mygraph extends AnchorPane {
                             zscoregraph.setTitle("Z-score");
                             zscoreseries.setName("Detect");
                             zscoreanomalyseries.setName("Learn");
-                            mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
-                            mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries,time.floatValue(),zanomalyvalue.getValue());
-                        }
+
+                            if(!abberant.getValue()) {
+                                mygraphcontroller.ZscoreGraphadd(zscoreseries, time.floatValue(), zvalue.getValue());
+                                mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries, time.floatValue(), zanomalyvalue.getValue());
+                                linegraph.setStyle("-fx-background-color: none;\n");
+                            }
+                            else {
+                                mygraphcontroller.ZscoreGraphadd(zscoreseries, time.floatValue(), zvalue.getValue());
+                                mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries, time.floatValue(), zanomalyvalue.getValue());
+                                linegraph.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n");
+
+                                Set<Node> linesnodes = algo.lookupAll(".series" + 0);
+                                for (Node n : linesnodes) {
+                                    n.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n"
+                                            + "    -fx-background-insets: 0, 2;\n"
+                                            + "    -fx-background-radius: 10px;\n"
+                                            + "    -fx-padding: 10px;\n"
+                                            + "     -fx-stroke: #33FFF4;");
+                                }
+                            }
+
+                            }
                         else if(Algname.getValue().compareTo("test.Algoritms.Hybrid")==0){
                             cover.setVisible(false);
                                 if(type.getValue().compareTo("l")==0){
@@ -206,12 +261,29 @@ public class Mygraph extends AnchorPane {
                                     welzel.setVisible(false);
                                     linegraph.setLegendVisible(true);
                                     algo.setLegendVisible(true);
-                                    linegraph.setTitle("Linear regression");
+                                    algo.setTitle("Linear regression");
                                     detectlinegraph.setName("Detect");
                                     seriesline.setName("Learn");
-                                    mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
 
-                                    mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph,px.getValue(),py.getValue());
+                                    if(!abberant.getValue()) {
+                                        mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
+                                        mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph, px.getValue(), py.getValue());
+                                        linegraph.setStyle("-fx-background-color: none;\n");
+                                    }
+                                    else {
+                                        mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
+                                        mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph, px.getValue(), py.getValue());
+
+                                        Set<Node> linesnodes = algo.lookupAll(".series" + 0);
+                                        for (Node n : linesnodes) {
+                                            n.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n"
+                                                    + "    -fx-background-insets: 0, 2;\n"
+                                                    + "    -fx-background-radius: 10px;\n"
+                                                    + "    -fx-padding: 10px;\n"
+                                                    + "     -fx-stroke: #33FFF4;");
+                                        }
+                                    }
+
                                 }
                                 else if(type.getValue().compareTo("z")==0){
                                     zscoregraph.setVisible(true);
