@@ -8,10 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.ScatterChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -116,10 +113,23 @@ public class Mygraph extends AnchorPane {
             this.welzel.getData().add(welzelcircle);
             this.welzel.getData().add(welzelpoints);
             welzel.setVisible(false);
-            this.lefttitle.addListener((o,ov,nv)->series.setName(this.lefttitle.getValue()));
-            this.righttitle.addListener((o,ov,nv)-> {
-                series2.setName(this.righttitle.getValue());
+            this.lefttitle.addListener((o,ov,nv)-> {
+                leftgraph.setTitle(this.lefttitle.getValue());
+                series.setName("Learn");
+            });
 
+            Set<Node> linenodes = leftgraph.lookupAll(".series" + 0);
+            for (Node n : linenodes ) {
+                n.setStyle("-fx-background-color: #860061, white;\n"
+                        + "    -fx-background-insets: 0, 2;\n"
+                        + "    -fx-background-radius: 1px;\n"
+                        + "    -fx-padding: 1px;");
+            }
+
+
+            this.righttitle.addListener((o,ov,nv)-> {
+                rightgraph.setTitle(this.righttitle.getValue());
+                series2.setName("Learn");
             });
             this.leftgraph.getData().add(series);
             this.rightgraph.getData().add(series2);
@@ -154,8 +164,12 @@ public class Mygraph extends AnchorPane {
                             linegraph.setVisible(true);
                             algo.setVisible(true);
                             welzel.setVisible(false);
+                            linegraph.setLegendVisible(true);
+                            algo.setLegendVisible(true);
+                            linegraph.setTitle("Linear regression");
+                            detectlinegraph.setName("Detect");
+                            seriesline.setName("Learn");
                             mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
-
                             mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph, px.getValue(), py.getValue());
 
 
@@ -176,7 +190,10 @@ public class Mygraph extends AnchorPane {
                             algo.setVisible(false);
                             cover.setVisible(false);
                             welzel.setVisible(false);
-                            //System.out.println(zvalue.getValue());
+                            zscoregraph.setLegendVisible(true);
+                            zscoregraph.setTitle("Z-score");
+                            zscoreseries.setName("Detect");
+                            zscoreanomalyseries.setName("Learn");
                             mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
                             mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries,time.floatValue(),zanomalyvalue.getValue());
                         }
@@ -186,21 +203,26 @@ public class Mygraph extends AnchorPane {
                                     zscoregraph.setVisible(false);
                                     linegraph.setVisible(true);
                                     algo.setVisible(true);
-                                    seriesline.setName(" ");
-                                    detectlinegraph.setName("linear regression");
                                     welzel.setVisible(false);
+                                    linegraph.setLegendVisible(true);
+                                    algo.setLegendVisible(true);
+                                    linegraph.setTitle("Linear regression");
+                                    detectlinegraph.setName("Detect");
+                                    seriesline.setName("Learn");
                                     mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
 
                                     mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph,px.getValue(),py.getValue());
                                 }
                                 else if(type.getValue().compareTo("z")==0){
                                     zscoregraph.setVisible(true);
-                                    zscoreseries.setName("Zscore");
-                                    zscoreanomalyseries.setName(" ");
                                     linegraph.setVisible(false);
                                     algo.setVisible(false);
                                     cover.setVisible(false);
                                     welzel.setVisible(false);
+                                    zscoregraph.setLegendVisible(true);
+                                    zscoreseries.setName("Detect");
+                                    zscoreanomalyseries.setName("Learn");
+                                    zscoregraph.setTitle("Z-score");
                                     mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
                                     mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries,time.floatValue(),zanomalyvalue.getValue());
 
@@ -210,9 +232,13 @@ public class Mygraph extends AnchorPane {
                                     linegraph.setVisible(false);
                                     algo.setVisible(false);
                                     cover.setVisible(false);
+                                    linegraph.setLegendVisible(false);
+                                    zscoregraph.setLegendVisible(false);
                                     welzel.setVisible(true);
-                                    welzelcircle.setName("Welzel");
-
+                                    welzel.setLegendVisible(true);
+                                    welzel.setTitle("Welzel");
+                                    welzelcircle.setName("Learn");
+                                    welzelpoints.setName("Detect");
                                     mygraphcontroller.createCircle(welzelcircle,this.cx.getValue(),this.cy.getValue(),this.radius.getValue());
                                     mygraphcontroller.addWelzlpoints(welzelpoints,welzlx.getValue(),welzly.getValue());
                                 }

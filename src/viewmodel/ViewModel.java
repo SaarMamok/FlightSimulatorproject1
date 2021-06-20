@@ -100,11 +100,33 @@ public class ViewModel extends Observable implements Observer {
 
     return ts.Timer();
   }
+
+
+
+
   public void ChooseAlg() throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+
+
+    String input,className;
+    input= JOptionPane.showInputDialog(null,"Enter a class directory");
+    //if((input = "2")||(input =="-1")) //USER CHOOSE EXIT / CANCEL
+    while((input == "/0")||(input== null)||(input.contains(" ")||(input.compareTo("")==0)))
+      input= JOptionPane.showInputDialog(null,"It was wrong input please enter a class directory again");
+    className=JOptionPane.showInputDialog(null,"Enter the class name");
+
+    while(!(className.contains("test.Algoritms.Hybrid")) &&
+            !(className.contains("test.SimpleAnomalyDetector")) &&
+            !(className.contains("test.Algoritms.Zscore")))
+      className=JOptionPane.showInputDialog(null,"It was wrong input please enter the class name again");
+
+
+    /*
     String input,className;
     input= JOptionPane.showInputDialog(null,"Enter a class directory");
     className=JOptionPane.showInputDialog(null,"Enter the class name");
 
+
+     */
 // load class directory
     URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] {
             new URL("file://"+input)
