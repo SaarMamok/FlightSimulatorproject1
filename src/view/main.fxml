@@ -17,26 +17,15 @@
 
 <?import view.graph.Mygraph?>
 
+<?import view.mediaplayer.MediaPlayer?>
 <BorderPane blendMode="DIFFERENCE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Windowcontroller">
 
 
 
    <bottom>
-       <Pane prefHeight="131.0" prefWidth="885.0" BorderPane.alignment="CENTER">
-           <TextField fx:id="speed" layoutX="559.0" layoutY="22.0" prefHeight="26.0" prefWidth="55" />
-           <Button fx:id="opencsv" layoutX="21.0" layoutY="20.0" mnemonicParsing="false" onAction="#Opencsv" text="Open csv file" />
-           <Button fx:id="openalg" layoutX="21.0" layoutY="-20" mnemonicParsing="false" onAction="#Choosealg" text="Choose algorithm" />
-           <Slider fx:id="timebar" layoutX="27.0" layoutY="60.0" prefHeight="24.0" blockIncrement="1" onMouseReleased="#slidermove" prefWidth="881.0" />
-           <Label layoutX="474.0" layoutY="26.0" text="Play speed" />
-           <Label fx:id="clock" layoutX="620.0" layoutY="26.0" />
-           <ImageView fx:id="play" fitHeight="24.0" fitWidth="38.0" layoutX="227.0" layoutY="23.0" onMouseClicked="#play" pickOnBounds="true" preserveRatio="true" />
-           <ImageView fx:id="backwards" fitHeight="24.0" fitWidth="38.0" layoutX="181.0" layoutY="23.0" onMouseClicked="#backward" pickOnBounds="true" preserveRatio="true" />
-           <ImageView fx:id="skipprev" fitHeight="24.0" fitWidth="38.0" layoutX="135.0" layoutY="23.0" onMouseClicked="#doublebackward" pickOnBounds="true"  preserveRatio="true" />
-           <ImageView fx:id="pause" fitHeight="24.0" fitWidth="38.0" layoutX="275.0" layoutY="23.0" onMouseClicked="#pause" pickOnBounds="true" preserveRatio="true" />
-           <ImageView fx:id="stop" fitHeight="24.0" fitWidth="38.0" layoutX="325.0" layoutY="23.0" onMouseClicked="#stop" pickOnBounds="true" preserveRatio="true" />
-           <ImageView fx:id="fastforward" fitHeight="24.0" fitWidth="38.0" layoutX="371.0" layoutY="23.0" onMouseClicked="#forward" pickOnBounds="true" preserveRatio="true" />
-           <ImageView fx:id="skipnext" fitHeight="24.0" fitWidth="38.0" layoutX="419.0" layoutY="23.0" onMouseClicked="#doubleforward" pickOnBounds="true" preserveRatio="true" />
-       </Pane>
+    <AnchorPane>
+        <MediaPlayer fx:id="mediaPlayer"></MediaPlayer>
+    </AnchorPane>
 
    </bottom>
    <right>

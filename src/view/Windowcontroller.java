@@ -16,6 +16,7 @@ import view.attlist.AttList;
 import view.dashboard.Mydashboard;
 import view.graph.Mygraph;
 import view.joystick.MyJoystick;
+import view.mediaplayer.MediaPlayer;
 import viewmodel.ViewModel;
 
 import javax.swing.*;
@@ -38,27 +39,10 @@ public class Windowcontroller extends Observable {
     @FXML
     AttList attributeslist;
     @FXML
-    ImageView play;
-    @FXML
-    ImageView backwards;
-    @FXML
-    ImageView skipprev;
-    @FXML
-    ImageView pause;
-    @FXML
-    ImageView stop;
-    @FXML
-    ImageView fastforward;
-    @FXML
-    ImageView skipnext;
-    @FXML
-    Slider timebar;
+    MediaPlayer mediaPlayer;
     @FXML
     Mygraph mygraph;
-    @FXML
-    TextField speed;
-    @FXML
-    Label clock;
+
 
     private File chosen;
     public IntegerProperty time;
@@ -92,7 +76,7 @@ public class Windowcontroller extends Observable {
     public void init(ViewModel vm){
 
 
-        timebar.setMin(0);
+        mediaPlayer.timebar.setMin(0);
         time=new SimpleIntegerProperty();
         this.viewModel=vm;
 
@@ -106,8 +90,8 @@ public class Windowcontroller extends Observable {
 
         this.time.bind(this.viewModel.time);
         this.time.addListener((o,ov,nv)->{
-            timebar.setValue(time.getValue());
-            this.clock.setText(getDurationString(this.time.getValue()));
+            mediaPlayer.timebar.setValue(time.getValue());
+            this.mediaPlayer.clock.setText(getDurationString(this.time.getValue()));
         });
 
         this.viewModel.index.bind(attributeslist.index);
@@ -156,14 +140,8 @@ public class Windowcontroller extends Observable {
         this.rate=new SimpleFloatProperty();
         this.rate.setValue(1);
         this.rate.bind(this.viewModel.rate);
-        this.rate.addListener((o,ov,nv)->speed.setText(this.rate.getValue().toString()));
-        play.setImage(new Image(getClass().getResourceAsStream("./buttons/play.png")));
-        backwards.setImage(new Image(getClass().getResourceAsStream("./buttons/fastbackwards.png")));
-        skipprev.setImage(new Image(getClass().getResourceAsStream("./buttons/skiprev.png")));
-        pause.setImage(new Image(getClass().getResourceAsStream("./buttons/pause.png")));
-        stop.setImage(new Image(getClass().getResourceAsStream("./buttons/stop.png")));
-        fastforward.setImage(new Image(getClass().getResourceAsStream("./buttons/fastforward.png")));
-        skipnext.setImage(new Image(getClass().getResourceAsStream("./buttons/skipnext.png")));
+        this.rate.addListener((o,ov,nv)->this.mediaPlayer.speed.setText(this.rate.getValue().toString()));
+
 
     }
 
@@ -192,7 +170,7 @@ public class Windowcontroller extends Observable {
             System.out.println(chosen.getName());
         }
         int t=this.viewModel.setTs(new TimeSeries(chosen.getAbsolutePath()));
-        timebar.setMax(t);
+        this.mediaPlayer.timebar.setMax(t);
 
     }
 
@@ -222,7 +200,7 @@ public class Windowcontroller extends Observable {
     }
     public void slidermove(){
 
-        this.viewModel.slidermove(this.timebar.getValue());
+        this.viewModel.slidermove(this.mediaPlayer.timebar.getValue());
     }
 
 
