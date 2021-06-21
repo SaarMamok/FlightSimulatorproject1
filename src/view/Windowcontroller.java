@@ -142,6 +142,17 @@ public class Windowcontroller extends Observable {
         this.rate.bind(this.viewModel.rate);
         this.rate.addListener((o,ov,nv)->this.mediaPlayer.speed.setText(this.rate.getValue().toString()));
 
+
+        this.mediaPlayer.play.setOnMouseClicked(event->this.play());
+        this.mediaPlayer.backwards.setOnMouseClicked(event -> this.backward());
+        this.mediaPlayer.skipprev.setOnMouseClicked(event -> this.doublebackward());
+        this.mediaPlayer.pause.setOnMouseClicked(event -> this.pause());
+        this.mediaPlayer.stop.setOnMouseClicked(event -> this.stop());
+        this.mediaPlayer.fastforward.setOnMouseClicked(event -> this.forward());
+        this.mediaPlayer.skipnext.setOnMouseClicked(event -> this.doubleforward());
+        this.mediaPlayer.opencsv.setOnAction(event -> this.Opencsv());
+        this.mediaPlayer.openalg.setOnAction(event -> this.Choosealg());
+
     }
 
     public void Choosealg()  {

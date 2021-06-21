@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -35,7 +36,10 @@ public class MediaPlayer extends AnchorPane {
     public ImageView fastforward;
     @FXML
     public ImageView skipnext;
-
+    @FXML
+    public Button opencsv;
+    @FXML
+    public Button openalg;
     public MediaPlayer(){
         super();
 
@@ -55,6 +59,8 @@ public class MediaPlayer extends AnchorPane {
             this.fastforward=mediaPlayerController.fastforward;
             this.skipnext=mediaPlayerController.skipnext;
             this.backwards=mediaPlayerController.backwards;
+            this.openalg=mediaPlayerController.openalg;
+            this.opencsv= mediaPlayerController.opencsv;;
             this.getChildren().add(root);
         } catch (IOException e) {
             e.printStackTrace();

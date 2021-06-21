@@ -1,6 +1,7 @@
 package view.mediaplayer;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -28,6 +29,10 @@ public class MediaPlayerController {
     TextField speed;
     @FXML
     Label clock;
+    @FXML
+     Button opencsv;
+    @FXML
+     Button openalg;
 
 
     public MediaPlayerController() {
@@ -38,7 +43,8 @@ public class MediaPlayerController {
         this.fastforward=new ImageView();
         this.skipnext=new ImageView();
         this.backwards=new ImageView();
-
+        this.openalg=new Button();
+        this.opencsv=new Button();
 
 
 
