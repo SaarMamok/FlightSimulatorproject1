@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import view.joystick.MyJoystickController;
 
@@ -20,6 +21,20 @@ public class MediaPlayer extends AnchorPane {
     public  TextField speed;
     @FXML
     public Label clock;
+    @FXML
+   public ImageView play;
+    @FXML
+   public ImageView backwards;
+    @FXML
+   public ImageView skipprev;
+    @FXML
+    public ImageView pause;
+    @FXML
+    public ImageView stop;
+    @FXML
+    public ImageView fastforward;
+    @FXML
+    public ImageView skipnext;
 
     public MediaPlayer(){
         super();
@@ -28,10 +43,18 @@ public class MediaPlayer extends AnchorPane {
             FXMLLoader fxl=new FXMLLoader();
             Parent root = fxl.load(getClass().getResource("MediaPlayer.fxml").openStream());
             MediaPlayerController mediaPlayerController=fxl.getController();
+            mediaPlayerController.init();
             this.timebar= mediaPlayerController.timebar;
             this.speed=mediaPlayerController.speed;
             this.clock=mediaPlayerController.clock;
 
+            this.play= mediaPlayerController.play;
+            this.skipprev=mediaPlayerController.skipprev;
+            this.pause= mediaPlayerController.pause;
+            this.stop=mediaPlayerController.stop;
+            this.fastforward=mediaPlayerController.fastforward;
+            this.skipnext=mediaPlayerController.skipnext;
+            this.backwards=mediaPlayerController.backwards;
             this.getChildren().add(root);
         } catch (IOException e) {
             e.printStackTrace();

@@ -142,7 +142,6 @@ public class Windowcontroller extends Observable {
         this.rate.bind(this.viewModel.rate);
         this.rate.addListener((o,ov,nv)->this.mediaPlayer.speed.setText(this.rate.getValue().toString()));
 
-
     }
 
     public void Choosealg()  {

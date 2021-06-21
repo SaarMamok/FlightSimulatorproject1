@@ -31,12 +31,25 @@ public class MediaPlayerController {
 
 
     public MediaPlayerController() {
-        play.setImage(new Image(getClass().getResourceAsStream("play.png")));
-        /*backwards.setImage(new Image(getClass().getResourceAsStream("buttons/fastbackwards.png")));
+        this.play=new ImageView();
+        this.skipprev=new ImageView();
+        this.pause=new ImageView();
+        this.stop=new ImageView();
+        this.fastforward=new ImageView();
+        this.skipnext=new ImageView();
+        this.backwards=new ImageView();
+
+
+
+
+    }
+    public void init(){
+        play.setImage(new Image(getClass().getResourceAsStream("buttons/play.png")));
+        backwards.setImage(new Image(getClass().getResourceAsStream("buttons/fastbackwards.png")));
         skipprev.setImage(new Image(getClass().getResourceAsStream("buttons/skiprev.png")));
         pause.setImage(new Image(getClass().getResourceAsStream("buttons/pause.png")));
         stop.setImage(new Image(getClass().getResourceAsStream("buttons/stop.png")));
         fastforward.setImage(new Image(getClass().getResourceAsStream("buttons/fastforward.png")));
-        skipnext.setImage(new Image(getClass().getResourceAsStream("buttons/skipnext.png")));*/
+        skipnext.setImage(new Image(getClass().getResourceAsStream("buttons/skipnext.png")));
     }
 }
