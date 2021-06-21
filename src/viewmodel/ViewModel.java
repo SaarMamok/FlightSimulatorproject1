@@ -110,7 +110,7 @@ public class ViewModel extends Observable implements Observer {
     String input,className;
     input= JOptionPane.showInputDialog(null,"Enter a class directory");
     //if((input = "2")||(input =="-1")) //USER CHOOSE EXIT / CANCEL
-    while((input == "/0")||(input== null)||(input.contains(" ")||(input.compareTo("")==0)))
+    while((input == "/0")||(input== null)||(input.compareTo("")==0))
       input= JOptionPane.showInputDialog(null,"It was wrong input please enter a class directory again");
     className=JOptionPane.showInputDialog(null,"Enter the class name");
 

@@ -152,7 +152,7 @@ public class Windowcontroller extends Observable {
         this.mediaPlayer.skipnext.setOnMouseClicked(event -> this.doubleforward());
         this.mediaPlayer.opencsv.setOnAction(event -> this.Opencsv());
         this.mediaPlayer.openalg.setOnAction(event -> this.Choosealg());
-
+        this.mediaPlayer.timebar.setOnMouseReleased(event -> this.slidermove());
     }
 
     public void Choosealg()  {

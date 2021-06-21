@@ -35,6 +35,7 @@ public class MediaPlayerController {
      Button openalg;
 
 
+
     public MediaPlayerController() {
         this.play=new ImageView();
         this.skipprev=new ImageView();
@@ -45,7 +46,7 @@ public class MediaPlayerController {
         this.backwards=new ImageView();
         this.openalg=new Button();
         this.opencsv=new Button();
-
+        this.timebar=new Slider();
 
 
     }
