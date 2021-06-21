@@ -132,6 +132,7 @@ public class Mygraph extends AnchorPane {
                 rightgraph.setTitle(this.righttitle.getValue());
                 //series2.setName("Learn");
                 rightgraph.setLegendVisible(false);
+
             });
 
             leftgraph.setCreateSymbols(false);
@@ -204,19 +205,6 @@ public class Mygraph extends AnchorPane {
                                             + "    -fx-padding: 10px;\n"
                                             + "     -fx-stroke: #33FFF4;");
                                 }
-
-
-                                /*
-                                this.algo.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n"
-                                        + "    -fx-background-insets: 0, 2;\n"
-                                        + "    -fx-background-radius: 3px;\n"
-                                        + "    -fx-padding: 3px;\n"
-                                        + "    -fx-stroke: #33FFF4;\n"
-                                        + "    -fx-blend-mode: #33FFF4;");
-
-
-                                 */
-
 
                             }
                         }
@@ -313,13 +301,13 @@ public class Mygraph extends AnchorPane {
                                     welzel.setTitle("Welzel");
                                     welzelcircle.setName("Learn");
                                     welzelpoints.setName("Detect");
+
                                     mygraphcontroller.createCircle(welzelcircle,this.cx.getValue(),this.cy.getValue(),this.radius.getValue());
                                     mygraphcontroller.addWelzlpoints(welzelpoints,welzlx.getValue(),welzly.getValue());
                                 }
                         }
                     });
 
-            //this.time.addListener((o,ov,nv)->mygraphcontroller.AddtoGraph());
             this.getChildren().add(root);
 
         } catch (IOException e) {
