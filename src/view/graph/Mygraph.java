@@ -115,7 +115,8 @@ public class Mygraph extends AnchorPane {
             welzel.setVisible(false);
             this.lefttitle.addListener((o,ov,nv)-> {
                 leftgraph.setTitle(this.lefttitle.getValue());
-                series.setName("Learn");
+               // series.setName("Learn");
+                leftgraph.setLegendVisible(false);
             });
 
             Set<Node> linenodes = leftgraph.lookupAll(".series" + 0);
@@ -129,7 +130,8 @@ public class Mygraph extends AnchorPane {
 
             this.righttitle.addListener((o,ov,nv)-> {
                 rightgraph.setTitle(this.righttitle.getValue());
-                series2.setName("Learn");
+                //series2.setName("Learn");
+                rightgraph.setLegendVisible(false);
             });
 
             leftgraph.setCreateSymbols(false);
