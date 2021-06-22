@@ -32,13 +32,11 @@ import static java.lang.Math.abs;
 public class ViewModel extends Observable implements Observer {
   private TimeSeries ts;
   private  Model model;
-
   public StringProperty leftval,rightval,Algname,type;
   public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
   public IntegerProperty index,corindex,time,check;
   public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,px,py,cx,cy,radius,welzlx,welzly;
   public BooleanProperty aberrant;
-
   private HashMap<Integer,Integer> Hashcor=new HashMap<>();
 
   public ViewModel(Model m){
@@ -101,11 +99,7 @@ public class ViewModel extends Observable implements Observer {
     return ts.Timer();
   }
 
-
-
-
   public void ChooseAlg() throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
-
 
     String input,className;
     input= JOptionPane.showInputDialog(null,"Enter a class directory");
@@ -118,16 +112,6 @@ public class ViewModel extends Observable implements Observer {
             !(className.contains("test.SimpleAnomalyDetector")) &&
             !(className.contains("test.Algoritms.Zscore")))
       className=JOptionPane.showInputDialog(null,"It was wrong input please enter the class name again");
-
-
-    /*
-    String input,className;
-    input= JOptionPane.showInputDialog(null,"Enter a class directory");
-    className=JOptionPane.showInputDialog(null,"Enter the class name");
-
-
-     */
-// load class directory
     URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] {
             new URL("file://"+input)
     });
@@ -135,9 +119,6 @@ public class ViewModel extends Observable implements Observer {
     Algname.setValue(c.getName());
     System.out.println(Algname.getValue());
     model.SetAnomaly(c);
-
-
-
   }
   public void setCor(TimeSeries ts) {
     float CurrentCorrlation;
@@ -168,8 +149,7 @@ public class ViewModel extends Observable implements Observer {
   public void pause(){this.model.pause();}
   public void forward(){this.model.forward();}
   public void backward() { this.model.backward();}
-  public void doubleforward() {this.model.doubleforward();
-  }
+  public void doubleforward() {this.model.doubleforward(); }
 
   public void doublebackward() {
     this.model.doublebackward();
@@ -179,26 +159,21 @@ public class ViewModel extends Observable implements Observer {
         if(o==this.model){
           Platform.runLater(()-> {
             this.time.set(this.model.getTime());
-
             this.throttle.set((this.model.getThrottle()));
             this.rudder.set((this.model.getRudder()));
             this.elevators.set((this.model.getElevators()));
             this.aileron.set(this.model.getAileron());
-
             this.model.setIndex(this.index.getValue());
             this.model.setCorindex(Hashcor.get(index.getValue()));
             this.listvalue.set(this.model.getListvalue());
             this.corvalue.set(this.model.getCorvalue());
-
             this.rate.set(this.model.getRatedisplay() / 1000f);
-
             this.yaw.set(this.model.getYaw());
             this.roll.set(this.model.getRoll());
             this.pitch.set(this.model.getPitch());
             this.altitude.set(this.model.getAltitude());
             this.speed.set(this.model.getSpeed());
             this.direction.set(this.model.getDirection());
-
             this.leftval.set(this.model.getLeftval());
             this.rightval.set(this.model.getRightval());
             this.check.set(this.model.getCheck());

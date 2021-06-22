@@ -30,7 +30,6 @@ public class Model extends Observable {
     private SimpleAnomalyDetector.Pointanomaly p;
     public StringProperty type;
     protected ActiveObjectCommon ao;
-
     private TimeSeriesAnomalyDetector ta;
     private TimeSeries learnTimeSeries;
 
@@ -79,7 +78,6 @@ public class Model extends Observable {
         this.rudder=ts.getDataTable().get(prop.getProp().get("rudder")).valuesList.get(localtime);
         this.aileron=ts.getDataTable().get(prop.getProp().get("aileron")).valuesList.get(localtime);
         this.elevators=ts.getDataTable().get(prop.getProp().get("elevator")).valuesList.get(localtime);
-
         this.yaw=ts.getDataTable().get(prop.getProp().get("side-slip-deg")).valuesList.get(localtime);
         this.altitude=ts.getDataTable().get(prop.getProp().get("altimeter_indicated-altitude-ft")).valuesList.get(localtime);
         this.speed=ts.getDataTable().get(prop.getProp().get("airspeed-indicator_indicated-speed-kt")).valuesList.get(localtime);
@@ -110,7 +108,6 @@ public class Model extends Observable {
             this.rate -= 500;
             this.ratedisplay+=500;
         }
-
     }
 
     public void doublebackward() {
@@ -244,9 +241,6 @@ public class Model extends Observable {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-
-
-
     }
 
     public String getLeftval() {
@@ -317,8 +311,7 @@ public class Model extends Observable {
         return ratedisplay;
     }
 
-    public void slidermove(double t) {this.localtime=(int)t;
-    }
+    public void slidermove(double t) {this.localtime=(int)t; }
 
     public float getX1line() {
         return x1line;

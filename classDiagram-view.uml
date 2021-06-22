@@ -6,16 +6,15 @@
     <node x="0.0" y="0.0">view.graph.Mygraph</node>
     <node x="549.0" y="0.0">view.dashboard.Mydashboard</node>
     <node x="302.0" y="0.0">view.Windowcontroller</node>
-    <node x="776.0" y="0.0">view.joystick.MyJoystick</node>
-    <node x="0.0" y="980.0">view.Main</node>
-    <node x="1005.0" y="0.0">view.attlist.AttList</node>
+    <node x="992.0" y="0.0">view.joystick.MyJoystick</node>
+    <node x="776.0" y="0.0">view.mediaplayer.MediaPlayer</node>
+    <node x="208.0" y="980.0">view.Main</node>
+    <node x="0.0" y="980.0">view.attlist.AttList</node>
   </nodes>
   <notes />
   <edges />
-  <settings layout="Hierarchic Group" zoom="0.48977695167286245" x="584.0" y="528.0" />
-  <SelectedNodes>
-    <node>view.graph.Mygraph</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="0.6226765799256505" x="584.0" y="561.0" />
+  <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
     <Category>Constructors</Category>
