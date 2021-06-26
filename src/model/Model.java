@@ -12,6 +12,7 @@ import test.TimeSeriesAnomalyDetector;
 import java.beans.XMLDecoder;
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Observable;
 
 
@@ -139,11 +140,27 @@ public class Model extends Observable {
 
    public void play(int r){
         ao=new ActiveObjectCommon();
-        try {
-            Socket fg = new Socket(prop.getIp(),prop.getPort());
-            fg.setSoTimeout(10000);
-            PrintWriter out=new PrintWriter(fg.getOutputStream());
-            int sizeline=ts.getDataTable().get(0).valuesList.size();
+
+       Socket fg = null;
+       try {
+           fg = new Socket(prop.getIp(), prop.getPort());
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+       try {
+           fg.setSoTimeout(10000);
+       } catch (SocketException e) {
+           e.printStackTrace();
+       }
+       PrintWriter out= null;
+       try {
+           out = new PrintWriter(fg.getOutputStream());
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+
+
+       int sizeline=ts.getDataTable().get(0).valuesList.size();
             int sizecol=ts.getDataTable().size();
             ao.start();
             while(localtime<sizeline){
@@ -219,20 +236,25 @@ public class Model extends Observable {
                 }
                 this.setChanged();
                 this.notifyObservers();
+                PrintWriter finalOut = out;
                 ao.execute(()->{
-                    out.println(l);
-                    out.flush();
+                    if(finalOut !=null) {
+                        finalOut.println(l);
+                        finalOut.flush();
+                    }
                 });
-                Thread.sleep(this.rate);
+                try {
+                    Thread.sleep(this.rate);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 localtime++;
             }
 
             out.close();
-            fg.close();
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            //fg.close();
         }
-    }
+
 
     public String getLeftval() {
         return leftval;
@@ -362,5 +384,9 @@ public class Model extends Observable {
 
     public StringProperty typeProperty() {
         return type;
+    }
+
+    public TimeSeries getLearnTimeSeries() {
+        return learnTimeSeries;
     }
 }

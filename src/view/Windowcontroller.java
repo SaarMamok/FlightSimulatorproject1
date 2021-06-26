@@ -49,6 +49,7 @@ public class Windowcontroller extends Observable {
     public FloatProperty rate;
     ViewModel viewModel;
     float sec=0,min=0,hour=0;
+    StringProperty fileChoosen;
 
 
     private String getDurationString(int seconds) {
@@ -139,6 +140,9 @@ public class Windowcontroller extends Observable {
         this.mediaPlayer.opencsv.setOnAction(event -> this.Opencsv());
         this.mediaPlayer.openalg.setOnAction(event -> this.Choosealg());
         this.mediaPlayer.timebar.setOnMouseReleased(event -> this.slidermove());
+
+        this.fileChoosen = new SimpleStringProperty();
+        this.attributeslist.filechosen.bind(fileChoosen);
     }
 
     public void Choosealg()  {
@@ -162,12 +166,16 @@ public class Windowcontroller extends Observable {
         fc.setTitle("Choose file");
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Csv Files", "*.csv"));
         chosen=fc.showOpenDialog(null);
-        if(chosen!=null) {
-            System.out.println(chosen.getName());
+        if(chosen==null){
+         return;
         }
-        int t=this.viewModel.setTs(new TimeSeries(chosen.getAbsolutePath()));
-        this.mediaPlayer.timebar.setMax(t);
-
+        else {
+            int t = this.viewModel.setTs(new TimeSeries(chosen.getAbsolutePath()));
+            if(t!=-1) {
+                this.mediaPlayer.timebar.setMax(t);
+                fileChoosen.set(chosen.getAbsolutePath());
+            }
+        }
     }
 
     public void play(){

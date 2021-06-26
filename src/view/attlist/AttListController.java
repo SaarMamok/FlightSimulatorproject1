@@ -13,15 +13,19 @@ public class AttListController {
     @FXML
     ListView attributeslist;
 
+    public AttListController() {this.index= new SimpleIntegerProperty();
+    }
+
     public IntegerProperty index;
 
-    public void init(){
+    public void init(String file){
         try {
-            index=new SimpleIntegerProperty();
-            BufferedReader bf=new BufferedReader(new FileReader("anomaly_flight.csv"));
+            //index=new SimpleIntegerProperty();
+            BufferedReader bf=new BufferedReader(new FileReader(file));
             String line;
             line= bf.readLine();
             String[]s=line.split(",");
+            attributeslist.getItems().clear();
             attributeslist.getItems().addAll(s);
             attributeslist.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
             attributeslist.getSelectionModel().select(0);

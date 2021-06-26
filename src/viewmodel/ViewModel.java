@@ -3,6 +3,7 @@ package viewmodel;
 
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.scene.control.Alert;
 import model.Model;
 import test.SimpleAnomalyDetector;
 import test.StatLib;
@@ -85,8 +86,17 @@ public class ViewModel extends Observable implements Observer {
 
   public int setTs(TimeSeries ts) {
     this.ts = ts;
-    this.model.setTs(ts);
-    return ts.Timer();
+    if(ts.getDataTable().size()!=model.getLearnTimeSeries().getDataTable().size()) {
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setContentText("CSV file is not valid.");
+      alert.show();
+      this.ts = null;
+      return -1;
+    }
+    else {
+      this.model.setTs(ts);
+      return ts.Timer();
+    }
   }
 
   public void ChooseAlg() throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
