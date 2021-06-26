@@ -4,11 +4,9 @@ import test.AnomalyReport;
 import test.SimpleAnomalyDetector;
 import test.TimeSeries;
 import test.TimeSeriesAnomalyDetector;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import static java.lang.Math.abs;
 import static test.StatLib.pearson;
 

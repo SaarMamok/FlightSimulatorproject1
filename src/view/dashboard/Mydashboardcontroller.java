@@ -1,14 +1,7 @@
 package view.dashboard;
 
 import eu.hansolo.medusa.Gauge;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
 public class Mydashboardcontroller {
@@ -26,9 +19,5 @@ public class Mydashboardcontroller {
     Gauge yawgauge;
 
     public Mydashboardcontroller() {
-
     }
-
-
-
 }

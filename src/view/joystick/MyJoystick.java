@@ -14,7 +14,6 @@ public class MyJoystick extends AnchorPane {
 
     public DoubleProperty aileron,elevators,rudder,throttle;
 
-
     public MyJoystick(){
         super();
 
@@ -22,8 +21,6 @@ public class MyJoystick extends AnchorPane {
             FXMLLoader fxl=new FXMLLoader();
             Parent root = fxl.load(getClass().getResource("MyJoystick.fxml").openStream());
             MyJoystickController myJoystickController=fxl.getController();
-
-
             this.aileron=new SimpleDoubleProperty();
             this.elevators=new SimpleDoubleProperty();
             myJoystickController.aileron.bind(this.aileron);
@@ -31,13 +28,9 @@ public class MyJoystick extends AnchorPane {
             rudder=myJoystickController.rudder.valueProperty();
             throttle=myJoystickController.throttle.valueProperty();
             this.elevators.addListener((o,ov,nv)->myJoystickController.paint());
-
             this.getChildren().add(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
 }

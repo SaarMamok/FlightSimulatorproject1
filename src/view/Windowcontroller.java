@@ -56,7 +56,6 @@ public class Windowcontroller extends Observable {
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
         seconds = seconds % 60;
-
         return twoDigitString(hours) + " : " + twoDigitString(minutes) + " : " + twoDigitString(seconds);
     }
 
@@ -75,19 +74,13 @@ public class Windowcontroller extends Observable {
 
     public void init(ViewModel vm){
 
-
         mediaPlayer.timebar.setMin(0);
         time=new SimpleIntegerProperty();
         this.viewModel=vm;
-
-
-
-
         this.myJoystick.rudder.bind(this.viewModel.rudder);
         this.myJoystick.throttle.bind(this.viewModel.throttle);
         this.myJoystick.aileron.bind(this.viewModel.aileron);
         this.myJoystick.elevators.bind(this.viewModel.elevators);
-
         this.time.bind(this.viewModel.time);
         this.time.addListener((o,ov,nv)->{
             mediaPlayer.timebar.setValue(time.getValue());
@@ -98,11 +91,9 @@ public class Windowcontroller extends Observable {
         this.mygraph.lefttitle.bind(this.viewModel.leftval);
         this.mygraph.righttitle.bind(this.viewModel.rightval);
         this.attributeslist.index.addListener((o,ov,nv)->{
-          //  System.out.println(this.attributeslist.index.getValue());
             this.mygraph.series.getData().clear();
             this.mygraph.series2.getData().clear();
             this.mygraph.seriesline.getData().clear();
-            //this.mygraph.time.set(time.getValue());
             this.mygraph.algoseries.getData().clear();
             this.mygraph.detectlinegraph.getData().clear();
             this.mygraph.zscoreseries.getData().clear();
@@ -128,21 +119,16 @@ public class Windowcontroller extends Observable {
         this.mygraph.welzlx.bind(this.viewModel.welzlx);
         this.mygraph.welzly.bind(this.viewModel.welzly);
         this.mygraph.type.bind(this.viewModel.type);
-
         this.mydashboard.yaw.bind(this.viewModel.yaw);
         this.mydashboard.direction.bind(this.viewModel.direction);
         this.mydashboard.roll.bind(this.viewModel.roll);
         this.mydashboard.pitch.bind(this.viewModel.pitch);
         this.mydashboard.speed.bind(this.viewModel.speed);
         this.mydashboard.altitude.bind(this.viewModel.altitude);
-
-
         this.rate=new SimpleFloatProperty();
         this.rate.setValue(1);
         this.rate.bind(this.viewModel.rate);
         this.rate.addListener((o,ov,nv)->this.mediaPlayer.speed.setText(this.rate.getValue().toString()));
-
-
         this.mediaPlayer.play.setOnMouseClicked(event->this.play());
         this.mediaPlayer.backwards.setOnMouseClicked(event -> this.backward());
         this.mediaPlayer.skipprev.setOnMouseClicked(event -> this.doublebackward());
@@ -187,31 +173,34 @@ public class Windowcontroller extends Observable {
     public void play(){
         this.viewModel.play();
     }
+
     public void stop(){
         this.mygraph.series.getData().clear();
         this.mygraph.series2.getData().clear();
-        //this.mygraph.seriesline.getData().clear();
         this.viewModel.stop();
     }
+
     public void pause(){
         this.viewModel.pause();
     }
+
     public void forward(){
         this.viewModel.forward();
     }
+
     public void backward(){
         this.viewModel.backward();
     }
+
     public void doubleforward(){
         this.viewModel.doubleforward();
     }
+
     public void doublebackward(){
         this.viewModel.doublebackward();
     }
-    public void slidermove(){
 
+    public void slidermove(){
         this.viewModel.slidermove(this.mediaPlayer.timebar.getValue());
     }
-
-
 }

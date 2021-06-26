@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class MediaPlayerController {
+
     @FXML
     ImageView play;
     @FXML
@@ -34,8 +35,6 @@ public class MediaPlayerController {
     @FXML
      Button openalg;
 
-
-
     public MediaPlayerController() {
         this.play=new ImageView();
         this.skipprev=new ImageView();
@@ -47,9 +46,8 @@ public class MediaPlayerController {
         this.openalg=new Button();
         this.opencsv=new Button();
         this.timebar=new Slider();
-
-
     }
+
     public void init(){
         play.setImage(new Image(getClass().getResourceAsStream("buttons/play.png")));
         backwards.setImage(new Image(getClass().getResourceAsStream("buttons/fastbackwards.png")));

@@ -6,21 +6,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import view.attlist.AttListController;
-
-import java.awt.*;
-import java.awt.geom.Line2D;
 import java.io.IOException;
 import java.util.Set;
 
+
 public class Mygraph extends AnchorPane {
-    public FloatProperty listvalue,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,corvalue,px,py,cx,cy,radius,welzlx,welzly;
+    public FloatProperty listvalue,x1line,x2line,y1line,y2line,zvalue,
+            zanomalyvalue,corvalue,px,py,cx,cy,radius,welzlx,welzly;
     public IntegerProperty time,check;
     public StringProperty righttitle,Algname,lefttitle,type;
     public BooleanProperty abberant;
@@ -45,8 +40,6 @@ public class Mygraph extends AnchorPane {
     public XYChart.Series zscoreseries;
     public XYChart.Series zscoreanomalyseries;
     public XYChart.Series detectlinegraph;
-
-
     @FXML
     NumberAxis linex;
     @FXML
@@ -127,7 +120,6 @@ public class Mygraph extends AnchorPane {
                         + "    -fx-padding: 1px;");
             }
 
-
             this.righttitle.addListener((o,ov,nv)-> {
                 rightgraph.setTitle(this.righttitle.getValue());
                 //series2.setName("Learn");
@@ -138,12 +130,9 @@ public class Mygraph extends AnchorPane {
             leftgraph.setCreateSymbols(false);
             rightgraph.setCreateSymbols(false);
 
-
             this.leftgraph.getData().add(series);
             this.rightgraph.getData().add(series2);
-
             this.algo.getData().add(algoseries);
-
             this.algo.getData().add(detectlinegraph);
             this.lefttitle.addListener((o,ov,nv)->{
                 Platform.runLater(()-> {
@@ -273,7 +262,6 @@ public class Mygraph extends AnchorPane {
                                                     + "     -fx-stroke: #33FFF4;");
                                         }
                                     }
-
                                 }
                                 else if(type.getValue().compareTo("z")==0){
                                     zscoregraph.setVisible(true);
@@ -287,7 +275,6 @@ public class Mygraph extends AnchorPane {
                                     zscoregraph.setTitle("Z-score");
                                     mygraphcontroller.ZscoreGraphadd(zscoreseries,time.floatValue(),zvalue.getValue());
                                     mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries,time.floatValue(),zanomalyvalue.getValue());
-
                                 }
                                 else if((type.getValue().compareTo("w")==0)){
                                     zscoregraph.setVisible(false);
@@ -313,7 +300,5 @@ public class Mygraph extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }

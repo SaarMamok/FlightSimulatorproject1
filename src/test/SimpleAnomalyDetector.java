@@ -181,7 +181,6 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 			int feature2Index = getFeatureIndex(this.corFeatures.get(i).feature2, ts);
 			int size = ts.dataTable.get(feature1Index).valuesList.size();
 			Point[] pointsArray = CreatPointsArr(ts.dataTable.get(feature1Index).valuesList,ts.dataTable.get(feature2Index).valuesList);
-			////////////////////
 			for(int j=0; j< pointsArray.length; j++)
 			{
 				float currentDistance = dev(pointsArray[j],this.corFeatures.get(i).lin_reg);

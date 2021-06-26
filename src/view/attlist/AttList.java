@@ -7,10 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import view.joystick.MyJoystickController;
-
 import java.io.IOException;
+
 
 public class AttList extends AnchorPane {
     @FXML
@@ -31,7 +29,5 @@ public class AttList extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }

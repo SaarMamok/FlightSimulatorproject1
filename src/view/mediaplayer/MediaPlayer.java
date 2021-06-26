@@ -1,6 +1,5 @@
 package view.mediaplayer;
 
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,9 +9,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import view.joystick.MyJoystickController;
-
 import java.io.IOException;
+
 
 public class MediaPlayer extends AnchorPane {
 
@@ -23,11 +21,11 @@ public class MediaPlayer extends AnchorPane {
     @FXML
     public Label clock;
     @FXML
-   public ImageView play;
+    public ImageView play;
     @FXML
-   public ImageView backwards;
+    public ImageView backwards;
     @FXML
-   public ImageView skipprev;
+    public ImageView skipprev;
     @FXML
     public ImageView pause;
     @FXML
@@ -52,7 +50,6 @@ public class MediaPlayer extends AnchorPane {
             this.timebar= mediaPlayerController.timebar;
             this.speed=mediaPlayerController.speed;
             this.clock=mediaPlayerController.clock;
-
             this.play= mediaPlayerController.play;
             this.skipprev=mediaPlayerController.skipprev;
             this.pause= mediaPlayerController.pause;
@@ -67,6 +64,5 @@ public class MediaPlayer extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

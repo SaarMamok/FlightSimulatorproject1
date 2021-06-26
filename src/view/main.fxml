@@ -20,8 +20,6 @@
 <?import view.mediaplayer.MediaPlayer?>
 <BorderPane blendMode="DIFFERENCE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Windowcontroller">
 
-
-
    <bottom>
     <AnchorPane>
         <MediaPlayer fx:id="mediaPlayer"></MediaPlayer>

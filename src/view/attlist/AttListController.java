@@ -5,8 +5,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
-import test.TimeSeries;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,7 +14,6 @@ public class AttListController {
     ListView attributeslist;
 
     public IntegerProperty index;
-
 
     public void init(){
         try {
@@ -31,11 +28,8 @@ public class AttListController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
     public void Chosen(){
         index.setValue(attributeslist.getSelectionModel().getSelectedIndex());
     }
-
 }

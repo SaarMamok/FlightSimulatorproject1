@@ -12,7 +12,6 @@ public class Zscore implements TimeSeriesAnomalyDetector {
         anomalymap=new HashMap<>();
     }
 
-
     public class Title {
         String name;
         float val;
@@ -50,7 +49,6 @@ public class Zscore implements TimeSeriesAnomalyDetector {
     }
     private HashMap<Integer,ArrayList<isAnomaly>> anomalymap;
     private HashMap<Integer,ArrayList<Float>>zhash;
-
 
     public float[] madeARR(float[] arr, int size) {
         float[] a = new float[size];

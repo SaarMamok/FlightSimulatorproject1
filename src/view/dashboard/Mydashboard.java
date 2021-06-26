@@ -3,15 +3,9 @@ package view.dashboard;
 import eu.hansolo.medusa.Gauge;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-
-
 import java.io.IOException;
 
 
@@ -54,6 +48,5 @@ public class Mydashboard extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

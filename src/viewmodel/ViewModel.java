@@ -3,39 +3,29 @@ package viewmodel;
 
 import javafx.application.Platform;
 import javafx.beans.property.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import model.Model;
 import test.SimpleAnomalyDetector;
 import test.StatLib;
 import test.TimeSeries;
-import test.TimeSeriesAnomalyDetector;
-
-
 import javax.swing.*;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-
 import static java.lang.Math.abs;
 
 
 public class ViewModel extends Observable implements Observer {
+
   private TimeSeries ts;
   private  Model model;
   public StringProperty leftval,rightval,Algname,type;
   public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
   public IntegerProperty index,corindex,time,check;
-  public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,y2line,zvalue,zanomalyvalue,px,py,cx,cy,radius,welzlx,welzly;
+  public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,
+          y2line,zvalue,zanomalyvalue,px,py,cx,cy,radius,welzlx,welzly;
   public BooleanProperty aberrant;
   private HashMap<Integer,Integer> Hashcor=new HashMap<>();
 
@@ -53,20 +43,20 @@ public class ViewModel extends Observable implements Observer {
     roll=new SimpleDoubleProperty();
     pitch=new SimpleDoubleProperty();
     yaw=new SimpleDoubleProperty();
-  time=new SimpleIntegerProperty();
-  index=new SimpleIntegerProperty();
-  listvalue=new SimpleFloatProperty();
-  corvalue=new SimpleFloatProperty();
-  corindex=new SimpleIntegerProperty();
-  rate=new SimpleFloatProperty();
-  leftval=new SimpleStringProperty();
-  rightval=new SimpleStringProperty();
-  Algname=new SimpleStringProperty();
-  x1line=new SimpleFloatProperty();
-  x2line=new SimpleFloatProperty();
-  y1line=new SimpleFloatProperty();
-  y2line=new SimpleFloatProperty();
-  zvalue=new SimpleFloatProperty();
+    time=new SimpleIntegerProperty();
+    index=new SimpleIntegerProperty();
+    listvalue=new SimpleFloatProperty();
+    corvalue=new SimpleFloatProperty();
+    corindex=new SimpleIntegerProperty();
+    rate=new SimpleFloatProperty();
+    leftval=new SimpleStringProperty();
+    rightval=new SimpleStringProperty();
+    Algname=new SimpleStringProperty();
+    x1line=new SimpleFloatProperty();
+    x2line=new SimpleFloatProperty();
+    y1line=new SimpleFloatProperty();
+    y2line=new SimpleFloatProperty();
+    zvalue=new SimpleFloatProperty();
     zanomalyvalue=new SimpleFloatProperty();
     px=new SimpleFloatProperty();
     py=new SimpleFloatProperty();
@@ -78,11 +68,12 @@ public class ViewModel extends Observable implements Observer {
     welzlx=new SimpleFloatProperty();
     welzly=new SimpleFloatProperty();
     type=new SimpleStringProperty();
-    }
+  }
+
     public DoubleProperty getAileron(){
     return this.aileron;
     }
-  public DoubleProperty getElevators(){
+    public DoubleProperty getElevators(){
     return this.elevators;
   }
   public DoubleProperty getRudder(){
@@ -95,7 +86,6 @@ public class ViewModel extends Observable implements Observer {
   public int setTs(TimeSeries ts) {
     this.ts = ts;
     this.model.setTs(ts);
-
     return ts.Timer();
   }
 
@@ -103,8 +93,7 @@ public class ViewModel extends Observable implements Observer {
 
     String input,className;
     input= JOptionPane.showInputDialog(null,"Enter a class directory");
-    //if((input = "2")||(input =="-1")) //USER CHOOSE EXIT / CANCEL
-    while((input == "/0")||(input== null)||(input.compareTo("")==0))
+    while((input == "/0")||(input.compareTo("")==0))
       input= JOptionPane.showInputDialog(null,"It was wrong input please enter a class directory again");
     className=JOptionPane.showInputDialog(null,"Enter the class name");
 
@@ -120,6 +109,7 @@ public class ViewModel extends Observable implements Observer {
     System.out.println(Algname.getValue());
     model.SetAnomaly(c);
   }
+
   public void setCor(TimeSeries ts) {
     float CurrentCorrlation;
     float bestCor;
@@ -142,6 +132,7 @@ public class ViewModel extends Observable implements Observer {
       Hashcor.put(i,index);
     }
   }
+
   public void play(){
     this.model.run();
   }
@@ -150,10 +141,10 @@ public class ViewModel extends Observable implements Observer {
   public void forward(){this.model.forward();}
   public void backward() { this.model.backward();}
   public void doubleforward() {this.model.doubleforward(); }
-
   public void doublebackward() {
     this.model.doublebackward();
   }
+
   @Override
     public void update(Observable o, Object arg) {
         if(o==this.model){
@@ -216,9 +207,6 @@ public class ViewModel extends Observable implements Observer {
             }
           });
         }
-       /* else{
-          this.time.set(this.model.getTime());
-        }*/
     }
 
 

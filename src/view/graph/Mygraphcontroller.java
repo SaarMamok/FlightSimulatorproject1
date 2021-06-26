@@ -3,20 +3,11 @@ package view.graph;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-
-import java.awt.*;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 public class Mygraphcontroller {
@@ -37,7 +28,6 @@ public class Mygraphcontroller {
     NumberAxis linex;
     @FXML
     NumberAxis liney;
-
     @FXML
     Label cover;
     public FloatProperty listvalue;
@@ -48,7 +38,6 @@ public class Mygraphcontroller {
     public Mygraphcontroller() {
         listvalue = new SimpleFloatProperty();
         time = new SimpleIntegerProperty();
-
     }
 
 
@@ -60,14 +49,7 @@ public class Mygraphcontroller {
         Platform.runLater(() -> {
             ser.getData().add(new XYChart.Data(x, y));
             counter++;
-           /* if (counter == 70) {
-                ser.getData().clear();
-                counter = 0;
-            }
-
-            */
         });
-
     }
 
     public void ZscoreGraphadd(XYChart.Series ser, Float x, Float y) {
@@ -84,11 +66,10 @@ public class Mygraphcontroller {
                 x= (float) (cx+(r*Math.cos(i)));
                 y= (float) (cy+(r*Math.sin(i)));
                 ser.getData().add(new XYChart.Data(x, y));
-
-
             }
         });
     }
+
     public void addWelzlpoints(XYChart.Series ser,float x,float y){
         Platform.runLater(() -> ser.getData().add(new XYChart.Data(x,y)));
     }
