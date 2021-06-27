@@ -14,6 +14,8 @@ import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.Observable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Model extends Observable {
@@ -23,22 +25,23 @@ public class Model extends Observable {
     protected Thread theThread;
     private int index,time,corindex,check=0;
     private int localtime=0;
-    private float throttle,rudder,elevators,aileron,
+    public float throttle,rudder,elevators,aileron,
             listvalue,corvalue,x1line,x2line,y1line,y2line,
             zvalue,zanomalyvalue,cx,cy,radius,welzlx,welzly;
-    private double altitude,speed,direction,roll,pitch,yaw;
+    public double altitude,speed,direction,roll,pitch,yaw;
     private String leftval,rightval,detectorname;
     private SimpleAnomalyDetector.Pointanomaly p;
     public StringProperty type;
     protected ActiveObjectCommon ao;
     private TimeSeriesAnomalyDetector ta;
     private TimeSeries learnTimeSeries;
-
+    Timer clock;
 
 
     public Model(){
 
         XMLDecoder decoder = null;
+        clock=null;
         try {
             decoder = new XMLDecoder(new FileInputStream(new File("setting.xml")));
             this.prop= (Settings) decoder.readObject();
@@ -138,122 +141,103 @@ public class Model extends Observable {
         }
     }
 
-   public void play(int r){
-        ao=new ActiveObjectCommon();
-
+   public void play(int r) {
+       ao = new ActiveObjectCommon();
        Socket fg = null;
+       PrintWriter out = null;
        try {
            fg = new Socket(prop.getIp(), prop.getPort());
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
-       try {
            fg.setSoTimeout(10000);
-       } catch (SocketException e) {
-           e.printStackTrace();
-       }
-       PrintWriter out= null;
-       try {
            out = new PrintWriter(fg.getOutputStream());
        } catch (IOException e) {
-           e.printStackTrace();
+
        }
+       int sizeline = ts.getDataTable().get(0).valuesList.size();
+       int sizecol = ts.getDataTable().size();
+       ao.start();
+       while (localtime < sizeline) {
 
+           String line = "";
+           for (int j = 0; j < sizecol; j++) {
+               line += ts.getDataTable().get(j).valuesList.get(localtime).toString();
+               line += ",";
+           }
+           final String l = line;
+           this.throttle = ts.getDataTable().get(prop.getProp().get("throttle")).valuesList.get(localtime);
+           this.rudder = ts.getDataTable().get(prop.getProp().get("rudder")).valuesList.get(localtime);
+           this.aileron = ts.getDataTable().get(prop.getProp().get("aileron")).valuesList.get(localtime);
+           this.elevators = ts.getDataTable().get(prop.getProp().get("elevator")).valuesList.get(localtime);
+           this.yaw = ts.getDataTable().get(prop.getProp().get("side-slip-deg")).valuesList.get(localtime);
+           this.altitude = ts.getDataTable().get(prop.getProp().get("altimeter_indicated-altitude-ft")).valuesList.get(localtime);
+           this.speed = ts.getDataTable().get(prop.getProp().get("airspeed-indicator_indicated-speed-kt")).valuesList.get(localtime);
+           this.direction = ts.getDataTable().get(prop.getProp().get("indicated-heading-deg")).valuesList.get(localtime);
+           this.roll = ts.getDataTable().get(prop.getProp().get("attitude-indicator_indicated-roll-deg")).valuesList.get(localtime);
+           this.pitch = ts.getDataTable().get(prop.getProp().get("attitude-indicator_internal-pitch-deg")).valuesList.get(localtime);
+           this.time = localtime;
+           this.listvalue = ts.getDataTable().get(index).valuesList.get(time);
+           this.corvalue = ts.getDataTable().get(corindex).valuesList.get(time);
+           this.leftval = ts.getDataTable().get(index).featureName;
+           this.rightval = ts.getDataTable().get(corindex).featureName;
 
-       int sizeline=ts.getDataTable().get(0).valuesList.size();
-            int sizecol=ts.getDataTable().size();
-            ao.start();
-            while(localtime<sizeline){
+           if (detectorname.compareTo("SimpleAnomalyDetector") == 0) {
+               check = ((SimpleAnomalyDetector) ta).getcorindex(index, ts);
+               if (check != -1) {
+                   this.y2line = ((SimpleAnomalyDetector) ta).getCorFeatures().get(check).lin_reg.f(-500);
+                   this.x2line = -500;
+                   this.y1line = ((SimpleAnomalyDetector) ta).getCorFeatures().get(check).lin_reg.f(500);
+                   this.x1line = 500;
 
-                String line="";
-                for(int j=0;j<sizecol;j++){
-                    line+=ts.getDataTable().get(j).valuesList.get(localtime).toString();
-                    line+=",";
-                }
-                final String l=line;
-                this.throttle=ts.getDataTable().get(prop.getProp().get("throttle")).valuesList.get(localtime);
-                this.rudder=ts.getDataTable().get(prop.getProp().get("rudder")).valuesList.get(localtime);
-                this.aileron=ts.getDataTable().get(prop.getProp().get("aileron")).valuesList.get(localtime);
-                this.elevators=ts.getDataTable().get(prop.getProp().get("elevator")).valuesList.get(localtime);
-                this.yaw=ts.getDataTable().get(prop.getProp().get("side-slip-deg")).valuesList.get(localtime);
-                this.altitude=ts.getDataTable().get(prop.getProp().get("altimeter_indicated-altitude-ft")).valuesList.get(localtime);
-                this.speed=ts.getDataTable().get(prop.getProp().get("airspeed-indicator_indicated-speed-kt")).valuesList.get(localtime);
-                this.direction=ts.getDataTable().get(prop.getProp().get("indicated-heading-deg")).valuesList.get(localtime);
-                this.roll=ts.getDataTable().get(prop.getProp().get("attitude-indicator_indicated-roll-deg")).valuesList.get(localtime);
-                this.pitch=ts.getDataTable().get(prop.getProp().get("attitude-indicator_internal-pitch-deg")).valuesList.get(localtime);
-                this.time=localtime;
-                this.listvalue=ts.getDataTable().get(index).valuesList.get(time);
-                this.corvalue=ts.getDataTable().get(corindex).valuesList.get(time);
-                this.leftval=ts.getDataTable().get(index).featureName;
-                this.rightval=ts.getDataTable().get(corindex).featureName;
+                   p = new SimpleAnomalyDetector.Pointanomaly(new Point(((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).getP().x,
+                           ((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).getP().y),
+                           ((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).isAberrant());
+               } else {
+                   System.out.println("no correlated feature");
+               }
+           } else if (detectorname.compareTo("Zscore") == 0) {
+               zvalue = ((Zscore) ta).getZhash().get(index).get(localtime);
+               zanomalyvalue = ((Zscore) ta).getAnomalymap().get(index).get(localtime).getVal();
+           } else if (detectorname.compareTo("Hybrid") == 0) {
+               type.setValue(((Hybrid) ta).getCorvalues().get(index).getAlgo());
+               int innerindex = ((Hybrid) ta).getCorvalues().get(index).getIndex();
+               if (type.getValue().compareTo("l") == 0) {
+                   this.y2line = ((Hybrid) ta).simple.get(innerindex).getCorFeatures().get(0).lin_reg.f(-500);
+                   this.x2line = -500;
+                   this.y1line = ((Hybrid) ta).simple.get(innerindex).getCorFeatures().get(0).lin_reg.f(500);
+                   this.x1line = 500;
+                   p = new SimpleAnomalyDetector.Pointanomaly(new Point(((Hybrid) ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).getP().x,
+                           ((Hybrid) ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).getP().y),
+                           ((Hybrid) ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).isAberrant());
 
-                if(detectorname.compareTo("SimpleAnomalyDetector")==0) {
-                     check=((SimpleAnomalyDetector)ta).getcorindex(index,ts);
-                    if(check!=-1) {
-                        this.y2line = ((SimpleAnomalyDetector) ta).getCorFeatures().get(check).lin_reg.f(-500);
-                        this.x2line = -500;
-                        this.y1line = ((SimpleAnomalyDetector) ta).getCorFeatures().get(check).lin_reg.f(500);
-                        this.x1line = 500;
+               } else if (type.getValue().compareTo("z") == 0) {
+                   zvalue = ((Hybrid) ta).zscorelist.get(innerindex).getZhash().get(0).get(localtime);
+                   zanomalyvalue = ((Hybrid) ta).zscorelist.get(innerindex).getAnomalymap().get(0).get(localtime).getVal();
+               } else if (type.getValue().compareTo("w") == 0) {
+                   cx = ((Hybrid) ta).welzllist.get(innerindex).cir1.c.x;
+                   cy = ((Hybrid) ta).welzllist.get(innerindex).cir1.c.y;
+                   radius = (float) ((Hybrid) ta).welzllist.get(innerindex).cir1.r;
+                   int index1 = ((Hybrid) ta).getHashvalues().get(((Hybrid) ta).welzllist.get(innerindex).getFeat1());
+                   int index2 = ((Hybrid) ta).getHashvalues().get(((Hybrid) ta).welzllist.get(innerindex).getFeat2());
+                   welzlx = ts.getDataTable().get(index1).valuesList.get(localtime);
+                   welzly = ts.getDataTable().get(index2).valuesList.get(localtime);
+               }
+           }
 
-                        p = new SimpleAnomalyDetector.Pointanomaly(new Point(((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).getP().x,
-                                ((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).getP().y),
-                                ((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).isAberrant());
-                    }
-                    else{
-                        System.out.println("no correlated feature");
-                    }
-                }
-                else if(detectorname.compareTo("Zscore")==0) {
-                    zvalue = ((Zscore)ta).getZhash().get(index).get(localtime);
-                    zanomalyvalue=((Zscore)ta).getAnomalymap().get(index).get(localtime).getVal();
-                }
-                else if(detectorname.compareTo("Hybrid")==0) {
-                    type.setValue(((Hybrid)ta).getCorvalues().get(index).getAlgo());
-                    int innerindex=((Hybrid)ta).getCorvalues().get(index).getIndex();
-                    if(type.getValue().compareTo("l")==0){
-                        this.y2line = ((Hybrid)ta).simple.get(innerindex).getCorFeatures().get(0).lin_reg.f(-500);
-                        this.x2line = -500;
-                        this.y1line = ((Hybrid)ta).simple.get(innerindex).getCorFeatures().get(0).lin_reg.f(500);
-                        this.x1line = 500;
-                        p = new SimpleAnomalyDetector.Pointanomaly(new Point(((Hybrid)ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).getP().x,
-                                ((Hybrid)ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).getP().y),
-                                ((Hybrid)ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).isAberrant());
+               this.setChanged();
+               this.notifyObservers();
+           PrintWriter finalOut = out;
+           ao.execute(() -> {
+                   if (finalOut != null) {
+                       finalOut.println(l);
+                       finalOut.flush();
+                   }
+               });
 
-                    }
-                    else if(type.getValue().compareTo("z")==0){
-                        zvalue = ((Hybrid)ta).zscorelist.get(innerindex).getZhash().get(0).get(localtime);
-                        zanomalyvalue=((Hybrid)ta).zscorelist.get(innerindex).getAnomalymap().get(0).get(localtime).getVal();
-                    }
-                    else if(type.getValue().compareTo("w")==0){
-                        cx=((Hybrid)ta).welzllist.get(innerindex).cir1.c.x;
-                        cy=((Hybrid)ta).welzllist.get(innerindex).cir1.c.y;
-                        radius=(float)((Hybrid)ta).welzllist.get(innerindex).cir1.r;
-                        int index1=((Hybrid)ta).getHashvalues().get(((Hybrid)ta).welzllist.get(innerindex).getFeat1());
-                        int index2=((Hybrid)ta).getHashvalues().get(((Hybrid)ta).welzllist.get(innerindex).getFeat2());
-                        welzlx=ts.getDataTable().get(index1).valuesList.get(localtime);
-                        welzly=ts.getDataTable().get(index2).valuesList.get(localtime);
-                    }
-                }
-                this.setChanged();
-                this.notifyObservers();
-                PrintWriter finalOut = out;
-                ao.execute(()->{
-                    if(finalOut !=null) {
-                        finalOut.println(l);
-                        finalOut.flush();
-                    }
-                });
-                try {
-                    Thread.sleep(this.rate);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                localtime++;
-            }
-
-            out.close();
-            //fg.close();
-        }
+           localtime++;
+       }
+       if (out != null)
+           out.close();
+       //fg.close();
+   }
 
 
     public String getLeftval() {
