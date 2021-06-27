@@ -255,9 +255,10 @@ public class Model extends Observable {
 
                Thread.sleep(this.rate);
 
-           if (out != null)
-               out.close();
+
        }
+       if (out != null)
+           out.close();
    }
 
 
