@@ -13,6 +13,7 @@ import java.beans.XMLDecoder;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -69,12 +70,18 @@ public class Model extends Observable {
     }
 
     public void run() {
-        theThread=new Thread(()->play(this.rate));
+        theThread=new Thread(()-> {
+            try {
+                play(this.rate);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
         theThread.start();
     }
 
     public void stop(){
-        theThread.interrupt();
+
         this.localtime=0;
         this.throttle=ts.getDataTable().get(prop.getProp().get("throttle")).valuesList.get(localtime);
         this.rudder=ts.getDataTable().get(prop.getProp().get("rudder")).valuesList.get(localtime);
@@ -89,6 +96,7 @@ public class Model extends Observable {
         this.time=localtime;
         this.setChanged();
         this.notifyObservers();
+        theThread.interrupt();
     }
 
     public void pause(){
@@ -141,19 +149,28 @@ public class Model extends Observable {
         }
     }
 
-   public void play(int r) {
+   public void play(int r) throws InterruptedException {
        ao = new ActiveObjectCommon();
+
+       int sizeline = ts.getDataTable().get(0).valuesList.size();
+       int sizecol = ts.getDataTable().size();
        Socket fg = null;
        PrintWriter out = null;
        try {
            fg = new Socket(prop.getIp(), prop.getPort());
            fg.setSoTimeout(10000);
            out = new PrintWriter(fg.getOutputStream());
+
+
+
+
+       } catch (SocketException e) {
+
+       } catch (UnknownHostException e) {
+
        } catch (IOException e) {
 
        }
-       int sizeline = ts.getDataTable().get(0).valuesList.size();
-       int sizecol = ts.getDataTable().size();
        ao.start();
        while (localtime < sizeline) {
 
@@ -222,21 +239,25 @@ public class Model extends Observable {
                }
            }
 
-               this.setChanged();
-               this.notifyObservers();
-           PrintWriter finalOut = out;
-           ao.execute(() -> {
-                   if (finalOut != null) {
-                       finalOut.println(l);
-                       finalOut.flush();
-                   }
-               });
+           this.setChanged();
+           this.notifyObservers();
+
 
            localtime++;
+
+           PrintWriter finalOut = out;
+           ao.execute(() -> {
+               if (finalOut != null) {
+                   finalOut.println(l);
+                   finalOut.flush();
+               }
+           });
+
+               Thread.sleep(this.rate);
+
+           if (out != null)
+               out.close();
        }
-       if (out != null)
-           out.close();
-       //fg.close();
    }
 
 
