@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="189.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.mediaplayer.MediaPlayerController">
     <Pane layoutY="37.0" prefHeight="131.0" prefWidth="906.0" BorderPane.alignment="CENTER">
-        <TextField fx:id="speed" layoutX="548.0" layoutY="49.0" prefHeight="26.0" prefWidth="55" />
+        <TextField fx:id="speed" layoutX="548.0" layoutY="49.0" prefHeight="26.0" prefWidth="55" editable="false" />
         <Button fx:id="opencsv" layoutX="10.0" layoutY="47.0" mnemonicParsing="false" text="Open csv file" />
         <Button fx:id="openalg" layoutX="10.0" layoutY="7.0" mnemonicParsing="false" text="Choose algorithm" />
         <Slider fx:id="timebar" blockIncrement="1" layoutX="16.0" layoutY="87.0" prefHeight="24.0" prefWidth="881.0" />

@@ -292,6 +292,11 @@ public class Mygraph extends AnchorPane {
                                     welzel.setTitle("Welzel");
                                     welzelcircle.setName("Learn");
                                     welzelpoints.setName("Detect");
+                                    linex1.setLowerBound((int)(this.radius.getValue()*(-3)));
+                                    liney1.setLowerBound((int)(this.radius.getValue()*(-3)));
+                                    linex1.setUpperBound((int)(this.radius.getValue()*3));
+                                    liney1.setUpperBound((int)(this.radius.getValue()*3));
+
 
                                     if(!flag) {
                                         mygraphcontroller.createCircle(welzelcircle, this.cx.getValue(), this.cy.getValue(), this.radius.getValue());
