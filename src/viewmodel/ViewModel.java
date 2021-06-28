@@ -145,10 +145,15 @@ public class ViewModel extends Observable implements Observer {
   }
 
   public void play(){
-    this.model.run();
+    if(this.ts!=null&&this.Algname.getValue()!=null)
+        this.model.run();
   }
-  public void stop(){this.model.stop();}
-  public void pause(){this.model.pause();}
+  public void stop(){
+    if(this.ts!=null&&this.Algname.getValue()!=null)
+      this.model.stop();}
+  public void pause(){
+    if(this.ts!=null&&this.Algname.getValue()!=null)
+      this.model.pause();}
   public void forward(){this.model.forward();}
   public void backward() { this.model.backward();}
   public void doubleforward() {this.model.doubleforward(); }
