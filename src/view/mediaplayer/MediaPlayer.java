@@ -38,6 +38,10 @@ public class MediaPlayer extends AnchorPane {
     public Button opencsv;
     @FXML
     public Button openalg;
+    @FXML
+    public Button openxml;
+
+
 
     public MediaPlayer(){
         super();
@@ -60,6 +64,7 @@ public class MediaPlayer extends AnchorPane {
             this.openalg=mediaPlayerController.openalg;
             this.opencsv= mediaPlayerController.opencsv;
             this.timebar=mediaPlayerController.timebar;
+            this.openxml=mediaPlayerController.openxml;
             this.getChildren().add(root);
         } catch (IOException e) {
             e.printStackTrace();

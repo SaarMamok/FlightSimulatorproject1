@@ -37,27 +37,30 @@ public class Model extends Observable {
     private TimeSeriesAnomalyDetector ta;
     private TimeSeries learnTimeSeries;
     private boolean inCircle;
-    Timer clock;
+    private  XMLDecoder decoder = null;
 
 
     public Model(){
 
-        XMLDecoder decoder = null;
-        clock=null;
+        type=new SimpleStringProperty();
+        this.Changexml("setting.xml");
+    }
+
+    public void Changexml(String path){
         try {
-            decoder = new XMLDecoder(new FileInputStream(new File("setting.xml")));
+            decoder = new XMLDecoder(new FileInputStream(new File(path)));
             this.prop= (Settings) decoder.readObject();
             decoder.close();
             this.rate=prop.getSleep();
             this.ratedisplay=rate;
             this.detectorname="";
             this.learnTimeSeries = new TimeSeries(prop.getLearnpath());
-            type=new SimpleStringProperty();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-    }
 
+
+    }
     public void setIndex(int index) {
         this.index = index;
     }

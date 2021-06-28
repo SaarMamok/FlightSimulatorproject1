@@ -22,7 +22,7 @@ public class ViewModel extends Observable implements Observer {
 
   private TimeSeries ts;
   private  Model model;
-  public StringProperty leftval,rightval,Algname,type;
+  public StringProperty leftval,rightval,Algname,type,xmlpath;
   public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
   public IntegerProperty index,corindex,time,check;
   public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,
@@ -34,6 +34,7 @@ public class ViewModel extends Observable implements Observer {
     this.model=m;
     m.addObserver(this);
     this.setCor(new TimeSeries("reg_flight.csv"));
+    xmlpath=new SimpleStringProperty();
     aileron=new SimpleDoubleProperty();
     elevators=new SimpleDoubleProperty();
     rudder=new SimpleDoubleProperty();
@@ -70,6 +71,7 @@ public class ViewModel extends Observable implements Observer {
     welzly=new SimpleFloatProperty();
     type=new SimpleStringProperty();
     inCircle =new SimpleBooleanProperty();
+    this.xmlpath.addListener((o,ov,nv)->model.Changexml(this.xmlpath.getValue()));
   }
 
     public DoubleProperty getAileron(){

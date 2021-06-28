@@ -34,6 +34,8 @@ public class MediaPlayerController {
      Button opencsv;
     @FXML
      Button openalg;
+    @FXML
+    public Button openxml;
 
     public MediaPlayerController() {
         this.play=new ImageView();
@@ -45,6 +47,7 @@ public class MediaPlayerController {
         this.backwards=new ImageView();
         this.openalg=new Button();
         this.opencsv=new Button();
+        this.openxml=new Button();
         this.timebar=new Slider();
     }
 

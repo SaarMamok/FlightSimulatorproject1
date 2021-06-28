@@ -44,12 +44,12 @@ public class Windowcontroller extends Observable {
     Mygraph mygraph;
 
 
-    private File chosen;
+    private File chosen,xmlchosen;
     public IntegerProperty time;
     public FloatProperty rate;
     ViewModel viewModel;
     float sec=0,min=0,hour=0;
-    StringProperty fileChoosen;
+    StringProperty fileChoosen,xmlpath;
 
 
     private String getDurationString(int seconds) {
@@ -74,7 +74,7 @@ public class Windowcontroller extends Observable {
     }
 
     public void init(ViewModel vm){
-
+        xmlpath=new SimpleStringProperty();
         mediaPlayer.timebar.setMin(0);
         time=new SimpleIntegerProperty();
         this.viewModel=vm;
@@ -145,7 +145,7 @@ public class Windowcontroller extends Observable {
         this.mediaPlayer.skipnext.setOnMouseClicked(event -> this.doubleforward());
         this.mediaPlayer.opencsv.setOnAction(event -> this.Opencsv());
         this.mediaPlayer.openalg.setOnAction(event -> this.Choosealg());
-
+        this.mediaPlayer.openxml.setOnAction(event -> this.Choosexml());
         this.mediaPlayer.timebar.setOnMouseReleased(event -> {
             this.slidermove();
 
@@ -161,8 +161,21 @@ public class Windowcontroller extends Observable {
 
         this.fileChoosen = new SimpleStringProperty();
         this.attributeslist.filechosen.bind(fileChoosen);
+        this.viewModel.xmlpath.bind(this.xmlpath);
     }
 
+    public void Choosexml(){
+        FileChooser fc =new FileChooser();
+        fc.setTitle("Choose file");
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Xml Files", "*.xml"));
+        xmlchosen=fc.showOpenDialog(null);
+        if(xmlchosen==null){
+            return;
+        }
+        else{
+            xmlpath.setValue(xmlchosen.getAbsolutePath());
+        }
+    }
     public void Choosealg()  {
         Thread t=new Thread(()-> {
             try {

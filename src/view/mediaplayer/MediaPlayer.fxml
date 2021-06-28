@@ -14,6 +14,7 @@
         <TextField fx:id="speed" layoutX="548.0" layoutY="49.0" prefHeight="26.0" prefWidth="55" editable="false" />
         <Button fx:id="opencsv" layoutX="10.0" layoutY="47.0" mnemonicParsing="false" text="Open csv file" />
         <Button fx:id="openalg" layoutX="10.0" layoutY="7.0" mnemonicParsing="false" text="Choose algorithm" />
+        <Button fx:id="openxml" layoutX="170.0" layoutY="7.0" mnemonicParsing="false" text="Choose xml file" />
         <Slider fx:id="timebar" blockIncrement="1" layoutX="16.0" layoutY="87.0" prefHeight="24.0" prefWidth="881.0" />
         <Label layoutX="463.0" layoutY="53.0" text="Play speed" />
         <Label fx:id="clock" layoutX="609.0" layoutY="53.0" />
