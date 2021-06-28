@@ -18,7 +18,8 @@ public class Mygraph extends AnchorPane {
             zanomalyvalue,corvalue,px,py,cx,cy,radius,welzlx,welzly;
     public IntegerProperty time,check;
     public StringProperty righttitle,Algname,lefttitle,type;
-    public BooleanProperty abberant;
+    public BooleanProperty abberant, inCircle;
+    private boolean flag =false;
     @FXML
     public LineChart leftgraph;
     @FXML
@@ -46,6 +47,10 @@ public class Mygraph extends AnchorPane {
     NumberAxis liney;
     @FXML
     Label cover;
+    @FXML
+    NumberAxis linex1;
+    @FXML
+    NumberAxis liney1;
 
     public Mygraph() {
         super();
@@ -79,6 +84,7 @@ public class Mygraph extends AnchorPane {
             x2line=new SimpleFloatProperty();
             y1line=new SimpleFloatProperty();
             y2line=new SimpleFloatProperty();
+            inCircle=new SimpleBooleanProperty();
             leftgraph=mygraphcontroller.leftgraph;
             rightgraph=mygraphcontroller.rightgraph;
             algo=mygraphcontroller.algo;
@@ -87,8 +93,12 @@ public class Mygraph extends AnchorPane {
             zscoregraph=mygraphcontroller.zscoregraph;
             linex= mygraphcontroller.linex;
             liney= mygraphcontroller.liney;
+            linex1 =mygraphcontroller.linex1;
+            liney1 =mygraphcontroller.liney1;
             linex.setAutoRanging(false);
             liney.setAutoRanging(false);
+            linex1.setAutoRanging(false);
+            liney1.setAutoRanging(false);
             mygraphcontroller.listvalue.bind(this.listvalue);
             mygraphcontroller.time.bind(this.time);
             series=new XYChart.Series();
@@ -131,6 +141,7 @@ public class Mygraph extends AnchorPane {
             this.algo.getData().add(algoseries);
             this.algo.getData().add(detectlinegraph);
             this.lefttitle.addListener((o,ov,nv)->{
+                flag=false;
                 Platform.runLater(()-> {
                     seriesline.getData().add(new XYChart.Data(this.x1line.getValue(), this.y1line.getValue()));
                     seriesline.getData().add(new XYChart.Data(this.x2line.getValue(), this.y2line.getValue()));
@@ -282,8 +293,29 @@ public class Mygraph extends AnchorPane {
                                     welzelcircle.setName("Learn");
                                     welzelpoints.setName("Detect");
 
-                                    mygraphcontroller.createCircle(welzelcircle,this.cx.getValue(),this.cy.getValue(),this.radius.getValue());
+                                    if(!flag) {
+                                        mygraphcontroller.createCircle(welzelcircle, this.cx.getValue(), this.cy.getValue(), this.radius.getValue());
+                                        flag=true;
+                                    }
                                     mygraphcontroller.addWelzlpoints(welzelpoints,welzlx.getValue(),welzly.getValue());
+
+
+
+                                    if(inCircle.getValue()) {
+                                        welzel.setStyle("-fx-background-color: none;\n");
+                                    }
+                                    else {
+                                        System.out.println("hellooooo");
+                                        Set<Node> linesnodes = welzel.lookupAll(".series" + 0);
+                                        for (Node n : linesnodes) {
+                                            n.setStyle(
+                                                     "    -fx-background-insets: 0, 2;\n"
+                                                    + "    -fx-background-radius: 10px;\n"
+                                                    + "    -fx-padding: 10px;\n"
+                                                    + "     -fx-stroke: #33FFF4;");
+                                        }
+                                    }
+
                                 }
                         }
                     });

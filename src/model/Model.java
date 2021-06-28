@@ -36,6 +36,7 @@ public class Model extends Observable {
     protected ActiveObjectCommon ao;
     private TimeSeriesAnomalyDetector ta;
     private TimeSeries learnTimeSeries;
+    private boolean inCircle;
     Timer clock;
 
 
@@ -234,6 +235,7 @@ public class Model extends Observable {
                    int index2 = ((Hybrid) ta).getHashvalues().get(((Hybrid) ta).welzllist.get(innerindex).getFeat2());
                    welzlx = ts.getDataTable().get(index1).valuesList.get(localtime);
                    welzly = ts.getDataTable().get(index2).valuesList.get(localtime);
+                   inCircle=((Hybrid) ta).welzllist.get(innerindex).cir1.contains(new Point(welzlx,welzly));
                }
            }
 
@@ -311,6 +313,8 @@ public class Model extends Observable {
     public int getTime() {
         return time;
     }
+
+    public boolean isInCircle() { return inCircle; }
 
     public void setCorindex(int corindex) {
         this.corindex = corindex;

@@ -66,10 +66,10 @@
                </font></Label>
             <ScatterChart fx:id="welzel" layoutX="130.0" layoutY="-40.0" prefHeight="300" prefWidth="300">
                <xAxis>
-                  <NumberAxis fx:id="linex1" layoutY="-44.0" lowerBound="-200" side="BOTTOM" upperBound="200" />
+                  <NumberAxis fx:id="linex1" layoutY="-44.0" lowerBound="-100" side="BOTTOM" upperBound="100" />
                </xAxis>
                <yAxis>
-                  <NumberAxis fx:id="liney1" lowerBound="-200" side="LEFT" upperBound="200" />
+                  <NumberAxis fx:id="liney1" lowerBound="-100" side="LEFT" upperBound="100" />
                </yAxis>
             </ScatterChart>
          </children>

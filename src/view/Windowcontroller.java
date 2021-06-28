@@ -86,6 +86,7 @@ public class Windowcontroller extends Observable {
         this.time.addListener((o,ov,nv)->{
             mediaPlayer.timebar.setValue(time.getValue());
             this.mediaPlayer.clock.setText(getDurationString(this.time.getValue()));
+
         });
 
         this.viewModel.index.bind(attributeslist.index);
@@ -122,12 +123,15 @@ public class Windowcontroller extends Observable {
         this.mygraph.welzlx.bind(this.viewModel.welzlx);
         this.mygraph.welzly.bind(this.viewModel.welzly);
         this.mygraph.type.bind(this.viewModel.type);
+        this.mygraph.inCircle.bind(this.viewModel.inCircle);
+
         this.mydashboard.yaw.bind(this.viewModel.yaw);
         this.mydashboard.direction.bind(this.viewModel.direction);
         this.mydashboard.roll.bind(this.viewModel.roll);
         this.mydashboard.pitch.bind(this.viewModel.pitch);
         this.mydashboard.speed.bind(this.viewModel.speed);
         this.mydashboard.altitude.bind(this.viewModel.altitude);
+
         this.rate=new SimpleFloatProperty();
         this.rate.setValue(1);
         this.rate.bind(this.viewModel.rate);
@@ -141,7 +145,18 @@ public class Windowcontroller extends Observable {
         this.mediaPlayer.skipnext.setOnMouseClicked(event -> this.doubleforward());
         this.mediaPlayer.opencsv.setOnAction(event -> this.Opencsv());
         this.mediaPlayer.openalg.setOnAction(event -> this.Choosealg());
-        this.mediaPlayer.timebar.setOnMouseReleased(event -> this.slidermove());
+        this.mediaPlayer.timebar.setOnMouseReleased(event -> {
+            this.slidermove();
+
+            this.mygraph.series.getData().clear();
+            this.mygraph.series2.getData().clear();
+            this.mygraph.algoseries.getData().clear();
+            this.mygraph.detectlinegraph.getData().clear();
+            this.mygraph.zscoreseries.getData().clear();
+            this.mygraph.zscoreanomalyseries.getData().clear();
+            this.mygraph.welzelpoints.getData().clear();
+
+        });
 
         this.fileChoosen = new SimpleStringProperty();
         this.attributeslist.filechosen.bind(fileChoosen);

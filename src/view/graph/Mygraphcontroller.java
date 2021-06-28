@@ -30,6 +30,10 @@ public class Mygraphcontroller {
     NumberAxis liney;
     @FXML
     Label cover;
+    @FXML
+    NumberAxis linex1;
+    @FXML
+    NumberAxis liney1;
     public FloatProperty listvalue;
     public IntegerProperty time;
     final int size = 10;

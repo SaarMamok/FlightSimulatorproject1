@@ -27,7 +27,7 @@ public class ViewModel extends Observable implements Observer {
   public IntegerProperty index,corindex,time,check;
   public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,
           y2line,zvalue,zanomalyvalue,px,py,cx,cy,radius,welzlx,welzly;
-  public BooleanProperty aberrant;
+  public BooleanProperty aberrant, inCircle;
   private HashMap<Integer,Integer> Hashcor=new HashMap<>();
 
   public ViewModel(Model m){
@@ -69,6 +69,7 @@ public class ViewModel extends Observable implements Observer {
     welzlx=new SimpleFloatProperty();
     welzly=new SimpleFloatProperty();
     type=new SimpleStringProperty();
+    inCircle =new SimpleBooleanProperty();
   }
 
     public DoubleProperty getAileron(){
@@ -213,6 +214,7 @@ public class ViewModel extends Observable implements Observer {
                       radius.setValue(model.getRadius());
                       welzlx.setValue(model.getWelzlx());
                       welzly.setValue(model.getWelzly());
+                      inCircle.setValue(model.isInCircle());
                     }
             }
           });
