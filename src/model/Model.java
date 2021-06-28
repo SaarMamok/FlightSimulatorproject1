@@ -207,8 +207,6 @@ public class Model extends Observable {
                    p = new SimpleAnomalyDetector.Pointanomaly(new Point(((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).getP().x,
                            ((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).getP().y),
                            ((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).isAberrant());
-               } else {
-                   System.out.println("no correlated feature");
                }
            } else if (detectorname.compareTo("Zscore") == 0) {
                zvalue = ((Zscore) ta).getZhash().get(index).get(localtime);

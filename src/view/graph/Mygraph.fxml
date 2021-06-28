@@ -44,7 +44,7 @@
                   <NumberAxis side="LEFT" />
                </yAxis>
             </LineChart>
-            <ScatterChart fx:id="algo" layoutX="10.0" layoutY="-40.0" prefHeight="270.0" prefWidth="600.0">
+            <ScatterChart fx:id="algo" layoutY="-40.0" prefHeight="270.0" prefWidth="600.0">
                <xAxis>
                   <NumberAxis fx:id="linex" layoutY="-44.0" lowerBound="-200" side="BOTTOM" upperBound="200" />
                </xAxis>
@@ -54,10 +54,10 @@
             </ScatterChart>
             <LineChart fx:id="linegraph" alternativeRowFillVisible="false" blendMode="OVERLAY" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutY="-40.0" prefHeight="270.0" prefWidth="600.0" verticalGridLinesVisible="false" verticalZeroLineVisible="false" visible="false">
                <xAxis>
-                  <NumberAxis layoutY="-44.0" side="BOTTOM" />
+                  <NumberAxis layoutY="-44.0" lowerBound="-200" side="BOTTOM" upperBound="200" />
                </xAxis>
                <yAxis>
-                  <NumberAxis layoutY="-44.0" side="LEFT" />
+                  <NumberAxis layoutY="-44.0" lowerBound="-200" side="BOTTOM" upperBound="200" />
                </yAxis>
             </LineChart>
             <Label fx:id="cover" alignment="CENTER" layoutX="10.0" layoutY="-40.0" prefHeight="270.0" prefWidth="600.0" style="-fx-background-color: #ff0000;" text="No correlated feature" textAlignment="CENTER" textFill="#5e5a5a">

@@ -105,12 +105,8 @@ public class Mygraph extends AnchorPane {
             this.zscoregraph.getData().add(zscoreanomalyseries);
             this.welzel.getData().add(welzelcircle);
             this.welzel.getData().add(welzelpoints);
+
             welzel.setVisible(false);
-            this.lefttitle.addListener((o,ov,nv)-> {
-                leftgraph.setTitle(this.lefttitle.getValue());
-               // series.setName("Learn");
-                leftgraph.setLegendVisible(false);
-            });
 
             Set<Node> linenodes = leftgraph.lookupAll(".series" + 0);
             for (Node n : linenodes ) {
@@ -120,11 +116,11 @@ public class Mygraph extends AnchorPane {
                         + "    -fx-padding: 1px;");
             }
 
+
+
             this.righttitle.addListener((o,ov,nv)-> {
                 rightgraph.setTitle(this.righttitle.getValue());
-                //series2.setName("Learn");
                 rightgraph.setLegendVisible(false);
-
             });
 
             leftgraph.setCreateSymbols(false);
@@ -138,8 +134,9 @@ public class Mygraph extends AnchorPane {
                 Platform.runLater(()-> {
                     seriesline.getData().add(new XYChart.Data(this.x1line.getValue(), this.y1line.getValue()));
                     seriesline.getData().add(new XYChart.Data(this.x2line.getValue(), this.y2line.getValue()));
-
                 });
+                leftgraph.setTitle(this.lefttitle.getValue());
+                leftgraph.setLegendVisible(false);
             });
             Set<Node> nodes = welzel.lookupAll(".series" + 0);
             for (Node n : nodes) {
@@ -150,16 +147,15 @@ public class Mygraph extends AnchorPane {
             }
 
             this.time.addListener((o,ov,nv)-> {
-                if(!abberant.getValue()) {
-                    mygraphcontroller.AddtoGraph(series, time.getValue().toString(), listvalue.getValue());
-                    mygraphcontroller.AddtoGraph(series2, time.getValue().toString(), corvalue.getValue());
+
+                mygraphcontroller.AddtoGraph(series, time.getValue().toString(), listvalue.getValue());
+                mygraphcontroller.AddtoGraph(series2, time.getValue().toString(), corvalue.getValue());
+                if(!abberant.getValue())
                     linegraph.setStyle("-fx-background-color: none;\n");
-                }
                 else {
-                    mygraphcontroller.AddtoGraph(series, time.getValue().toString(), listvalue.getValue());
-                    mygraphcontroller.AddtoGraph(series2, time.getValue().toString(), corvalue.getValue());
                     linegraph.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n");
                 }
+
 
                         if(Algname.getValue().compareTo("test.SimpleAnomalyDetector")==0) {
                             if (check.getValue() == -1) {
@@ -175,6 +171,7 @@ public class Mygraph extends AnchorPane {
                             algo.setTitle("Linear regression");
                             detectlinegraph.setName("Detect");
                             seriesline.setName("Learn");
+
 
                             if(!abberant.getValue()) {
                                 mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
@@ -210,14 +207,12 @@ public class Mygraph extends AnchorPane {
                             zscoreseries.setName("Detect");
                             zscoreanomalyseries.setName("Learn");
 
+                            mygraphcontroller.ZscoreGraphadd(zscoreseries, time.floatValue(), zvalue.getValue());
+                            mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries, time.floatValue(), zanomalyvalue.getValue());
                             if(!abberant.getValue()) {
-                                mygraphcontroller.ZscoreGraphadd(zscoreseries, time.floatValue(), zvalue.getValue());
-                                mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries, time.floatValue(), zanomalyvalue.getValue());
                                 linegraph.setStyle("-fx-background-color: none;\n");
                             }
                             else {
-                                mygraphcontroller.ZscoreGraphadd(zscoreseries, time.floatValue(), zvalue.getValue());
-                                mygraphcontroller.ZscoreGraphadd(zscoreanomalyseries, time.floatValue(), zanomalyvalue.getValue());
                                 linegraph.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n");
 
                                 Set<Node> linesnodes = algo.lookupAll(".series" + 0);
@@ -244,15 +239,13 @@ public class Mygraph extends AnchorPane {
                                     detectlinegraph.setName("Detect");
                                     seriesline.setName("Learn");
 
+                                    mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
+                                    mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph, px.getValue(), py.getValue());
                                     if(!abberant.getValue()) {
-                                        mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
-                                        mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph, px.getValue(), py.getValue());
                                         linegraph.setStyle("-fx-background-color: none;\n");
                                     }
                                     else {
-                                        mygraphcontroller.SimpleAnomalyDetectorGraph(algoseries, listvalue.getValue(), corvalue.getValue());
-                                        mygraphcontroller.SimpleAnomalyDetectorGraph(detectlinegraph, px.getValue(), py.getValue());
-
+                                        algoseries.getData().clear();
                                         Set<Node> linesnodes = algo.lookupAll(".series" + 0);
                                         for (Node n : linesnodes) {
                                             n.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n"
