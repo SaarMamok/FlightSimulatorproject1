@@ -99,6 +99,8 @@ public class Windowcontroller extends Observable {
             this.mygraph.detectlinegraph.getData().clear();
             this.mygraph.zscoreseries.getData().clear();
             this.mygraph.zscoreanomalyseries.getData().clear();
+            this.mygraph.welzelcircle.getData().clear();
+            this.mygraph.welzelpoints.getData().clear();
         });
         this.mygraph.listvalue.bind(this.viewModel.listvalue);
         this.mygraph.corvalue.bind(this.viewModel.corvalue);
