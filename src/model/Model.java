@@ -54,7 +54,7 @@ public class Model extends Observable {
     private ScatterChart <Number,Number>scatterChart;
     NumberAxis xaxis=new NumberAxis();
     NumberAxis yaxis=new NumberAxis();
-
+    private boolean isred=false;
     public Model(){
         index=new SimpleIntegerProperty();
         type=new SimpleStringProperty();
@@ -222,18 +222,7 @@ public class Model extends Observable {
            this.leftval = ts.getDataTable().get(index.getValue()).featureName;
            this.rightval = ts.getDataTable().get(corindex).featureName;
            if(iscor.getValue()==true){
-               boolean isred= ta.Paintdetect(series,index.getValue(),time);
-               if(isred==true){
-                   Set<Node> linesnodes = scatterChart.lookupAll(".series" + 0);
-                   for (Node n : linesnodes) {
-                       n.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n"
-                               + "    -fx-background-insets: 0, 2;\n"
-                               + "    -fx-background-radius: 10px;\n"
-                               + "    -fx-padding: 10px;\n"
-                               + "     -fx-stroke: #33FFF4;");
-                   }
-
-               }
+               isred= ta.Paintdetect(series,index.getValue(),time);
            }
 
            this.setChanged();
@@ -361,5 +350,9 @@ public class Model extends Observable {
 
     public ScatterChart<Number, Number> getScatterChart() {
         return scatterChart;
+    }
+
+    public boolean isIsred() {
+        return isred;
     }
 }

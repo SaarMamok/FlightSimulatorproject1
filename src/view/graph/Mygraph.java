@@ -17,6 +17,7 @@ public class Mygraph extends AnchorPane {
     public FloatProperty listvalue,corvalue,radius;
     public IntegerProperty time;
     public StringProperty righttitle,lefttitle,type,algname;
+    public BooleanProperty isred;
     @FXML
     public LineChart leftgraph;
     @FXML
@@ -49,7 +50,7 @@ public class Mygraph extends AnchorPane {
             this.lefttitle=new SimpleStringProperty();
             this.righttitle=new SimpleStringProperty();
             this.algname=new SimpleStringProperty();
-
+            this.isred=new SimpleBooleanProperty();
             this.cover=mygraphcontroller.cover;
             this.cover.setVisible(false);
             leftgraph=mygraphcontroller.leftgraph;
@@ -90,6 +91,15 @@ public class Mygraph extends AnchorPane {
 
 
                     });
+
+            this.isred.addListener((o,ov,nv)->{
+                if(isred.getValue()==true)
+                {
+                    paintGraph.setStyle("-fx-background-color: #44FFF3;");
+                }
+                else
+                    paintGraph.setStyle("-fx-background-color: none;");
+            });
             this.getChildren().add(root);
 
         } catch (IOException e) {

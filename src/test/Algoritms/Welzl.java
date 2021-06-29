@@ -177,6 +177,6 @@ private Point[] points;
         Platform.runLater(() -> {
             series.getData().add(new XYChart.Data<Number, Number>(points[time].x, points[time].y));
         });
-        return true;
+        return (!this.cir1.contains(points[time]));
     }
 }

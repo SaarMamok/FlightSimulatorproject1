@@ -157,7 +157,7 @@ public class Zscore implements TimeSeriesAnomalyDetector {
         Platform.runLater(() -> {
             series.getData().add(new XYChart.Data<Number, Number>(time, zhash.get(att).get(time)));
         });
-        return true;
+        return this.anomalymap.get(att).get(time).aberrant;
     }
 
     @Override

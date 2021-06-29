@@ -98,7 +98,7 @@ public class Windowcontroller extends Observable {
         this.mygraph.lefttitle.bind(this.viewModel.leftval);
         this.mygraph.righttitle.bind(this.viewModel.rightval);
         this.mygraph.time.bind(this.viewModel.time);
-
+        this.mygraph.isred.bind(viewModel.isred);
         this.viewModel.iscor.addListener((o,ov,nv)->{
             if(viewModel.iscor.getValue()==true) {
                 this.mygraph.cover.setVisible(false);

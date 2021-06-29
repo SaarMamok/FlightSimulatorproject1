@@ -32,7 +32,7 @@ public class ViewModel extends Observable implements Observer {
   public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
   public IntegerProperty index,corindex,time,check;
   public FloatProperty listvalue,corvalue,rate;
-  public BooleanProperty aberrant, iscor;
+  public BooleanProperty aberrant, iscor,isred;
   private HashMap<Integer,Integer> Hashcor=new HashMap<>();
   private XYChart.Series series;
 
@@ -65,7 +65,7 @@ public class ViewModel extends Observable implements Observer {
     type=new SimpleStringProperty();
     iscor=new SimpleBooleanProperty();
     series=new XYChart.Series();
-
+  isred=new SimpleBooleanProperty();
     this.xmlpath.addListener((o,ov,nv)->model.Changexml(this.xmlpath.getValue()));
     this.iscor.bind(this.model.iscor);
     this.index.addListener((o,ov,nv)->{
@@ -185,6 +185,7 @@ public class ViewModel extends Observable implements Observer {
             this.direction.set(this.model.getDirection());
             this.leftval.set(this.model.getLeftval());
             this.rightval.set(this.model.getRightval());
+            this.isred.set(this.model.isIsred());
           });
         }
     }
