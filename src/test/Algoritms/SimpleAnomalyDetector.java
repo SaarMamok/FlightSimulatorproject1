@@ -214,6 +214,9 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 	public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
 		XYChart.Series series=new XYChart.Series();
 		XYChart.Series serline=new XYChart.Series();
+		scatterChart.getData().clear();
+		series.setName("Learn");
+		serline.setName("Linear regression");
 		int corindex=getcorindex(index,ts);
 
 		if(corindex==-1) {

@@ -50,7 +50,7 @@ public class Windowcontroller extends Observable {
     public FloatProperty rate;
     ViewModel viewModel;
     float sec=0,min=0,hour=0;
-    StringProperty fileChoosen,xmlpath;
+    StringProperty fileChoosen,xmlpath ,Algname;
     private XYChart.Series series;
 
 
@@ -80,6 +80,7 @@ public class Windowcontroller extends Observable {
         xmlpath=new SimpleStringProperty();
         mediaPlayer.timebar.setMin(0);
         time=new SimpleIntegerProperty();
+        Algname=new SimpleStringProperty();
         this.viewModel=vm;
         this.myJoystick.rudder.bind(this.viewModel.rudder);
         this.myJoystick.throttle.bind(this.viewModel.throttle);
@@ -109,6 +110,11 @@ public class Windowcontroller extends Observable {
                 this.mygraph.paintGraph.setVisible(false);
             }
         });
+
+        this.Algname.bind(this.viewModel.Algname);
+        this.Algname.addListener((o,ov,nv)->{
+            //this.mygraph.paintGraph.getData().clear();
+        });
         this.attributeslist.index.addListener((o,ov,nv)->{
             this.mygraph.righttitle.bind(this.viewModel.rightval);
             this.mygraph.series.getData().clear();
@@ -120,7 +126,7 @@ public class Windowcontroller extends Observable {
 
 
                 this.mygraph.paintGraph.setData(this.viewModel.getScatterChart().getData());
-                this.mygraph.paintGraph.setTitle(this.viewModel.Algname.getValue());
+
             }
             else{
                     this.mygraph.cover.setVisible(true);
@@ -128,7 +134,7 @@ public class Windowcontroller extends Observable {
             }
 
         });
-
+        //this.viewModel.Algname.addListener((o,ov,nv)->this.mygraph.paintGraph.setTitle(this.viewModel.Algname.getValue()));
 
         this.mydashboard.yaw.bind(this.viewModel.yaw);
         this.mydashboard.direction.bind(this.viewModel.direction);

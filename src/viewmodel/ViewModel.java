@@ -68,6 +68,7 @@ public class ViewModel extends Observable implements Observer {
   isred=new SimpleBooleanProperty();
     this.xmlpath.addListener((o,ov,nv)->model.Changexml(this.xmlpath.getValue()));
     this.iscor.bind(this.model.iscor);
+    this.Algname.bind(this.model.algname);
     this.index.addListener((o,ov,nv)->{
       if(iscor.getValue()==true) {
         series.setData(model.getSeries().getData());
@@ -119,7 +120,6 @@ public class ViewModel extends Observable implements Observer {
             new URL("file://"+input)
     });
     Class<?> c=urlClassLoader.loadClass(className);
-    this.Algname.setValue(className);
     model.SetAnomaly(c);
   }
 

@@ -59,6 +59,7 @@ public class Model extends Observable {
         index=new SimpleIntegerProperty();
         type=new SimpleStringProperty();
         series=new XYChart.Series();
+
         algname=new SimpleStringProperty();
         iscor=new SimpleBooleanProperty();
         scatterChart=new ScatterChart<Number, Number>(xaxis,yaxis);
@@ -80,6 +81,12 @@ public class Model extends Observable {
             this.ratedisplay=rate;
             this.detectorname="";
             this.learnTimeSeries = new TimeSeries(prop.getLearnpath());
+            this.algname.addListener((o,ov,nv)->{
+                series=new XYChart.Series();
+                this.series.getData().clear();
+                series.setName("Detect");
+                scatterChart.getData().add(series);
+            });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -174,6 +181,7 @@ public class Model extends Observable {
             iscor.setValue(ta.Paintlearn(ts,index.getValue(),scatterChart));
             series=new XYChart.Series();
             this.series.getData().clear();
+            series.setName("Detect");
             scatterChart.getData().add(series);
         });
     }
