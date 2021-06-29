@@ -35,9 +35,9 @@
       </AnchorPane>
       <AnchorPane layoutX="8.0" layoutY="293.0" prefHeight="300.0" prefWidth="300.0">
          <children>
-            <Label fx:id="cover" alignment="CENTER" layoutX="10.0" layoutY="-40.0" prefHeight="270.0" prefWidth="600.0" style="-fx-background-color: #ff0000;" text="No correlated feature" textAlignment="CENTER" textFill="#5e5a5a"/>
+            <Label fx:id="cover" alignment="CENTER" layoutX="130.0" layoutY="-40.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #ff0000;" text="No correlated feature" textAlignment="CENTER" textFill="#5e5a5a"/>
 
-            <ScatterChart fx:id="paintGraph" layoutX="130.0" layoutY="-40.0" prefHeight="300" prefWidth="300">
+            <ScatterChart fx:id="paintGraph" layoutX="130.0" layoutY="-40.0" prefHeight="300.0" prefWidth="300.0">
                <xAxis>
                   <NumberAxis fx:id="linex" layoutY="-44.0" lowerBound="-100" side="BOTTOM" upperBound="100" />
                </xAxis>

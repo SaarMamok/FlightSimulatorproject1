@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import model.Model;
 import properties.Settings;
@@ -35,7 +36,10 @@ public class Main extends Application {
         wc.init(vm);
 
         primaryStage.setTitle("Flight Simulator App");
-        primaryStage.setScene(new Scene(root, 1750  , 900));
+        primaryStage.setScene(new Scene(root, 1000 , 500));
+
+
+
         primaryStage.show();
     }
 

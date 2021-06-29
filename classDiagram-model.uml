@@ -4,7 +4,6 @@
   <OriginalElement>model</OriginalElement>
   <nodes>
     <node x="0.0" y="1317.0">model.ActiveObjectCommon</node>
-    <node x="269.0" y="0.0">model.FGplayer</node>
     <node x="6.5" y="0.0">model.Model</node>
   </nodes>
   <notes />
@@ -14,7 +13,7 @@
       <point x="0.0" y="633.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.34065934065934067" x="226.0" y="763.5" />
+  <settings layout="Hierarchic Group" zoom="0.43309631544925664" x="112.0" y="763.5" />
   <SelectedNodes>
     <node>model.Model</node>
   </SelectedNodes>
