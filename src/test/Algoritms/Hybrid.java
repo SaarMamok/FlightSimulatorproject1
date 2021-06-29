@@ -13,7 +13,7 @@ import static test.StatLib.pearson;
 
 public class Hybrid implements TimeSeriesAnomalyDetector {
 
-
+        private TimeSeriesAnomalyDetector anomalyalg;
 
 
 
@@ -43,9 +43,9 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
         }
     }
 
-    public ArrayList<SimpleAnomalyDetector>simple=new ArrayList<>();
-    public ArrayList<Zscore>zscorelist=new ArrayList<>();
-    public ArrayList<Welzl>welzllist=new ArrayList<>();
+    public HashMap<Integer,SimpleAnomalyDetector>simple=new HashMap<>();
+    public HashMap<Integer,Zscore>zscorelist=new HashMap<>();
+    public HashMap<Integer,Welzl>welzllist=new HashMap<>();
     public HashMap<Integer,HybridData>corvalues=new HashMap<>();
     private HashMap<String,Integer> Hashvalues=new HashMap<>();
 
@@ -95,7 +95,7 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
                 TimeSeries linear=new TimeSeries(ts.getDataTable().get(i),ts.getDataTable().get(indexfeature));
                 SimpleAnomalyDetector s= new SimpleAnomalyDetector(bestcor);
                 s.learnNormal(linear);
-                simple.add(s);
+                simple.put(i,s);
             }
             else if(bestcor<=0.5)
             {
@@ -104,7 +104,7 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
                 TimeSeries zs=new TimeSeries(ts.getDataTable().get(i));
                 Zscore z=new Zscore();
                 z.learnNormal(zs);
-                zscorelist.add(z);
+                zscorelist.put(i,z);
             }
             else{
                 corvalues.put(i,new HybridData(countw,"w"));
@@ -112,7 +112,7 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
                 TimeSeries Wl=new TimeSeries(ts.getDataTable().get(i),ts.getDataTable().get(indexfeature));
                 Welzl W=new Welzl();
                 W.learnNormal(Wl);
-                welzllist.add(W);
+                welzllist.put(i,W);
             }
             Hashvalues.put(ts.getDataTable().get(i).getFeatureName(),i);
         }
@@ -123,33 +123,52 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
         List<AnomalyReport> l=new ArrayList<>();
         int feat1,feat2;
         int i;
-        for(i=0; i< this.simple.size(); i++) {
-            feat1=Hashvalues.get(simple.get(i).corFeatures.get(0).feature1);
-            feat2=Hashvalues.get(simple.get(i).corFeatures.get(0).feature2);
-            l.addAll(simple.get(i).detect(new TimeSeries(ts.getDataTable().get(feat1),ts.getDataTable().get(feat2))));
+        for(int index:simple.keySet()) {
+            feat1=Hashvalues.get(simple.get(index).corFeatures.get(0).feature1);
+            feat2=Hashvalues.get(simple.get(index).corFeatures.get(0).feature2);
+            l.addAll(simple.get(index).detect(new TimeSeries(ts.getDataTable().get(feat1),ts.getDataTable().get(feat2))));
         }
-        for(i=0;i<zscorelist.size();i++){
-            feat1=Hashvalues.get(zscorelist.get(i).getCols_treshould().get(0).name);
-            l.addAll(zscorelist.get(i).detect(new TimeSeries(ts.getDataTable().get(feat1))));
+        for(int index:zscorelist.keySet()){
+            feat1=Hashvalues.get(zscorelist.get(index).getCols_treshould().get(0).name);
+            l.addAll(zscorelist.get(index).detect(new TimeSeries(ts.getDataTable().get(feat1))));
         }
-        for(i=0;i<welzllist.size();i++){
-            feat1=Hashvalues.get(welzllist.get(i).getFeat1());
-            feat2=Hashvalues.get(welzllist.get(i).getFeat2());
-            l.addAll(welzllist.get(i).detect(new TimeSeries(ts.getDataTable().get(feat1),ts.getDataTable().get(feat2))));
+        for(int index:welzllist.keySet()){
+            feat1=Hashvalues.get(welzllist.get(index).getFeat1());
+            feat2=Hashvalues.get(welzllist.get(index).getFeat2());
+            l.addAll(welzllist.get(index).detect(new TimeSeries(ts.getDataTable().get(feat1),ts.getDataTable().get(feat2))));
         }
         return l;
     }
 
     @Override
     public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
-
-
+            if(corvalues.get(index).algo.compareTo("l")==0){
+                simple.get(index).Paintlearn(ts, 0, scatterChart);
+            }
+            else if (corvalues.get(index).algo.compareTo("z")==0) {
+                zscorelist.get(index).Paintlearn(ts, 0, scatterChart);
+            }
+            else if(corvalues.get(index).algo.compareTo("w")==0) {
+                welzllist.get(index).Paintlearn(ts, index, scatterChart);
+            }
         return true;
     }
 
+
     @Override
     public void Paintdetect(XYChart.Series series,int att,int time) {
-
+        if(corvalues.get(att).algo.compareTo("l")==0){
+            anomalyalg=new SimpleAnomalyDetector();
+            anomalyalg.Paintdetect(series, att, time);
+        }
+        else if (corvalues.get(att).algo.compareTo("z")==0) {
+            anomalyalg = new Zscore();
+            anomalyalg.Paintdetect(series, att, time);
+        }
+        else if(corvalues.get(att).algo.compareTo("w")==0) {
+            anomalyalg = new Welzl();
+            anomalyalg.Paintdetect(series, att, time);
+        }
     }
 
     @Override
