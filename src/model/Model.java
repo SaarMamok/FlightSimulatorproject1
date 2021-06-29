@@ -1,9 +1,6 @@
 package model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
@@ -44,7 +41,7 @@ public class Model extends Observable {
     protected ActiveObjectCommon ao;
     private TimeSeriesAnomalyDetector ta;
     private TimeSeries learnTimeSeries;
-    private boolean iscor;
+    public BooleanProperty iscor;
     private  XMLDecoder decoder = null;
     public IntegerProperty index;
     private XYChart.Series series;
@@ -58,8 +55,14 @@ public class Model extends Observable {
         type=new SimpleStringProperty();
         series=new XYChart.Series();
         algname=new SimpleStringProperty();
+        iscor=new SimpleBooleanProperty();
         scatterChart=new ScatterChart<Number, Number>(xaxis,yaxis);
+        scatterChart.getData().add(series);
         this.Changexml("setting.xml");
+        this.index.addListener((o,ov,nv)->{
+            this.series.getData().clear();
+            //this.scatterChart.getData().clear();
+        });
     }
 
     public void Changexml(String path){
@@ -162,9 +165,8 @@ public class Model extends Observable {
         ta.detect(this.ts);
         algname.setValue(ta.getname());
         this.index.addListener((o, ov, nv)->{
-            iscor=ta.Paintlearn(ts,index.getValue(),scatterChart);
+            iscor.setValue(ta.Paintlearn(ts,index.getValue(),scatterChart));
         });
-        int amit=7;
     }
 
    public void play(int r) throws InterruptedException {
@@ -210,8 +212,7 @@ public class Model extends Observable {
            this.corvalue = ts.getDataTable().get(corindex).valuesList.get(time);
            this.leftval = ts.getDataTable().get(index.getValue()).featureName;
            this.rightval = ts.getDataTable().get(corindex).featureName;
-
-
+           ta.Paintdetect(series,index.getValue(),time);
            this.setChanged();
            this.notifyObservers();
 
@@ -287,9 +288,6 @@ public class Model extends Observable {
         return time;
     }
 
-    public boolean isIscor() {
-        return iscor;
-    }
 
     public void setCorindex(int corindex) {
         this.corindex = corindex;

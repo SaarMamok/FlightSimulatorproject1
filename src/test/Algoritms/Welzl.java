@@ -154,8 +154,9 @@ private String feat1,feat2;
         return true;
     }
 
+
     @Override
-    public XYChart.Series Paintdetect() {
-        return null;
+    public void Paintdetect(XYChart.Series series,int att,int time) {
+
     }
 }

@@ -21,6 +21,8 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 	public SimpleAnomalyDetector() {
 		series=new XYChart.Series();
 	}
+	XYChart.Data p;
+
 
 
 
@@ -205,15 +207,11 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 	}
 
 	@Override
-	public XYChart.Series paint(Object... o) {
-		Platform.runLater(() -> {
-			for(Object val:o){
-				series.getData().add(new XYChart.Data(((Point)val).x, ((Point)val).y).getNode());
-			}
-
-		});
-		return series;
+	public XYChart.Series paint(Object... objects) {
+		return null;
 	}
+
+
 	@Override
 	public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
 		XYChart.Series series=new XYChart.Series();
@@ -252,11 +250,12 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 		}
 		return true;
 	}
-
 	@Override
-	public XYChart.Series Paintdetect() {
-		return null;
+	public void Paintdetect(XYChart.Series series,int att,int time) {
+
 	}
+
+
 
 	@Override
 	public String getname() {

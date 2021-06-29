@@ -20,9 +20,10 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
     }
 
     @Override
-    public XYChart.Series Paintdetect() {
-        return null;
+    public void Paintdetect(XYChart.Series series,int att,int time) {
+
     }
+
 
     public class HybridData{
         int index;

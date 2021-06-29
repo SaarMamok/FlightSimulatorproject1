@@ -91,6 +91,7 @@ public class Windowcontroller extends Observable {
             this.mediaPlayer.clock.setText(getDurationString(this.time.getValue()));
             this.mygraph.listvalue.bind(this.viewModel.listvalue);
             this.mygraph.corvalue.bind(this.viewModel.corvalue);
+            this.mygraph.paintGraph.setData(this.viewModel.getScatterChart().getData());
         });
 
         this.viewModel.index.bind(attributeslist.index);
@@ -112,12 +113,13 @@ public class Windowcontroller extends Observable {
             this.mygraph.righttitle.bind(this.viewModel.rightval);
             this.mygraph.series.getData().clear();
             this.mygraph.series2.getData().clear();
-            this.mygraph.paintGraph.getData().clear();
+            //this.mygraph.paintGraph.getData().clear();
             if(viewModel.iscor.getValue()==true) {
                // this.series.getData().clear();
                 this.mygraph.cover.setVisible(false);
                 this.mygraph.paintGraph.setVisible(true);
                 //series.setData(this.viewModel.getSeries().getData());
+                this.mygraph.paintGraph.getData().clear();
                 this.mygraph.paintGraph.setData(this.viewModel.getScatterChart().getData());
                 this.mygraph.paintGraph.setTitle(this.viewModel.Algname.getValue());
             }

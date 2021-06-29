@@ -1,5 +1,6 @@
 package test.Algoritms;
 
+import javafx.application.Platform;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import test.*;
@@ -15,15 +16,10 @@ public class Zscore implements TimeSeriesAnomalyDetector {
     }
 
 
-    @Override
-    public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
-        return true;
-    }
 
-    @Override
-    public XYChart.Series Paintdetect() {
-        return null;
-    }
+
+
+
 
     public class Title {
         String name;
@@ -140,6 +136,30 @@ public class Zscore implements TimeSeriesAnomalyDetector {
     @Override
     public XYChart.Series paint(Object... objects) {
         return null;
+    }
+
+    @Override
+    public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
+
+        XYChart.Series series=new XYChart.Series();
+        Platform.runLater(() -> {
+            //for(Float val: zhash.get(index))
+           for(int i=0;i<this.zhash.get(index).size();i++)
+           {
+               series.getData().add(new XYChart.Data(i, this.zhash.get(index).get(i)));
+           }
+            //series.setData(serline.getData());
+
+            scatterChart.getData().addAll(series);
+        });
+        return true;
+
+    }
+    @Override
+    public void Paintdetect(XYChart.Series series,int att,int time) {
+        Platform.runLater(() -> {
+            series.getData().add(new XYChart.Data<Number, Number>(time, zhash.get(att).get(time)));
+        });
     }
 
     @Override

@@ -65,12 +65,12 @@ public class ViewModel extends Observable implements Observer {
     type=new SimpleStringProperty();
     iscor=new SimpleBooleanProperty();
     series=new XYChart.Series();
-    this.Algname.bind(model.algname);
+
     this.xmlpath.addListener((o,ov,nv)->model.Changexml(this.xmlpath.getValue()));
+    this.iscor.bind(this.model.iscor);
     this.index.addListener((o,ov,nv)->{
-      if(model.isIscor()) {
+      if(iscor.getValue()==true) {
         series.setData(model.getSeries().getData());
-        this.iscor.setValue(true);
       }
     });
   }
@@ -119,7 +119,7 @@ public class ViewModel extends Observable implements Observer {
             new URL("file://"+input)
     });
     Class<?> c=urlClassLoader.loadClass(className);
-
+    this.Algname.setValue(className);
     model.SetAnomaly(c);
   }
 

@@ -26,6 +26,7 @@ public class Mygraph extends AnchorPane {
     @FXML
     public ScatterChart paintGraph;
     public XYChart.Series seriesalg;
+    public XYChart.Series liveseries;
     @FXML
     public Label cover;
     @FXML
@@ -33,6 +34,7 @@ public class Mygraph extends AnchorPane {
     @FXML
     public NumberAxis liney;
 
+    XYChart.Data p;
     public Mygraph() {
         super();
 
@@ -58,10 +60,11 @@ public class Mygraph extends AnchorPane {
             series=new XYChart.Series();
             series2=new XYChart.Series();
             seriesalg=new XYChart.Series();
+            liveseries=new XYChart.Series();
             this.liney= mygraphcontroller.liney;
             this.linex= mygraphcontroller.linex;
-            liney.setAutoRanging(false);
-            linex.setAutoRanging(false);
+            liney.setAutoRanging(true);
+            linex.setAutoRanging(true);
             Set<Node> linenodes = leftgraph.lookupAll(".series" + 0);
             for (Node n : linenodes ) {
                 n.setStyle("-fx-background-color: #860061, white;\n"
@@ -73,7 +76,7 @@ public class Mygraph extends AnchorPane {
             rightgraph.setCreateSymbols(false);
             this.leftgraph.getData().add(series);
             this.rightgraph.getData().add(series2);
-            this.paintGraph.getData().add(seriesalg);
+            this.paintGraph.getData().add(liveseries);
             this.lefttitle.addListener((o,ov,nv)->{
                 leftgraph.setTitle(this.lefttitle.getValue());
                 leftgraph.setLegendVisible(false);
@@ -84,8 +87,9 @@ public class Mygraph extends AnchorPane {
             this.time.addListener((o,ov,nv)-> {
                 mygraphcontroller.AddtoGraph(series, time.getValue().toString(), listvalue.getValue());
                 mygraphcontroller.AddtoGraph(series2, time.getValue().toString(), corvalue.getValue());
-                    });
 
+
+                    });
             this.getChildren().add(root);
 
         } catch (IOException e) {

@@ -38,6 +38,9 @@ public class Mygraphcontroller {
     public void AddtoGraph(XYChart.Series ser, String t, Number v) {
         Platform.runLater(() -> ser.getData().add(new XYChart.Data<String, Number>(t, v)));
     }
+    public void AddtoGraph(XYChart.Series ser, Number t, Number v) {
+        Platform.runLater(() -> ser.getData().add(new XYChart.Data<Number, Number>(t, v)));
+    }
     public void Addleran(XYChart.Series ser, String t, Number v) {
         Platform.runLater(() -> ser.getData().add(new XYChart.Data<String, Number>(t, v)));
     }
