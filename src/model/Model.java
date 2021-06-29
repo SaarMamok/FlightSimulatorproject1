@@ -2,9 +2,11 @@ package model;
 
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.paint.Color;
 import properties.Settings;
 import test.Algoritms.Hybrid;
 import test.Algoritms.Zscore;
@@ -12,12 +14,15 @@ import test.Point;
 import test.Algoritms.SimpleAnomalyDetector;
 import test.TimeSeries;
 import test.TimeSeriesAnomalyDetector;
+
+import java.awt.*;
 import java.beans.XMLDecoder;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Observable;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -216,8 +221,21 @@ public class Model extends Observable {
            this.corvalue = ts.getDataTable().get(corindex).valuesList.get(time);
            this.leftval = ts.getDataTable().get(index.getValue()).featureName;
            this.rightval = ts.getDataTable().get(corindex).featureName;
-           if(iscor.getValue()==true)
-                ta.Paintdetect(series,index.getValue(),time);
+           if(iscor.getValue()==true){
+               boolean isred= ta.Paintdetect(series,index.getValue(),time);
+               if(isred==true){
+                   Set<Node> linesnodes = scatterChart.lookupAll(".series" + 0);
+                   for (Node n : linesnodes) {
+                       n.setStyle("-fx-background-color: #33FFF4, #33FFF4;\n"
+                               + "    -fx-background-insets: 0, 2;\n"
+                               + "    -fx-background-radius: 10px;\n"
+                               + "    -fx-padding: 10px;\n"
+                               + "     -fx-stroke: #33FFF4;");
+                   }
+
+               }
+           }
+
            this.setChanged();
            this.notifyObservers();
 

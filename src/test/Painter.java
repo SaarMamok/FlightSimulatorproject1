@@ -5,5 +5,5 @@ import javafx.scene.chart.XYChart;
 
 public interface Painter {
     public boolean Paintlearn(TimeSeries ts, int index, ScatterChart<Number,Number>scatterChart);
-    public void Paintdetect(XYChart.Series series,int att,int time) ;
+    public boolean Paintdetect(XYChart.Series series,int att,int time) ;
 }

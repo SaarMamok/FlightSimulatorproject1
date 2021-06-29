@@ -173,9 +173,10 @@ private Point[] points;
 
 
     @Override
-    public void Paintdetect(XYChart.Series series,int att,int time) {
+    public boolean Paintdetect(XYChart.Series series,int att,int time) {
         Platform.runLater(() -> {
             series.getData().add(new XYChart.Data<Number, Number>(points[time].x, points[time].y));
         });
+        return true;
     }
 }

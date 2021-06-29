@@ -156,7 +156,7 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
 
 
     @Override
-    public void Paintdetect(XYChart.Series series,int att,int time) {
+    public boolean Paintdetect(XYChart.Series series,int att,int time) {
         if(corvalues.get(att).algo.compareTo("l")==0){
             simple.get(att).Paintdetect(series, 0, time);
         }
@@ -166,10 +166,11 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
         else if(corvalues.get(att).algo.compareTo("w")==0) {
             welzllist.get(att).Paintdetect(series, att, time);
         }
+        return true;
     }
 
     @Override
     public String getname() {
-        return null;
+       return "Hybrid";
     }
 }

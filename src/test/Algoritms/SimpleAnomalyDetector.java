@@ -1,6 +1,8 @@
 package test.Algoritms;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
@@ -247,10 +249,12 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 		return true;
 	}
 	@Override
-	public void Paintdetect(XYChart.Series series,int att,int time) {
+	public boolean Paintdetect(XYChart.Series series,int att,int time) {
 		Platform.runLater(() -> {
+
 			series.getData().add(new XYChart.Data<Number, Number>(anomalymap.get(att).get(time).p.x, anomalymap.get(att).get(time).p.y));
 		});
+		return anomalymap.get(att).get(time).aberrant;
 	}
 
 
