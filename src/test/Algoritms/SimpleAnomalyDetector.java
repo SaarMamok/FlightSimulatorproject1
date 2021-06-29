@@ -206,10 +206,6 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 		return AnomalyReportList;
 	}
 
-	@Override
-	public XYChart.Series paint(Object... objects) {
-		return null;
-	}
 
 
 	@Override
@@ -252,7 +248,9 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 	}
 	@Override
 	public void Paintdetect(XYChart.Series series,int att,int time) {
-
+		Platform.runLater(() -> {
+			series.getData().add(new XYChart.Data<Number, Number>(anomalymap.get(att).get(time).p.x, anomalymap.get(att).get(time).p.y));
+		});
 	}
 
 

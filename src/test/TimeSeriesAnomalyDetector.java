@@ -9,7 +9,6 @@ public interface TimeSeriesAnomalyDetector extends Painter {
 
 	void learnNormal(TimeSeries ts);
 	List<AnomalyReport> detect(TimeSeries ts);
-	public XYChart.Series paint(Object ...objects);
 	public String getname();
 
 }

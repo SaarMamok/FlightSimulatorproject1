@@ -133,10 +133,7 @@ public class Zscore implements TimeSeriesAnomalyDetector {
         return AnomalyReportList;
     }
 
-    @Override
-    public XYChart.Series paint(Object... objects) {
-        return null;
-    }
+
 
     @Override
     public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {

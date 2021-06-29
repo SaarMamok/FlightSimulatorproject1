@@ -98,7 +98,7 @@ public class Windowcontroller extends Observable {
         this.mygraph.lefttitle.bind(this.viewModel.leftval);
         this.mygraph.righttitle.bind(this.viewModel.rightval);
         this.mygraph.time.bind(this.viewModel.time);
-        //this.mygraph.paintGraph.getData().add(series);
+
         this.viewModel.iscor.addListener((o,ov,nv)->{
             if(viewModel.iscor.getValue()==true) {
                 this.mygraph.cover.setVisible(false);
@@ -113,13 +113,12 @@ public class Windowcontroller extends Observable {
             this.mygraph.righttitle.bind(this.viewModel.rightval);
             this.mygraph.series.getData().clear();
             this.mygraph.series2.getData().clear();
-            //this.mygraph.paintGraph.getData().clear();
+            this.mygraph.paintGraph.getData().clear();//dont change - karin!!!
             if(viewModel.iscor.getValue()==true) {
-               // this.series.getData().clear();
                 this.mygraph.cover.setVisible(false);
                 this.mygraph.paintGraph.setVisible(true);
-                //series.setData(this.viewModel.getSeries().getData());
-                this.mygraph.paintGraph.getData().clear();
+
+
                 this.mygraph.paintGraph.setData(this.viewModel.getScatterChart().getData());
                 this.mygraph.paintGraph.setTitle(this.viewModel.Algname.getValue());
             }

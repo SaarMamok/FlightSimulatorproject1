@@ -14,15 +14,7 @@ import static test.StatLib.pearson;
 public class Hybrid implements TimeSeriesAnomalyDetector {
 
 
-    @Override
-    public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
-        return true;
-    }
 
-    @Override
-    public void Paintdetect(XYChart.Series series,int att,int time) {
-
-    }
 
 
     public class HybridData{
@@ -149,8 +141,15 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
     }
 
     @Override
-    public XYChart.Series paint(Object... objects) {
-        return null;
+    public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
+
+
+        return true;
+    }
+
+    @Override
+    public void Paintdetect(XYChart.Series series,int att,int time) {
+
     }
 
     @Override

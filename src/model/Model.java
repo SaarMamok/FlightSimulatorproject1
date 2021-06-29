@@ -60,7 +60,8 @@ public class Model extends Observable {
         scatterChart.getData().add(series);
         this.Changexml("setting.xml");
         this.index.addListener((o,ov,nv)->{
-            this.series.getData().clear();
+
+
             //this.scatterChart.getData().clear();
         });
     }
@@ -166,6 +167,9 @@ public class Model extends Observable {
         algname.setValue(ta.getname());
         this.index.addListener((o, ov, nv)->{
             iscor.setValue(ta.Paintlearn(ts,index.getValue(),scatterChart));
+            series=new XYChart.Series();
+            this.series.getData().clear();
+            scatterChart.getData().add(series);
         });
     }
 
@@ -212,7 +216,8 @@ public class Model extends Observable {
            this.corvalue = ts.getDataTable().get(corindex).valuesList.get(time);
            this.leftval = ts.getDataTable().get(index.getValue()).featureName;
            this.rightval = ts.getDataTable().get(corindex).featureName;
-           ta.Paintdetect(series,index.getValue(),time);
+           if(iscor.getValue()==true)
+                ta.Paintdetect(series,index.getValue(),time);
            this.setChanged();
            this.notifyObservers();
 

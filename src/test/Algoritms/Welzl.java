@@ -1,5 +1,6 @@
 package test.Algoritms;
 
+import javafx.application.Platform;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import test.*;
@@ -12,6 +13,8 @@ import java.util.Random;
 public class Welzl implements TimeSeriesAnomalyDetector {
 public  Circle cir1;
 private String feat1,feat2;
+private ArrayList<Point> col1;
+private Point[] points;
 
     public  Circle makeCircle(List<Point> points) {
         // Clone list to preserve the caller's data, randomize order
@@ -98,8 +101,7 @@ private String feat1,feat2;
     }
 
     public void learnNormal(TimeSeries ts) {
-
-        ArrayList<Point> col1 = new ArrayList<>();
+        col1 = new ArrayList<>();
         Collections.addAll(col1, SimpleAnomalyDetector.CreatPointsArr(ts.getDataTable().get(0).valuesList, ts.getDataTable().get(1).valuesList));
         cir1 = new Circle(this.makeCircle(col1));
         this.feat1=ts.getDataTable().get(0).featureName;
@@ -108,7 +110,7 @@ private String feat1,feat2;
 
     public List<AnomalyReport> detect(TimeSeries ts) {
         List<AnomalyReport> l = new ArrayList<>();
-        Point[] points = new Point[ts.getDataTable().get(0).valuesList.size()];
+        points = new Point[ts.getDataTable().get(0).valuesList.size()];
         points = SimpleAnomalyDetector.CreatPointsArr(ts.getDataTable().get(0).valuesList, ts.getDataTable().get(1).valuesList);
         long time = 1;
         for (Point p : points) {
@@ -121,10 +123,6 @@ private String feat1,feat2;
         return l;
     }
 
-    @Override
-    public XYChart.Series paint(Object... objects) {
-        return null;
-    }
 
     @Override
     public String getname() {
@@ -151,12 +149,33 @@ private String feat1,feat2;
 
     @Override
     public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
+        XYChart.Series series=new XYChart.Series();
+        XYChart.Series seriescircle=new XYChart.Series();
+        Platform.runLater(() -> {
+            for(int i=0;i<col1.size();i++){
+                series.getData().add(new XYChart.Data(col1.get(i).x, col1.get(i).y));
+            }
+
+            float cx=this.cir1.c.x,cy=this.cir1.c.y,r= (float) this.cir1.r;
+            for(int i=0;i<360;i++) {
+                float x= (float) (cx+(r*Math.cos(i)));
+               float y= (float) (cy+(r*Math.sin(i)));
+                seriescircle.getData().add(new XYChart.Data(x, y));
+            }
+
+            //series.setData(serline.getData());
+            scatterChart.getData().addAll(series,seriescircle);
+        });
+
         return true;
+
     }
 
 
     @Override
     public void Paintdetect(XYChart.Series series,int att,int time) {
-
+        Platform.runLater(() -> {
+            series.getData().add(new XYChart.Data<Number, Number>(points[time].x, points[time].y));
+        });
     }
 }
