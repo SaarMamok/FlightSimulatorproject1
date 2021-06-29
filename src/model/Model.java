@@ -59,7 +59,7 @@ public class Model extends Observable {
         index=new SimpleIntegerProperty();
         type=new SimpleStringProperty();
         series=new XYChart.Series();
-
+//commit
         algname=new SimpleStringProperty();
         iscor=new SimpleBooleanProperty();
         scatterChart=new ScatterChart<Number, Number>(xaxis,yaxis);

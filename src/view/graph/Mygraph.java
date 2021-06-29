@@ -88,7 +88,7 @@ public class Mygraph extends AnchorPane {
             this.time.addListener((o,ov,nv)-> {
                 mygraphcontroller.AddtoGraph(series, time.getValue().toString(), listvalue.getValue());
                 mygraphcontroller.AddtoGraph(series2, time.getValue().toString(), corvalue.getValue());
-
+//commit
 
                     });
 

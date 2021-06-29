@@ -110,7 +110,7 @@ public class Windowcontroller extends Observable {
                 this.mygraph.paintGraph.setVisible(false);
             }
         });
-
+//commit
         this.Algname.bind(this.viewModel.Algname);
         this.Algname.addListener((o,ov,nv)->{
             this.mygraph.paintGraph.getData().clear();

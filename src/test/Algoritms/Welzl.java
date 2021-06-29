@@ -158,7 +158,7 @@ private Point[] points;
             for(int i=0;i<col1.size();i++){
                 series.getData().add(new XYChart.Data(col1.get(i).x, col1.get(i).y));
             }
-
+//commit
             float cx=this.cir1.c.x,cy=this.cir1.c.y,r= (float) this.cir1.r;
             for(int i=0;i<360;i++) {
                 float x= (float) (cx+(r*Math.cos(i)));

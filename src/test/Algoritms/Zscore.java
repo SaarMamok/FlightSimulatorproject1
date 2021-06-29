@@ -166,7 +166,7 @@ public class Zscore implements TimeSeriesAnomalyDetector {
     public String getname() {
         return "Zscore";
     }
-
+    //commit
     public HashMap<Integer, ArrayList<Float>> getZhash() {
         return zhash;
     }

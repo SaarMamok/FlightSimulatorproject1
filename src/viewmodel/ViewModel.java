@@ -124,7 +124,7 @@ public class ViewModel extends Observable implements Observer {
   }
 
   public void setCor(TimeSeries ts) {
-    float CurrentCorrlation;
+    float CurrentCorrlation;//commit
     float bestCor;
     int i, j;
     int index = 0;

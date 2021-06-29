@@ -153,7 +153,7 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
             }
         return true;
     }
-
+//commit
 
     @Override
     public boolean Paintdetect(XYChart.Series series,int att,int time) {

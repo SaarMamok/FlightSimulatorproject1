@@ -12,7 +12,7 @@ public class isAnomaly {
     public float getVal() {
         return val;
     }
-
+    //commit
     public void setVal(float val) {
         this.val = val;
     }

@@ -17,7 +17,7 @@ public class Settings implements Serializable {
     public String getAlgpath() {
         return algpath;
     }
-
+    //commit
     public void setAlgpath(String algpath) {
         this.algpath = algpath;
     }

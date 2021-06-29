@@ -35,5 +35,5 @@ public class AttListController {
     }
     public void Chosen(){
         index.setValue(attributeslist.getSelectionModel().getSelectedIndex());
-    }
+    }//commit
 }

@@ -16,7 +16,7 @@ public class MyJoystick extends AnchorPane {
 
     public MyJoystick(){
         super();
-
+//commit
         try {
             FXMLLoader fxl=new FXMLLoader();
             Parent root = fxl.load(getClass().getResource("MyJoystick.fxml").openStream());

@@ -19,7 +19,7 @@ public class AttList extends AnchorPane {
     public StringProperty filechosen;
     public AttList(){
         super();
-
+//commit
         try {
             FXMLLoader fxl=new FXMLLoader();
             Parent root = fxl.load(getClass().getResource("AttList.fxml").openStream());

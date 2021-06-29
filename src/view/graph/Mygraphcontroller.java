@@ -34,7 +34,7 @@ public class Mygraphcontroller {
         time = new SimpleIntegerProperty();
     }
 
-
+    //commit
     public void AddtoGraph(XYChart.Series ser, String t, Number v) {
         Platform.runLater(() -> ser.getData().add(new XYChart.Data<String, Number>(t, v)));
     }

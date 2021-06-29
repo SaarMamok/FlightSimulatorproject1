@@ -256,7 +256,7 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 	@Override
 	public boolean Paintdetect(XYChart.Series series,int att,int time) {
 		Platform.runLater(() -> {
-
+//commit
 			series.getData().add(new XYChart.Data<Number, Number>(anomalymap.get(att).get(time).p.x, anomalymap.get(att).get(time).p.y));
 		});
 		return anomalymap.get(att).get(time).aberrant;
