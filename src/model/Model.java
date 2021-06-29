@@ -216,8 +216,8 @@ public class Model extends Observable {
            this.corvalue = ts.getDataTable().get(corindex).valuesList.get(time);
            this.leftval = ts.getDataTable().get(index.getValue()).featureName;
            this.rightval = ts.getDataTable().get(corindex).featureName;
-           //if(iscor.getValue()==true)
-               // ta.Paintdetect(series,index.getValue(),time);
+           if(iscor.getValue()==true)
+                ta.Paintdetect(series,index.getValue(),time);
            this.setChanged();
            this.notifyObservers();
 
