@@ -1,7 +1,8 @@
 package test.Algoritms;
 
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
 import test.AnomalyReport;
-import test.SimpleAnomalyDetector;
 import test.TimeSeries;
 import test.TimeSeriesAnomalyDetector;
 import java.util.ArrayList;
@@ -11,6 +12,18 @@ import static java.lang.Math.abs;
 import static test.StatLib.pearson;
 
 public class Hybrid implements TimeSeriesAnomalyDetector {
+
+
+    @Override
+    public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
+        return true;
+    }
+
+    @Override
+    public XYChart.Series Paintdetect() {
+        return null;
+    }
+
     public class HybridData{
         int index;
         String algo;
@@ -132,5 +145,15 @@ public class Hybrid implements TimeSeriesAnomalyDetector {
             l.addAll(welzllist.get(i).detect(new TimeSeries(ts.getDataTable().get(feat1),ts.getDataTable().get(feat2))));
         }
         return l;
+    }
+
+    @Override
+    public XYChart.Series paint(Object... objects) {
+        return null;
+    }
+
+    @Override
+    public String getname() {
+        return null;
     }
 }

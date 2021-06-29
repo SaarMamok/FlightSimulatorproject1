@@ -3,6 +3,7 @@ package view;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
 
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
@@ -50,6 +51,7 @@ public class Windowcontroller extends Observable {
     ViewModel viewModel;
     float sec=0,min=0,hour=0;
     StringProperty fileChoosen,xmlpath;
+    private XYChart.Series series;
 
 
     private String getDurationString(int seconds) {
@@ -74,6 +76,7 @@ public class Windowcontroller extends Observable {
     }
 
     public void init(ViewModel vm){
+        series=new XYChart.Series();
         xmlpath=new SimpleStringProperty();
         mediaPlayer.timebar.setMin(0);
         time=new SimpleIntegerProperty();
@@ -86,44 +89,45 @@ public class Windowcontroller extends Observable {
         this.time.addListener((o,ov,nv)->{
             mediaPlayer.timebar.setValue(time.getValue());
             this.mediaPlayer.clock.setText(getDurationString(this.time.getValue()));
-
+            this.mygraph.listvalue.bind(this.viewModel.listvalue);
+            this.mygraph.corvalue.bind(this.viewModel.corvalue);
         });
 
         this.viewModel.index.bind(attributeslist.index);
         this.mygraph.lefttitle.bind(this.viewModel.leftval);
         this.mygraph.righttitle.bind(this.viewModel.rightval);
+        this.mygraph.time.bind(this.viewModel.time);
+        //this.mygraph.paintGraph.getData().add(series);
+        this.viewModel.iscor.addListener((o,ov,nv)->{
+            if(viewModel.iscor.getValue()==true) {
+                this.mygraph.cover.setVisible(false);
+                this.mygraph.paintGraph.setVisible(true);
+            }
+            else{
+                this.mygraph.cover.setVisible(true);
+                this.mygraph.paintGraph.setVisible(false);
+            }
+        });
         this.attributeslist.index.addListener((o,ov,nv)->{
+            this.mygraph.righttitle.bind(this.viewModel.rightval);
             this.mygraph.series.getData().clear();
             this.mygraph.series2.getData().clear();
-            this.mygraph.seriesline.getData().clear();
-            this.mygraph.algoseries.getData().clear();
-            this.mygraph.detectlinegraph.getData().clear();
-            this.mygraph.zscoreseries.getData().clear();
-            this.mygraph.zscoreanomalyseries.getData().clear();
-            this.mygraph.welzelcircle.getData().clear();
-            this.mygraph.welzelpoints.getData().clear();
+            this.mygraph.paintGraph.getData().clear();
+            if(viewModel.iscor.getValue()==true) {
+               // this.series.getData().clear();
+                this.mygraph.cover.setVisible(false);
+                this.mygraph.paintGraph.setVisible(true);
+                //series.setData(this.viewModel.getSeries().getData());
+                this.mygraph.paintGraph.setData(this.viewModel.getScatterChart().getData());
+                this.mygraph.paintGraph.setTitle(this.viewModel.Algname.getValue());
+            }
+            else{
+                    this.mygraph.cover.setVisible(true);
+                    this.mygraph.paintGraph.setVisible(false);
+            }
+
         });
-        this.mygraph.listvalue.bind(this.viewModel.listvalue);
-        this.mygraph.corvalue.bind(this.viewModel.corvalue);
-        this.mygraph.time.bind(this.time);
-        this.mygraph.Algname.bind(this.viewModel.Algname);
-        this.mygraph.x1line.bind(this.viewModel.x1line);
-        this.mygraph.x2line.bind(this.viewModel.x2line);
-        this.mygraph.y1line.bind(this.viewModel.y1line);
-        this.mygraph.y1line.bind(this.viewModel.y2line);
-        this.mygraph.px.bind(this.viewModel.px);
-        this.mygraph.py.bind(this.viewModel.py);
-        this.mygraph.abberant.bind(this.viewModel.aberrant);
-        this.mygraph.check.bind(this.viewModel.check);
-        this.mygraph.zvalue.bind(this.viewModel.zvalue);
-        this.mygraph.zanomalyvalue.bind(this.viewModel.zanomalyvalue);
-        this.mygraph.cx.bind(this.viewModel.cx);
-        this.mygraph.cy.bind(this.viewModel.cy);
-        this.mygraph.radius.bind(this.viewModel.radius);
-        this.mygraph.welzlx.bind(this.viewModel.welzlx);
-        this.mygraph.welzly.bind(this.viewModel.welzly);
-        this.mygraph.type.bind(this.viewModel.type);
-        this.mygraph.inCircle.bind(this.viewModel.inCircle);
+
 
         this.mydashboard.yaw.bind(this.viewModel.yaw);
         this.mydashboard.direction.bind(this.viewModel.direction);
@@ -148,14 +152,6 @@ public class Windowcontroller extends Observable {
         this.mediaPlayer.openxml.setOnAction(event -> this.Choosexml());
         this.mediaPlayer.timebar.setOnMouseReleased(event -> {
             this.slidermove();
-
-            this.mygraph.series.getData().clear();
-            this.mygraph.series2.getData().clear();
-            this.mygraph.algoseries.getData().clear();
-            this.mygraph.detectlinegraph.getData().clear();
-            this.mygraph.zscoreseries.getData().clear();
-            this.mygraph.zscoreanomalyseries.getData().clear();
-            this.mygraph.welzelpoints.getData().clear();
 
         });
 

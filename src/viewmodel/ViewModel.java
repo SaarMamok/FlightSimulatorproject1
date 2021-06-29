@@ -3,9 +3,12 @@ package viewmodel;
 
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
+
 import javafx.scene.control.Alert;
 import model.Model;
-import test.SimpleAnomalyDetector;
+import test.Algoritms.SimpleAnomalyDetector;
 import test.StatLib;
 import test.TimeSeries;
 import javax.swing.*;
@@ -15,6 +18,9 @@ import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+
 import static java.lang.Math.abs;
 
 
@@ -25,10 +31,10 @@ public class ViewModel extends Observable implements Observer {
   public StringProperty leftval,rightval,Algname,type,xmlpath;
   public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
   public IntegerProperty index,corindex,time,check;
-  public FloatProperty listvalue,corvalue,rate,x1line,x2line,y1line,
-          y2line,zvalue,zanomalyvalue,px,py,cx,cy,radius,welzlx,welzly;
-  public BooleanProperty aberrant, inCircle;
+  public FloatProperty listvalue,corvalue,rate;
+  public BooleanProperty aberrant, iscor;
   private HashMap<Integer,Integer> Hashcor=new HashMap<>();
+  private XYChart.Series series;
 
   public ViewModel(Model m){
     this.model=m;
@@ -54,24 +60,19 @@ public class ViewModel extends Observable implements Observer {
     leftval=new SimpleStringProperty();
     rightval=new SimpleStringProperty();
     Algname=new SimpleStringProperty();
-    x1line=new SimpleFloatProperty();
-    x2line=new SimpleFloatProperty();
-    y1line=new SimpleFloatProperty();
-    y2line=new SimpleFloatProperty();
-    zvalue=new SimpleFloatProperty();
-    zanomalyvalue=new SimpleFloatProperty();
-    px=new SimpleFloatProperty();
-    py=new SimpleFloatProperty();
     aberrant=new SimpleBooleanProperty();
     check=new SimpleIntegerProperty();
-    cx=new SimpleFloatProperty();
-    cy=new SimpleFloatProperty();
-    radius=new SimpleFloatProperty();
-    welzlx=new SimpleFloatProperty();
-    welzly=new SimpleFloatProperty();
     type=new SimpleStringProperty();
-    inCircle =new SimpleBooleanProperty();
+    iscor=new SimpleBooleanProperty();
+    series=new XYChart.Series();
+    this.Algname.bind(model.algname);
     this.xmlpath.addListener((o,ov,nv)->model.Changexml(this.xmlpath.getValue()));
+    this.index.addListener((o,ov,nv)->{
+      if(model.isIscor()) {
+        series.setData(model.getSeries().getData());
+        this.iscor.setValue(true);
+      }
+    });
   }
 
     public DoubleProperty getAileron(){
@@ -104,22 +105,21 @@ public class ViewModel extends Observable implements Observer {
 
   public void ChooseAlg() throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
 
-    String input,className;
-    input= JOptionPane.showInputDialog(null,"Enter a class directory");
+    String className,input;
+
+    input=JOptionPane.showInputDialog(null,"Enter a class directory");
     while((input == "/0")||(input.compareTo("")==0))
       input= JOptionPane.showInputDialog(null,"It was wrong input please enter a class directory again");
+
     className=JOptionPane.showInputDialog(null,"Enter the class name");
 
-    while(!(className.contains("test.Algoritms.Hybrid")) &&
-            !(className.contains("test.SimpleAnomalyDetector")) &&
-            !(className.contains("test.Algoritms.Zscore")))
+    while(className.compareTo("")==0)
       className=JOptionPane.showInputDialog(null,"It was wrong input please enter the class name again");
     URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] {
             new URL("file://"+input)
     });
     Class<?> c=urlClassLoader.loadClass(className);
-    Algname.setValue(c.getName());
-    System.out.println(Algname.getValue());
+
     model.SetAnomaly(c);
   }
 
@@ -185,51 +185,18 @@ public class ViewModel extends Observable implements Observer {
             this.direction.set(this.model.getDirection());
             this.leftval.set(this.model.getLeftval());
             this.rightval.set(this.model.getRightval());
-            this.check.set(this.model.getCheck());
-            if (Algname.getValue().compareTo("test.SimpleAnomalyDetector") == 0) {
-              if (this.model.getCheck() != -1) {
-                this.x1line.setValue(this.model.getX1line());
-                this.x2line.setValue(this.model.getX2line());
-                this.y1line.setValue(this.model.getY1line());
-                this.y2line.setValue(this.model.getY2line());
-                this.px.setValue(this.model.getP().getP().x);
-                this.py.setValue(this.model.getP().getP().y);
-                this.aberrant.setValue(this.model.getP().isAberrant());
-              }
-            } else if (Algname.getValue().compareTo("test.Algoritms.Zscore") == 0) {
-              this.zvalue.setValue(this.model.getZvalue());
-              this.zanomalyvalue.setValue(this.model.getZanomalyvalue());
-            }
-            else if (Algname.getValue().compareTo("test.Algoritms.Hybrid") == 0) {
-              type.setValue(model.type.getValue());
-                    if(model.getType().compareTo("l")==0){
-                      this.x1line.setValue(this.model.getX1line());
-                      this.x2line.setValue(this.model.getX2line());
-                      this.y1line.setValue(this.model.getY1line());
-                      this.y2line.setValue(this.model.getY2line());
-                      this.px.setValue(this.model.getP().getP().x);
-                      this.py.setValue(this.model.getP().getP().y);
-                      this.aberrant.setValue(this.model.getP().isAberrant());
-                    }
-                    else if(model.getType().compareTo("z")==0){
-                      this.zvalue.setValue(this.model.getZvalue());
-                       this.zanomalyvalue.setValue(this.model.getZanomalyvalue());
-                     }
-                    else if(model.getType().compareTo("w")==0){
-                      cx.setValue(model.getCx());
-                      cy.setValue(model.getCy());
-                      radius.setValue(model.getRadius());
-                      welzlx.setValue(model.getWelzlx());
-                      welzly.setValue(model.getWelzly());
-                      inCircle.setValue(model.isInCircle());
-                    }
-            }
           });
         }
     }
 
+  public XYChart.Series getSeries() {
+    return series;
+  }
 
   public void slidermove(double t) {
     this.model.slidermove(t);
+  }
+  public ScatterChart<Number, Number> getScatterChart() {
+    return model.getScatterChart();
   }
 }

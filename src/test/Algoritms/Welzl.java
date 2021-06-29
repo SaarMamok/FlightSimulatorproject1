@@ -1,5 +1,7 @@
 package test.Algoritms;
 
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
 import test.*;
 
 import java.util.ArrayList;
@@ -119,6 +121,16 @@ private String feat1,feat2;
         return l;
     }
 
+    @Override
+    public XYChart.Series paint(Object... objects) {
+        return null;
+    }
+
+    @Override
+    public String getname() {
+        return null;
+    }
+
     public String getFeat1() {
         return feat1;
     }
@@ -133,5 +145,17 @@ private String feat1,feat2;
 
     public void setFeat2(String feat2) {
         this.feat2 = feat2;
+    }
+
+
+
+    @Override
+    public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
+        return true;
+    }
+
+    @Override
+    public XYChart.Series Paintdetect() {
+        return null;
     }
 }

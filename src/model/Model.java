@@ -1,12 +1,18 @@
 package model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.fxml.FXML;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
 import properties.Settings;
 import test.Algoritms.Hybrid;
 import test.Algoritms.Zscore;
 import test.Point;
-import test.SimpleAnomalyDetector;
+import test.Algoritms.SimpleAnomalyDetector;
 import test.TimeSeries;
 import test.TimeSeriesAnomalyDetector;
 import java.beans.XMLDecoder;
@@ -15,34 +21,44 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Observable;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 public class Model extends Observable {
     private int rate,ratedisplay;
+
     private TimeSeries ts;
     private Settings prop;
     protected Thread theThread;
-    private int index,time,corindex,check=0;
+    private int time,corindex,check=0;
     private int localtime=0;
     public float throttle,rudder,elevators,aileron,
-            listvalue,corvalue,x1line,x2line,y1line,y2line,
-            zvalue,zanomalyvalue,cx,cy,radius,welzlx,welzly;
+            listvalue,corvalue;
     public double altitude,speed,direction,roll,pitch,yaw;
     private String leftval,rightval,detectorname;
     private SimpleAnomalyDetector.Pointanomaly p;
-    public StringProperty type;
+    public StringProperty type,algname;
     protected ActiveObjectCommon ao;
     private TimeSeriesAnomalyDetector ta;
     private TimeSeries learnTimeSeries;
-    private boolean inCircle;
+    private boolean iscor;
     private  XMLDecoder decoder = null;
-
+    public IntegerProperty index;
+    private XYChart.Series series;
+    @FXML
+    private ScatterChart <Number,Number>scatterChart;
+    NumberAxis xaxis=new NumberAxis();
+    NumberAxis yaxis=new NumberAxis();
 
     public Model(){
-
+        index=new SimpleIntegerProperty();
         type=new SimpleStringProperty();
+        series=new XYChart.Series();
+        algname=new SimpleStringProperty();
+        scatterChart=new ScatterChart<Number, Number>(xaxis,yaxis);
         this.Changexml("setting.xml");
     }
 
@@ -61,8 +77,17 @@ public class Model extends Observable {
 
 
     }
+
+    public int getIndex() {
+        return index.get();
+    }
+
+    public IntegerProperty indexProperty() {
+        return index;
+    }
+
     public void setIndex(int index) {
-        this.index = index;
+        this.index.set(index);
     }
 
     public float getThrottle() {
@@ -132,25 +157,14 @@ public class Model extends Observable {
     }
 
     public void SetAnomaly(Class<?> c) throws IllegalAccessException, InstantiationException {
-
-        if(c.getName().compareTo("test.SimpleAnomalyDetector")==0) {
-            this.ta=(SimpleAnomalyDetector) c.newInstance();
-            ta.learnNormal(learnTimeSeries);
-            detectorname="SimpleAnomalyDetector";
-            ta.detect(this.ts);
-        }
-        else if(c.getName().compareTo("test.Algoritms.Zscore")==0){
-            this.ta = (Zscore) c.newInstance();
-            ta.learnNormal(learnTimeSeries);
-            detectorname="Zscore";
-            ta.detect(this.ts);
-        }
-        else if(c.getName().compareTo("test.Algoritms.Hybrid")==0){
-            this.ta = (Hybrid) c.newInstance();
-            ta.learnNormal(learnTimeSeries);
-            detectorname="Hybrid";
-            ta.detect(this.ts);
-        }
+        ta=(TimeSeriesAnomalyDetector)c.newInstance();
+        ta.learnNormal(learnTimeSeries);
+        ta.detect(this.ts);
+        algname.setValue(ta.getname());
+        this.index.addListener((o, ov, nv)->{
+            iscor=ta.Paintlearn(ts,index.getValue(),scatterChart);
+        });
+        int amit=7;
     }
 
    public void play(int r) throws InterruptedException {
@@ -164,9 +178,6 @@ public class Model extends Observable {
            fg = new Socket(prop.getIp(), prop.getPort());
            fg.setSoTimeout(10000);
            out = new PrintWriter(fg.getOutputStream());
-
-
-
 
        } catch (SocketException e) {
 
@@ -195,52 +206,11 @@ public class Model extends Observable {
            this.roll = ts.getDataTable().get(prop.getProp().get("attitude-indicator_indicated-roll-deg")).valuesList.get(localtime);
            this.pitch = ts.getDataTable().get(prop.getProp().get("attitude-indicator_internal-pitch-deg")).valuesList.get(localtime);
            this.time = localtime;
-           this.listvalue = ts.getDataTable().get(index).valuesList.get(time);
+           this.listvalue = ts.getDataTable().get(index.getValue()).valuesList.get(time);
            this.corvalue = ts.getDataTable().get(corindex).valuesList.get(time);
-           this.leftval = ts.getDataTable().get(index).featureName;
+           this.leftval = ts.getDataTable().get(index.getValue()).featureName;
            this.rightval = ts.getDataTable().get(corindex).featureName;
 
-           if (detectorname.compareTo("SimpleAnomalyDetector") == 0) {
-               check = ((SimpleAnomalyDetector) ta).getcorindex(index, ts);
-               if (check != -1) {
-                   this.y2line = ((SimpleAnomalyDetector) ta).getCorFeatures().get(check).lin_reg.f(-500);
-                   this.x2line = -500;
-                   this.y1line = ((SimpleAnomalyDetector) ta).getCorFeatures().get(check).lin_reg.f(500);
-                   this.x1line = 500;
-
-                   p = new SimpleAnomalyDetector.Pointanomaly(new Point(((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).getP().x,
-                           ((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).getP().y),
-                           ((SimpleAnomalyDetector) ta).getAnomalymap().get(check).get(localtime).isAberrant());
-               }
-           } else if (detectorname.compareTo("Zscore") == 0) {
-               zvalue = ((Zscore) ta).getZhash().get(index).get(localtime);
-               zanomalyvalue = ((Zscore) ta).getAnomalymap().get(index).get(localtime).getVal();
-           } else if (detectorname.compareTo("Hybrid") == 0) {
-               type.setValue(((Hybrid) ta).getCorvalues().get(index).getAlgo());
-               int innerindex = ((Hybrid) ta).getCorvalues().get(index).getIndex();
-               if (type.getValue().compareTo("l") == 0) {
-                   this.y2line = ((Hybrid) ta).simple.get(innerindex).getCorFeatures().get(0).lin_reg.f(-500);
-                   this.x2line = -500;
-                   this.y1line = ((Hybrid) ta).simple.get(innerindex).getCorFeatures().get(0).lin_reg.f(500);
-                   this.x1line = 500;
-                   p = new SimpleAnomalyDetector.Pointanomaly(new Point(((Hybrid) ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).getP().x,
-                           ((Hybrid) ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).getP().y),
-                           ((Hybrid) ta).simple.get(innerindex).getAnomalymap().get(0).get(localtime).isAberrant());
-
-               } else if (type.getValue().compareTo("z") == 0) {
-                   zvalue = ((Hybrid) ta).zscorelist.get(innerindex).getZhash().get(0).get(localtime);
-                   zanomalyvalue = ((Hybrid) ta).zscorelist.get(innerindex).getAnomalymap().get(0).get(localtime).getVal();
-               } else if (type.getValue().compareTo("w") == 0) {
-                   cx = ((Hybrid) ta).welzllist.get(innerindex).cir1.c.x;
-                   cy = ((Hybrid) ta).welzllist.get(innerindex).cir1.c.y;
-                   radius = (float) ((Hybrid) ta).welzllist.get(innerindex).cir1.r;
-                   int index1 = ((Hybrid) ta).getHashvalues().get(((Hybrid) ta).welzllist.get(innerindex).getFeat1());
-                   int index2 = ((Hybrid) ta).getHashvalues().get(((Hybrid) ta).welzllist.get(innerindex).getFeat2());
-                   welzlx = ts.getDataTable().get(index1).valuesList.get(localtime);
-                   welzly = ts.getDataTable().get(index2).valuesList.get(localtime);
-                   inCircle=((Hybrid) ta).welzllist.get(innerindex).cir1.contains(new Point(welzlx,welzly));
-               }
-           }
 
            this.setChanged();
            this.notifyObservers();
@@ -317,7 +287,9 @@ public class Model extends Observable {
         return time;
     }
 
-    public boolean isInCircle() { return inCircle; }
+    public boolean isIscor() {
+        return iscor;
+    }
 
     public void setCorindex(int corindex) {
         this.corindex = corindex;
@@ -337,28 +309,8 @@ public class Model extends Observable {
 
     public void slidermove(double t) {this.localtime=(int)t; }
 
-    public float getX1line() {
-        return x1line;
-    }
-
-    public float getX2line() {
-        return x2line;
-    }
-
-    public float getY1line() {
-        return y1line;
-    }
-
-    public float getY2line() {
-        return y2line;
-    }
-
-    public float getZvalue() {
-        return zvalue;
-    }
-
-    public float getZanomalyvalue() {
-        return zanomalyvalue;
+    public Settings getProp() {
+        return prop;
     }
 
     public SimpleAnomalyDetector.Pointanomaly getP() {
@@ -369,25 +321,6 @@ public class Model extends Observable {
         return check;
     }
 
-    public float getCx() {
-        return cx;
-    }
-
-    public float getCy() {
-        return cy;
-    }
-
-    public float getRadius() {
-        return radius;
-    }
-
-    public float getWelzlx() {
-        return welzlx;
-    }
-
-    public float getWelzly() {
-        return welzly;
-    }
 
     public String getType() {
         return type.get();
@@ -399,5 +332,13 @@ public class Model extends Observable {
 
     public TimeSeries getLearnTimeSeries() {
         return learnTimeSeries;
+    }
+
+    public XYChart.Series getSeries() {
+        return series;
+    }
+
+    public ScatterChart<Number, Number> getScatterChart() {
+        return scatterChart;
     }
 }

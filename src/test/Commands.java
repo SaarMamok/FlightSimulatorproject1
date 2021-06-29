@@ -1,5 +1,7 @@
 package test;
 
+import test.Algoritms.SimpleAnomalyDetector;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;

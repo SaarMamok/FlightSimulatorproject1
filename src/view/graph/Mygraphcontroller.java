@@ -17,23 +17,13 @@ public class Mygraphcontroller {
     @FXML
     LineChart rightgraph;
     @FXML
-    ScatterChart<Number, Number> algo;
+    ScatterChart<Number, Number> paintGraph;
     @FXML
-    public ScatterChart<Number,Number> welzel;
+    public NumberAxis linex;
     @FXML
-    LineChart linegraph;
+    public NumberAxis liney;
     @FXML
-    public LineChart zscoregraph;
-    @FXML
-    NumberAxis linex;
-    @FXML
-    NumberAxis liney;
-    @FXML
-    Label cover;
-    @FXML
-    NumberAxis linex1;
-    @FXML
-    NumberAxis liney1;
+    public Label cover;
     public FloatProperty listvalue;
     public IntegerProperty time;
     final int size = 10;
@@ -46,6 +36,9 @@ public class Mygraphcontroller {
 
 
     public void AddtoGraph(XYChart.Series ser, String t, Number v) {
+        Platform.runLater(() -> ser.getData().add(new XYChart.Data<String, Number>(t, v)));
+    }
+    public void Addleran(XYChart.Series ser, String t, Number v) {
         Platform.runLater(() -> ser.getData().add(new XYChart.Data<String, Number>(t, v)));
     }
 

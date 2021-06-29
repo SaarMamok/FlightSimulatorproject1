@@ -31,7 +31,7 @@ public class TimeSeries {
 		}
 
 	}
-	List<FeaturesData> dataTable = new ArrayList<>();
+	public List<FeaturesData> dataTable = new ArrayList<>();
 
 	public void RowToCol ( String[] s)
 	{

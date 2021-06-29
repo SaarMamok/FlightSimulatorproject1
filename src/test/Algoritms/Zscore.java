@@ -1,5 +1,7 @@
 package test.Algoritms;
 
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
 import test.*;
 
 import java.util.ArrayList;
@@ -10,6 +12,17 @@ public class Zscore implements TimeSeriesAnomalyDetector {
     public Zscore() {
         zhash=new HashMap<>();
         anomalymap=new HashMap<>();
+    }
+
+
+    @Override
+    public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
+        return true;
+    }
+
+    @Override
+    public XYChart.Series Paintdetect() {
+        return null;
     }
 
     public class Title {
@@ -122,6 +135,16 @@ public class Zscore implements TimeSeriesAnomalyDetector {
             anomalymap.put(i,temp);
         }
         return AnomalyReportList;
+    }
+
+    @Override
+    public XYChart.Series paint(Object... objects) {
+        return null;
+    }
+
+    @Override
+    public String getname() {
+        return null;
     }
 
     public HashMap<Integer, ArrayList<Float>> getZhash() {

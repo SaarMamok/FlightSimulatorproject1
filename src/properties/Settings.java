@@ -9,9 +9,17 @@ public class Settings implements Serializable {
     private int sleep;
     private HashMap<String,Integer> prop=new HashMap<>();
     private String Learnpath;
-
+    private String algpath;
 
     public Settings() {
+    }
+
+    public String getAlgpath() {
+        return algpath;
+    }
+
+    public void setAlgpath(String algpath) {
+        this.algpath = algpath;
     }
 
     public String getLearnpath() {
@@ -59,6 +67,7 @@ public class Settings implements Serializable {
         this.port=5400;
         this.sleep=1000;
         this.Learnpath="./reg_flight.csv";
+        this.algpath="./test/Algoritms/";
         prop.put("aileron",0);
         prop.put("elevator",1);
         prop.put("rudder",2);

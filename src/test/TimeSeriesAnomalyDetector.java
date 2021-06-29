@@ -1,10 +1,15 @@
 package test;
 
+import javafx.beans.property.StringProperty;
+import javafx.scene.chart.XYChart;
+
 import java.util.List;
 
-public interface TimeSeriesAnomalyDetector {
+public interface TimeSeriesAnomalyDetector extends Painter {
 
 	void learnNormal(TimeSeries ts);
 	List<AnomalyReport> detect(TimeSeries ts);
+	public XYChart.Series paint(Object ...objects);
+	public String getname();
 
 }
