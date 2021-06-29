@@ -65,11 +65,7 @@ public class Model extends Observable {
         scatterChart=new ScatterChart<Number, Number>(xaxis,yaxis);
         scatterChart.getData().add(series);
         this.Changexml("setting.xml");
-        this.index.addListener((o,ov,nv)->{
-
-
-            //this.scatterChart.getData().clear();
-        });
+        this.index.setValue(0);
     }
 
     public void Changexml(String path){
@@ -173,10 +169,12 @@ public class Model extends Observable {
     }
 
     public void SetAnomaly(Class<?> c) throws IllegalAccessException, InstantiationException {
-        ta=(TimeSeriesAnomalyDetector)c.newInstance();
+        ta= (TimeSeriesAnomalyDetector)c.newInstance();
         ta.learnNormal(learnTimeSeries);
         ta.detect(this.ts);
         algname.setValue(ta.getname());
+        this.series.getData().clear();
+        scatterChart.getData().add(series);
         this.index.addListener((o, ov, nv)->{
             iscor.setValue(ta.Paintlearn(ts,index.getValue(),scatterChart));
             series=new XYChart.Series();

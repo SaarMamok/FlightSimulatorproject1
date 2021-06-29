@@ -140,7 +140,7 @@ public class Zscore implements TimeSeriesAnomalyDetector {
 
         XYChart.Series series=new XYChart.Series();
         scatterChart.getData().clear();
-        series.setName("Learn");
+        //series.setName("Learn");
         Platform.runLater(() -> {
             //for(Float val: zhash.get(index))
            for(int i=0;i<this.zhash.get(index).size();i++)

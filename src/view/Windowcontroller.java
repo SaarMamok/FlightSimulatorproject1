@@ -113,7 +113,7 @@ public class Windowcontroller extends Observable {
 
         this.Algname.bind(this.viewModel.Algname);
         this.Algname.addListener((o,ov,nv)->{
-            //this.mygraph.paintGraph.getData().clear();
+            this.mygraph.paintGraph.getData().clear();
         });
         this.attributeslist.index.addListener((o,ov,nv)->{
             this.mygraph.righttitle.bind(this.viewModel.rightval);
