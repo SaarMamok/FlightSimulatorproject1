@@ -1,21 +1,12 @@
 package view;
 
-import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
 
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import test.TimeSeries;
-import test.TimeSeriesAnomalyDetector;
 import view.attlist.AttList;
 import view.dashboard.Mydashboard;
 import view.graph.Mygraph;
@@ -23,15 +14,10 @@ import view.joystick.MyJoystick;
 import view.mediaplayer.MediaPlayer;
 import viewmodel.ViewModel;
 
-import javax.swing.*;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.Observable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Windowcontroller extends Observable {
 
@@ -79,6 +65,9 @@ public class Windowcontroller extends Observable {
     }
 
     public void init(ViewModel vm){
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setContentText("Please first enter the csv file and than choose the algorithm");
+        a.show();
         series=new XYChart.Series();
         xmlpath=new SimpleStringProperty();
         mediaPlayer.timebar.setMin(0);
@@ -100,10 +89,15 @@ public class Windowcontroller extends Observable {
 
             if(this.viewModel.iscor.getValue()){
                 this.mygraph.paintGraph.getData().add(series);
-                this.viewModel.detectfunc(series);
+                boolean red=this.viewModel.detectfunc(series);
+                if (red==true){
+                    this.mygraph.paintGraph.setStyle("-fx-background-color: #44FFF3;");
+                }
+                else{
+                    this.mygraph.paintGraph.setStyle("-fx-background-color: none;");
+                }
             }
-            //this.mygraph.paintGraph.getData().add(series);
-            //Platform.runLater(() -> series.getData().add(new XYChart.Data<Number, Number>(time.getValue(), 15)));
+
         });
 
         this.viewModel.index.bind(attributeslist.index);
@@ -155,6 +149,13 @@ public class Windowcontroller extends Observable {
         this.mydashboard.speed.bind(this.viewModel.speed);
         this.mydashboard.altitude.bind(this.viewModel.altitude);
 
+        this.viewModel.okalg.addListener((o,ov,nv)->{
+            if(this.viewModel.okalg.getValue()==false) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("First enter the csv file");
+                alert.show();
+            }
+        });
         this.rate=new SimpleFloatProperty();
         this.rate.setValue(1);
         this.rate.bind(this.viewModel.rate);
@@ -171,7 +172,7 @@ public class Windowcontroller extends Observable {
         this.mediaPlayer.openxml.setOnAction(event -> this.Choosexml());
         this.mediaPlayer.timebar.setOnMouseReleased(event -> {
             this.slidermove();
-
+            this.series.getData().clear();
         });
 
         this.fileChoosen = new SimpleStringProperty();
@@ -192,9 +193,10 @@ public class Windowcontroller extends Observable {
         }
     }
     public void Choosealg()  {
+
         Thread t=new Thread(()-> {
             try {
-                this.viewModel.ChooseAlg();
+               this.viewModel.ChooseAlg();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -206,6 +208,7 @@ public class Windowcontroller extends Observable {
             }
         });
       t.start();
+
     }
     public void Opencsv(){
         FileChooser fc =new FileChooser();

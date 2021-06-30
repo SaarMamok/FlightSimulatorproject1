@@ -32,7 +32,7 @@ public class ViewModel extends Observable implements Observer {
   public DoubleProperty altitude,speed,direction,roll,pitch,yaw,aileron,elevators,rudder,throttle;
   public IntegerProperty index,corindex,time,check;
   public FloatProperty listvalue,corvalue,rate;
-  public BooleanProperty aberrant, iscor,isred;
+  public BooleanProperty aberrant, iscor,isred,okalg;
   private HashMap<Integer,Integer> Hashcor=new HashMap<>();
   private XYChart.Series series;
 
@@ -65,8 +65,15 @@ public class ViewModel extends Observable implements Observer {
     type=new SimpleStringProperty();
     iscor=new SimpleBooleanProperty();
     series=new XYChart.Series();
+    okalg=new SimpleBooleanProperty();
   isred=new SimpleBooleanProperty();
-    this.xmlpath.addListener((o,ov,nv)->model.Changexml(this.xmlpath.getValue()));
+
+    this.xmlpath.addListener((o,ov,nv)->{
+      model.Changexml(this.xmlpath.getValue());
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setContentText("xml file entered.");
+      alert.show();
+});
     this.iscor.bind(this.model.iscor);
     this.Algname.bind(this.model.algname);
     this.index.addListener((o,ov,nv)->{
@@ -100,27 +107,36 @@ public class ViewModel extends Observable implements Observer {
     }
     else {
       this.model.setTs(ts);
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setContentText("CSV file entered.");
+      alert.show();
       return ts.Timer();
+
     }
   }
 
   public void ChooseAlg() throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+      if (ts==null) {
+        okalg.set(true);
+        return;
+      }
 
-    String className,input;
+      okalg.set(false);
+        String className, input;
 
-    input=JOptionPane.showInputDialog(null,"Enter a class directory");
-    while((input == "/0")||(input.compareTo("")==0))
-      input= JOptionPane.showInputDialog(null,"It was wrong input please enter a class directory again");
+        input = JOptionPane.showInputDialog(null, "Enter a class directory");
+        while ((input == "/0") || (input.compareTo("") == 0))
+          input = JOptionPane.showInputDialog(null, "It was wrong input please enter a class directory again");
 
-    className=JOptionPane.showInputDialog(null,"Enter the class name");
+        className = JOptionPane.showInputDialog(null, "Enter the class name");
 
-    while(className.compareTo("")==0)
-      className=JOptionPane.showInputDialog(null,"It was wrong input please enter the class name again");
-    URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] {
-            new URL("file://"+input)
-    });
-    Class<?> c=urlClassLoader.loadClass(className);
-    model.SetAnomaly(c);
+        while (className.compareTo("") == 0)
+          className = JOptionPane.showInputDialog(null, "It was wrong input please enter the class name again");
+        URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[]{
+                new URL("file://" + input)
+        });
+        Class<?> c = urlClassLoader.loadClass(className);
+        model.SetAnomaly(c);
   }
 
   public void setCor(TimeSeries ts) {
