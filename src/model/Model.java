@@ -173,14 +173,9 @@ public class Model extends Observable {
         ta.learnNormal(learnTimeSeries);
         ta.detect(this.ts);
         algname.setValue(ta.getname());
-        this.series.getData().clear();
-        scatterChart.getData().add(series);
         this.index.addListener((o, ov, nv)->{
             iscor.setValue(ta.Paintlearn(ts,index.getValue(),scatterChart));
-            series=new XYChart.Series();
-            this.series.getData().clear();
             series.setName("Detect");
-            scatterChart.getData().add(series);
         });
     }
 

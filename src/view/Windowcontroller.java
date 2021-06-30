@@ -119,7 +119,7 @@ public class Windowcontroller extends Observable {
             this.mygraph.righttitle.bind(this.viewModel.rightval);
             this.mygraph.series.getData().clear();
             this.mygraph.series2.getData().clear();
-            this.mygraph.paintGraph.getData().clear();//dont change - karin!!!
+            this.mygraph.paintGraph.getData().clear();
             if(viewModel.iscor.getValue()==true) {
                 this.mygraph.cover.setVisible(false);
                 this.mygraph.paintGraph.setVisible(true);
