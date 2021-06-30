@@ -66,6 +66,11 @@ public class Model extends Observable {
         scatterChart.getData().add(series);
         this.Changexml("setting.xml");
         this.index.setValue(0);
+        this.index.addListener((o,ov,nv)->{
+            iscor.setValue(ta.Paintlearn(ts,index.getValue(),scatterChart));//מצייר למידה קו ונקודות רקע
+            //scatterChart.getData().add(series);
+        });
+
     }
 
     public void Changexml(String path){
@@ -77,12 +82,6 @@ public class Model extends Observable {
             this.ratedisplay=rate;
             this.detectorname="";
             this.learnTimeSeries = new TimeSeries(prop.getLearnpath());
-            this.algname.addListener((o,ov,nv)->{
-                series=new XYChart.Series();
-                this.series.getData().clear();
-                series.setName("Detect");
-                scatterChart.getData().add(series);
-            });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -170,13 +169,16 @@ public class Model extends Observable {
 
     public void SetAnomaly(Class<?> c) throws IllegalAccessException, InstantiationException {
         ta= (TimeSeriesAnomalyDetector)c.newInstance();
+
         ta.learnNormal(learnTimeSeries);
         ta.detect(this.ts);
         algname.setValue(ta.getname());
-        this.index.addListener((o, ov, nv)->{
-            iscor.setValue(ta.Paintlearn(ts,index.getValue(),scatterChart));
-            series.setName("Detect");
-        });
+        NumberAxis xaxis=new NumberAxis();
+        NumberAxis yaxis=new NumberAxis();
+        scatterChart=new ScatterChart<Number, Number>(xaxis,yaxis);
+        ta.Paintlearn(ts,index.getValue(),scatterChart);
+
+
     }
 
    public void play(int r) throws InterruptedException {

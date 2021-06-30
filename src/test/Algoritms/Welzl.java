@@ -151,7 +151,7 @@ private Point[] points;
     public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
         XYChart.Series series=new XYChart.Series();
         XYChart.Series seriescircle=new XYChart.Series();
-        scatterChart.getData().clear();
+        scatterChart.getData().clear();//learn
         series.setName("Learn");
         seriescircle.setName("Circle");
         Platform.runLater(() -> {

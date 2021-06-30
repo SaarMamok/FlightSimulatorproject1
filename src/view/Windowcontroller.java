@@ -3,6 +3,8 @@ package view;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
 
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -113,13 +115,12 @@ public class Windowcontroller extends Observable {
 //commit
         this.Algname.bind(this.viewModel.Algname);
         this.Algname.addListener((o,ov,nv)->{
-            this.mygraph.paintGraph.getData().clear();
+            mygraph.getChildren().add(viewModel.getScatterChart());
         });
         this.attributeslist.index.addListener((o,ov,nv)->{
             this.mygraph.righttitle.bind(this.viewModel.rightval);
             this.mygraph.series.getData().clear();
             this.mygraph.series2.getData().clear();
-            this.mygraph.paintGraph.getData().clear();
             if(viewModel.iscor.getValue()==true) {
                 this.mygraph.cover.setVisible(false);
                 this.mygraph.paintGraph.setVisible(true);

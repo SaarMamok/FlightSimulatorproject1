@@ -61,7 +61,6 @@ public class Mygraph extends AnchorPane {
             series=new XYChart.Series();
             series2=new XYChart.Series();
             seriesalg=new XYChart.Series();
-            liveseries=new XYChart.Series();
             this.liney= mygraphcontroller.liney;
             this.linex= mygraphcontroller.linex;
             liney.setAutoRanging(true);
@@ -77,7 +76,6 @@ public class Mygraph extends AnchorPane {
             rightgraph.setCreateSymbols(false);
             this.leftgraph.getData().add(series);
             this.rightgraph.getData().add(series2);
-            this.paintGraph.getData().add(liveseries);
             this.lefttitle.addListener((o,ov,nv)->{
                 leftgraph.setTitle(this.lefttitle.getValue());
                 leftgraph.setLegendVisible(false);

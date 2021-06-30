@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import test.*;
@@ -214,17 +215,17 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 	public boolean Paintlearn(TimeSeries ts, int index, ScatterChart scatterChart) {
 		XYChart.Series series=new XYChart.Series();
 		XYChart.Series serline=new XYChart.Series();
-		series.getData().clear();
-		serline.getData().clear();
-		scatterChart.getData().clear();
 		//series.setName("Learn");
 		//serline.setName("Linear regression");
+		scatterChart.getData().clear();//learn
+
 		int corindex=getcorindex(index,ts);
 
 		if(corindex==-1) {
 			return false;
 		}
 		else{
+
 			Point[]arr=new Point[ts.getDataTable().get(0).valuesList.size()];
 			arr=CreatPointsArr(ts.getDataTable().get(index).valuesList,ts.getDataTable().get(corindex).valuesList);
 			Point[] finalArr = arr;
