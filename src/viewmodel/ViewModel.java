@@ -145,7 +145,9 @@ public class ViewModel extends Observable implements Observer {
       Hashcor.put(i,index);
     }
   }
-
+public boolean detectfunc(XYChart.Series series){
+    return this.model.detectfunc(series);
+}
   public void play(){
     if(this.ts!=null&&this.Algname.getValue()!=null)
         this.model.run();

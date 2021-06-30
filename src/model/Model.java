@@ -176,6 +176,7 @@ public class Model extends Observable {
         NumberAxis xaxis=new NumberAxis();
         NumberAxis yaxis=new NumberAxis();
         scatterChart=new ScatterChart<Number, Number>(xaxis,yaxis);
+        scatterChart.getData().add(series);
         ta.Paintlearn(ts,index.getValue(),scatterChart);
 
 
@@ -224,9 +225,9 @@ public class Model extends Observable {
            this.corvalue = ts.getDataTable().get(corindex).valuesList.get(time);
            this.leftval = ts.getDataTable().get(index.getValue()).featureName;
            this.rightval = ts.getDataTable().get(corindex).featureName;
-           if(iscor.getValue()==true){
-               isred= ta.Paintdetect(series,index.getValue(),time);
-           }
+//           if(iscor.getValue()==true){
+//               isred= ta.Paintdetect(series,index.getValue(),time);
+//           }
 
            this.setChanged();
            this.notifyObservers();
@@ -250,7 +251,10 @@ public class Model extends Observable {
            out.close();
    }
 
-
+    public boolean detectfunc(XYChart.Series series){
+        isred= ta.Paintdetect(series,index.getValue(),time);
+        return isred;
+    }
     public String getLeftval() {
         return leftval;
     }

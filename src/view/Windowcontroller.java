@@ -1,5 +1,6 @@
 package view;
 
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
 
@@ -89,15 +90,24 @@ public class Windowcontroller extends Observable {
         this.myJoystick.aileron.bind(this.viewModel.aileron);
         this.myJoystick.elevators.bind(this.viewModel.elevators);
         this.time.bind(this.viewModel.time);
+
         this.time.addListener((o,ov,nv)->{
             mediaPlayer.timebar.setValue(time.getValue());
             this.mediaPlayer.clock.setText(getDurationString(this.time.getValue()));
             this.mygraph.listvalue.bind(this.viewModel.listvalue);
             this.mygraph.corvalue.bind(this.viewModel.corvalue);
             this.mygraph.paintGraph.setData(this.viewModel.getScatterChart().getData());
+
+            if(this.viewModel.iscor.getValue()){
+                this.mygraph.paintGraph.getData().add(series);
+                this.viewModel.detectfunc(series);
+            }
+            //this.mygraph.paintGraph.getData().add(series);
+            //Platform.runLater(() -> series.getData().add(new XYChart.Data<Number, Number>(time.getValue(), 15)));
         });
 
         this.viewModel.index.bind(attributeslist.index);
+
         this.mygraph.lefttitle.bind(this.viewModel.leftval);
         this.mygraph.righttitle.bind(this.viewModel.rightval);
         this.mygraph.time.bind(this.viewModel.time);
@@ -115,19 +125,20 @@ public class Windowcontroller extends Observable {
 //commit
         this.Algname.bind(this.viewModel.Algname);
         this.Algname.addListener((o,ov,nv)->{
+            mygraph.getChildren().clear();
+            this.mygraph.paintGraph.setData(this.viewModel.getScatterChart().getData());
             mygraph.getChildren().add(viewModel.getScatterChart());
+
         });
         this.attributeslist.index.addListener((o,ov,nv)->{
             this.mygraph.righttitle.bind(this.viewModel.rightval);
             this.mygraph.series.getData().clear();
             this.mygraph.series2.getData().clear();
+            this.series.getData().clear();
             if(viewModel.iscor.getValue()==true) {
                 this.mygraph.cover.setVisible(false);
                 this.mygraph.paintGraph.setVisible(true);
-
-
-                this.mygraph.paintGraph.setData(this.viewModel.getScatterChart().getData());
-
+                //this.mygraph.paintGraph.setData(this.viewModel.getScatterChart().getData());
             }
             else{
                     this.mygraph.cover.setVisible(true);
